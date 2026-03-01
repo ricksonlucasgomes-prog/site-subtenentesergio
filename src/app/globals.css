@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-yellow: var(--brand-yellow);
+  --color-yellow-hover: var(--brand-yellow-hover);
+  --color-yellow-soft: var(--brand-yellow-soft);
+  --color-blue: var(--brand-blue);
+  --color-blue-hover: var(--brand-blue-hover);
+  --color-blue-soft: var(--brand-blue-soft);
+  --color-green: var(--brand-green);
+  --color-green-hover: var(--brand-green-hover);
+  --color-green-soft: var(--brand-green-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top center, rgba(15, 90, 54, 0.25), transparent 55%),
+    radial-gradient(circle at 35% 25%, rgba(244, 195, 22, 0.12), transparent 45%),
+    radial-gradient(circle at 20% 10%, rgba(15, 90, 54, 0.08), transparent 35%),
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
