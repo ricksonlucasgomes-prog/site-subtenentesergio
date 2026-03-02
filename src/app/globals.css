@@ -2,19 +2,18 @@
 @import "../styles/tokens.css";
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-card: var(--card);
-  --color-yellow: var(--brand-yellow);
-  --color-yellow-hover: var(--brand-yellow-hover);
-  --color-yellow-soft: var(--brand-yellow-soft);
-  --color-blue: var(--brand-blue);
-  --color-blue-hover: var(--brand-blue-hover);
-  --color-blue-soft: var(--brand-blue-soft);
-  --color-green: var(--brand-green);
-  --color-green-hover: var(--brand-green-hover);
-  --color-green-soft: var(--brand-green-soft);
+  /* Backward-compatible theme vars used in current app classes */
+  --color-fg: var(--color-text);
+  --color-muted: var(--color-text-muted);
+  --color-yellow: var(--color-accent);
+  --color-yellow-hover: var(--color-accent-dark);
+  --color-yellow-soft: var(--color-accent-soft);
+  --color-blue: var(--color-secondary);
+  --color-blue-hover: var(--color-secondary-dark);
+  --color-blue-soft: var(--color-secondary-soft);
+  --color-green: var(--color-primary);
+  --color-green-hover: var(--color-primary-dark);
+  --color-green-soft: var(--color-primary-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -26,10 +25,10 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top center, rgba(15, 90, 54, 0.25), transparent 55%),
-    radial-gradient(circle at 35% 25%, rgba(244, 195, 22, 0.12), transparent 45%),
-    radial-gradient(circle at 20% 10%, rgba(15, 90, 54, 0.08), transparent 35%),
-    var(--bg);
-  color: var(--fg);
+    radial-gradient(circle at top center, rgba(11, 143, 60, 0.25), transparent 55%),
+    radial-gradient(circle at 35% 25%, rgba(242, 195, 0, 0.14), transparent 45%),
+    radial-gradient(circle at 20% 10%, rgba(13, 47, 139, 0.12), transparent 35%),
+    var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
