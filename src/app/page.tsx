@@ -74,6 +74,7 @@ export default function Home() {
   const rafRef = useRef<number | null>(null);
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [leavingIndex, setLeavingIndex] = useState<number | null>(null);
   const leavingTimeoutRef = useRef<number | null>(null);
@@ -234,6 +235,13 @@ export default function Home() {
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
 
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function validate(values: FormData): FormErrors {
     const nextErrors: FormErrors = {};
 
@@ -276,37 +284,69 @@ export default function Home() {
 
   return (
     <main className="relative z-10 min-h-screen overflow-hidden bg-transparent text-slate-100">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07080A]/90 backdrop-blur-xl">
-        <Container className="py-5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex min-w-0 items-center">
+      <header
+        className={`sticky top-0 z-40 border-b border-white/10 backdrop-blur-xl transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#07080A]/88 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
+            : "bg-[#07080A]/55"
+        }`}
+      >
+        <Container className="h-14 md:h-16">
+          <div className="flex h-full items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo.svg"
                 alt="Logo oficial Subtenente Sérgio"
-                className="h-10 w-auto shrink-0 md:h-12"
+                className="h-11 w-auto shrink-0 md:h-12"
               />
+              <div className="hidden min-w-0 sm:block">
+                <p className="truncate text-sm font-bold text-white">Subtenente Sérgio</p>
+                <p className="text-xs text-slate-400">Campanha 2026</p>
+              </div>
             </div>
-            <a
-              href={WHATSAPP_LINK}
-              className={buttonStyles("primary", "px-4 py-2 text-xs sm:text-sm")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp
-            </a>
+
+            <nav className="hidden items-center gap-2 lg:flex">
+              <a
+                href="#bandeiras"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+              >
+                Bandeiras
+              </a>
+              <a
+                href="#apoie"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+              >
+                Apoie
+              </a>
+              <a
+                href="#faq"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+              >
+                FAQ
+              </a>
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <a
+                href="#bandeiras"
+                className="rounded-full border border-white/15 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-200 transition-colors duration-200 hover:bg-white/10 lg:hidden"
+              >
+                Menu
+              </a>
+              <a
+                href={WHATSAPP_LINK}
+                className={buttonStyles(
+                  "primary",
+                  "px-4 py-2 text-xs shadow-[0_10px_24px_rgba(242,195,0,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(242,195,0,0.36)] sm:text-sm",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
-          <nav className="mt-4 flex items-center gap-6 text-sm font-semibold text-slate-300">
-            <a href="#bandeiras" className="transition-colors duration-300 hover:text-[var(--accent)]">
-              Bandeiras
-            </a>
-            <a href="#apoie" className="transition-colors duration-300 hover:text-[var(--accent)]">
-              Apoie
-            </a>
-            <a href="#faq" className="transition-colors duration-300 hover:text-[var(--accent)]">
-              FAQ
-            </a>
-          </nav>
         </Container>
       </header>
 
