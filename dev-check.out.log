@@ -1,0 +1,11 @@
+
+> site-subtenentesergio@0.1.0 dev
+> next dev -p 3015
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3015
+- Network:       http://172.16.9.136:3015
+
+✓ Starting...
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h

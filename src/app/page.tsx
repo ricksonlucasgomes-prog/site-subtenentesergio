@@ -2,6 +2,7 @@
 
 import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { revealDelayStyle, useScrollReveal } from "@/components/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Button, buttonStyles } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -16,7 +17,7 @@ type FormData = {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-const WHATSAPP_LINK = "https://wa.me/5562999999999";
+const WHATSAPP_LINK = "https://wa.me/5562995073952";
 const INSTAGRAM_LINK = "https://instagram.com/subtenentesergio";
 const HERO_IMAGES = [
   "/images/foto-oficial.jpg",
@@ -32,23 +33,23 @@ const HERO_FADE_MS = 2000;
 const featuredVideo = {
   title: "Assista e entenda por que eu não paro.",
   subtitle: "Sem rodeio: posição firme, experiência real e compromisso com Goiás.",
-  youtubeId: "",
+  youtubeId: "bP133Tsw-Zc",
 };
 
-const shorts: Array<{ title: string; youtubeUrl: string; tag: string }> = [
+const shorts: Array<{ title: string; youtubeId: string; tag: string }> = [
   {
     title: "Recado direto sobre segurança nas ruas.",
-    youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-1",
+    youtubeId: "ED_POXa7vo0",
     tag: "Segurança",
   },
   {
     title: "Valorização policial sem enrolação.",
-    youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-2",
+    youtubeId: "short-placeholder-2",
     tag: "Categoria",
   },
   {
     title: "Família e ordem: compromisso de mandato.",
-    youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-3",
+    youtubeId: "short-placeholder-3",
     tag: "Valores",
   },
 ];
@@ -67,6 +68,198 @@ const longVideos: Array<{ title: string; youtubeUrl: string }> = [
     youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-3",
   },
 ];
+
+type StatItem = {
+  value: number;
+  label: string;
+  suffix?: string;
+  format?: "compactThousandsPt" | "plain";
+};
+
+const STATS: StatItem[] = [
+  { value: 18, label: "PROJETOS EM DEFESA DO CIDADÃO", format: "plain" },
+  { value: 64, label: "AUDIÊNCIAS E REUNIÕES EM BRASÍLIA", format: "plain" },
+  { value: 82, label: "BAIRROS VISITADOS", suffix: "+", format: "plain" },
+  { value: 240, label: "DEMANDAS ENCAMINHADAS", suffix: "+", format: "plain" },
+];
+
+function formatStatValue(value: number, stat: StatItem): string {
+  if (stat.format === "compactThousandsPt") {
+    return value.toLocaleString("pt-BR");
+  }
+  return `${value}`;
+}
+
+function StatsCounters() {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const hasStartedRef = useRef(false);
+  const rafIdsRef = useRef<number[]>([]);
+  const startTimeoutIdsRef = useRef<number[]>([]);
+  const bounceTimeoutIdsRef = useRef<number[]>([]);
+  const [start, setStart] = useState(false);
+  const [currentValues, setCurrentValues] = useState<number[]>(() => STATS.map(() => 0));
+  const [isBouncing, setIsBouncing] = useState<boolean[]>(() => STATS.map(() => false));
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setPrefersReducedMotion(mediaQuery.matches);
+    onChange();
+    mediaQuery.addEventListener("change", onChange);
+    return () => mediaQuery.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || hasStartedRef.current) {
+            return;
+          }
+          hasStartedRef.current = true;
+          if (prefersReducedMotion) {
+            setCurrentValues(STATS.map((stat) => stat.value));
+          } else {
+            setStart(true);
+          }
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (!start) {
+      return;
+    }
+
+    const duration = 1100;
+    const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
+
+    const animateStat = (index: number) => {
+      const startedAt = performance.now();
+      let didBounce = false;
+
+      const tick = (now: number) => {
+        const elapsed = now - startedAt;
+        const progress = Math.min(1, elapsed / duration);
+        const eased = easeOutCubic(progress);
+
+        setCurrentValues((prev) => {
+          const next = [...prev];
+          next[index] = Math.round(STATS[index].value * eased);
+          return next;
+        });
+
+        if (!didBounce && progress >= 0.9) {
+          didBounce = true;
+          setIsBouncing((prev) => {
+            const next = [...prev];
+            next[index] = true;
+            return next;
+          });
+
+          const bounceTimeout = window.setTimeout(() => {
+            setIsBouncing((prev) => {
+              const next = [...prev];
+              next[index] = false;
+              return next;
+            });
+          }, 120);
+          bounceTimeoutIdsRef.current.push(bounceTimeout);
+        }
+
+        if (progress < 1) {
+          const rafId = window.requestAnimationFrame(tick);
+          rafIdsRef.current.push(rafId);
+        } else {
+          setCurrentValues((prev) => {
+            const next = [...prev];
+            next[index] = STATS[index].value;
+            return next;
+          });
+        }
+      };
+
+      const rafId = window.requestAnimationFrame(tick);
+      rafIdsRef.current.push(rafId);
+    };
+
+    STATS.forEach((_, index) => {
+      const timeoutId = window.setTimeout(() => animateStat(index), index * 140);
+      startTimeoutIdsRef.current.push(timeoutId);
+    });
+
+    return () => {
+      startTimeoutIdsRef.current.forEach((id) => window.clearTimeout(id));
+      bounceTimeoutIdsRef.current.forEach((id) => window.clearTimeout(id));
+      rafIdsRef.current.forEach((id) => window.cancelAnimationFrame(id));
+      startTimeoutIdsRef.current = [];
+      bounceTimeoutIdsRef.current = [];
+      rafIdsRef.current = [];
+    };
+  }, [start]);
+
+  return (
+    <Section className="border-b border-white/10 bg-[#0B0D10]/85 py-12 md:py-16">
+      <div
+        ref={sectionRef}
+        data-reveal
+        className="overflow-hidden rounded-3xl border border-white/15 bg-[#111418]/75 p-6 shadow-[0_18px_42px_rgba(0,0,0,0.35)] backdrop-blur-md md:p-8"
+      >
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">TEMAS E COMPROMISSOS</h2>
+          <p className="mt-3 text-base text-slate-300 sm:text-lg">
+            Números que refletem presença, trabalho e prioridades para Brasília.
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
+          {STATS.map((stat, index) => (
+            <div
+              key={stat.label}
+              data-reveal
+              style={revealDelayStyle(index * 80)}
+              className={`rounded-2xl border border-white/10 p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:shadow-[0_0_40px_rgba(0,148,64,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
+                index > 0 ? "md:border-l md:border-white/15" : "md:border-transparent"
+              }`}
+            >
+              <p
+                className={`text-4xl font-black tracking-tight text-white drop-shadow-[0_0_18px_rgba(0,148,64,0.35)] transition-transform duration-[120ms] md:text-5xl ${
+                  isBouncing[index] ? "scale-[1.03]" : "scale-100"
+                }`}
+              >
+                <span className="relative inline-block">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 -z-10 blur-xl opacity-30"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, rgba(0,148,64,0.45), transparent 70%)",
+                    }}
+                  />
+                  {formatStatValue(currentValues[index] ?? 0, stat)}
+                  {stat.suffix ? <span>{stat.suffix}</span> : null}
+                </span>
+              </p>
+              <p className="mt-2 text-xs font-bold tracking-[0.16em] text-[var(--accent)]">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
 
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null);
@@ -99,8 +292,7 @@ export default function Home() {
     [],
   );
 
-  const getRevealDelayStyle = (ms: number) =>
-    ({ "--reveal-delay": `${ms}ms` } as CSSProperties);
+  useScrollReveal();
 
   useEffect(() => {
     const reduceMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -205,35 +397,6 @@ export default function Home() {
       }
     };
   }, []);
-
-  useEffect(() => {
-    const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
-    if (nodes.length === 0) {
-      return;
-    }
-
-    if (prefersReducedMotion) {
-      nodes.forEach((node) => node.classList.add("is-revealed"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-          entry.target.classList.add("is-revealed");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
-    );
-
-    nodes.forEach((node) => observer.observe(node));
-
-    return () => observer.disconnect();
-  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -393,6 +556,7 @@ export default function Home() {
 
         <div aria-hidden className="hero-mouse-glow pointer-events-none absolute inset-0 z-[9]" />
         <div aria-hidden className="pointer-events-none absolute inset-0 z-10 overlay-breathe">
+          <div className="hero-moving-light absolute inset-y-0 left-[-35%] w-[65%]" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 to-transparent" />
@@ -441,7 +605,7 @@ export default function Home() {
               <br />
               COM VOZ FIRME EM
               <br />
-        <span className="text-[#009440]">BRASÍLIA</span>.
+              <span className="text-[#009440]">BRASÍLIA</span>.
             </h1>
             <p className="text-base leading-relaxed text-slate-200/90 sm:text-lg">
               Experiência real de rua e compromisso com quem protege as famílias goianas.
@@ -474,25 +638,25 @@ export default function Home() {
         <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
           Bandeiras
         </h2>
-        <p data-reveal style={getRevealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
+        <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
           Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
         </p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Card data-reveal style={getRevealDelayStyle(0)}>
+          <Card data-reveal style={revealDelayStyle(0)}>
             <h3 className="text-xl font-bold text-white">Segurança</h3>
             <p className="mt-3 text-sm text-slate-300">Combate firme ao crime. Tolerância zero com a impunidade.</p>
           </Card>
-          <Card data-reveal style={getRevealDelayStyle(80)}>
+          <Card data-reveal style={revealDelayStyle(80)}>
             <h3 className="text-xl font-bold text-white">Valorização</h3>
             <p className="mt-3 text-sm text-slate-300">
               Respeito, estrutura e reconhecimento para quem protege a sociedade.
             </p>
           </Card>
-          <Card data-reveal style={getRevealDelayStyle(160)}>
+          <Card data-reveal style={revealDelayStyle(160)}>
             <h3 className="text-xl font-bold text-white">Família</h3>
             <p className="mt-3 text-sm text-slate-300">Defesa da família, da educação com valores e da ordem social.</p>
           </Card>
-          <Card data-reveal style={getRevealDelayStyle(240)}>
+          <Card data-reveal style={revealDelayStyle(240)}>
             <h3 className="text-xl font-bold text-white">Ordem</h3>
             <p className="mt-3 text-sm text-slate-300">
               Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
@@ -501,18 +665,20 @@ export default function Home() {
         </div>
       </Section>
 
+      <StatsCounters />
+
       <Section className="border-b border-white/10 bg-[#0B0D10]/85 pt-12 md:pt-16">
         <div className="space-y-4">
           <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
             {featuredVideo.title}
           </h2>
-          <p data-reveal style={getRevealDelayStyle(80)} className="max-w-2xl text-lg text-slate-300">
+          <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-slate-300">
             {featuredVideo.subtitle}
           </p>
         </div>
         <div
           data-reveal
-          style={getRevealDelayStyle(120)}
+          style={revealDelayStyle(120)}
           className="mx-auto mt-8 w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
         >
           <p className="mb-3 px-1 text-lg font-bold text-white">Vídeo em destaque</p>
@@ -548,7 +714,7 @@ export default function Home() {
         </h2>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {testimonials.map((item, index) => (
-            <Card key={item} data-reveal style={getRevealDelayStyle(index * 80)}>
+            <Card key={item} data-reveal style={revealDelayStyle(index * 80)}>
               <p className="text-base leading-relaxed text-slate-200">&quot;{item}&quot;</p>
               <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">Apoiador(a)</p>
             </Card>
@@ -562,39 +728,45 @@ export default function Home() {
         </h2>
         <div className="mt-10 grid gap-12">
           <div>
-            <h3 data-reveal style={getRevealDelayStyle(40)} className="text-2xl font-bold text-white">
+            <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-white">
               Curtos (Reels/Shorts)
             </h3>
             <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {shorts.map((video, index) => (
-                <a
-                  key={video.youtubeUrl}
+              {shorts.map((short, index) => (
+                <div
+                  key={short.youtubeId}
                   data-reveal
-                  style={getRevealDelayStyle(index * 70)}
-                  href={video.youtubeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_12px_30px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:shadow-[0_16px_36px_rgba(242,195,0,0.15)]"
+                  style={revealDelayStyle(index * 70)}
+                  className="group block rounded-2xl border border-white/14 bg-white/5 p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
                 >
-                  <div className="relative aspect-[9/16] overflow-hidden rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                  <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
+                    />
                     <span className="rounded-full border border-white/25 bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-100">
-                      {video.tag}
+                      {short.tag}
                     </span>
-                    <div className="flex h-full items-center justify-center">
-                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-xl text-black shadow-[0_0_24px_rgba(242,195,0,0.4)]">
-                        &#9654;
-                      </span>
+                    <div className="mt-3 h-[calc(100%-3rem)] overflow-hidden rounded-lg border border-white/10 bg-black">
+                      <iframe
+                        className="w-full h-full"
+                        src={`https://www.youtube.com/embed/${short.youtubeId}`}
+                        title={short.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
                     </div>
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
-                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-white">{video.title}</p>
+                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-white">{short.title}</p>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
           </div>
 
           <div>
-            <h3 data-reveal style={getRevealDelayStyle(60)} className="text-2xl font-bold text-white">
+            <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-white">
               Vídeos completos
             </h3>
             <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -602,13 +774,17 @@ export default function Home() {
                 <a
                   key={video.youtubeUrl}
                   data-reveal
-                  style={getRevealDelayStyle(index * 70)}
+                  style={revealDelayStyle(index * 70)}
                   href={video.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_12px_30px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:shadow-[0_16px_36px_rgba(242,195,0,0.15)]"
+                  className="group block rounded-2xl border border-white/14 bg-white/5 p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
                 >
-                  <div className="aspect-video rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                  <div className="relative aspect-video rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
+                    />
                     <div className="flex h-full items-center justify-center">
                       <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-lg text-black">
                         &#9654;
@@ -633,7 +809,7 @@ export default function Home() {
               Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
             </p>
           </div>
-          <Card data-reveal style={getRevealDelayStyle(100)} className="border-white/20 bg-[#12161C]">
+          <Card data-reveal style={revealDelayStyle(100)} className="border-white/20 bg-[#12161C]">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
                 <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-slate-100">
@@ -666,7 +842,7 @@ export default function Home() {
                     }))
                   }
                   className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
-                  placeholder="(62) 99999-9999"
+                  placeholder="(62) XXXXX-XXXX"
                 />
                 {errors.whatsapp ? <p className="mt-1 text-xs text-red-400">{errors.whatsapp}</p> : null}
               </div>
@@ -737,7 +913,7 @@ export default function Home() {
             <details
               key={item.q}
               data-reveal
-              style={getRevealDelayStyle(index * 50)}
+              style={revealDelayStyle(index * 50)}
               className="faq-item rounded-xl border border-white/15 bg-[#111418]/85 p-5"
             >
               <summary className="cursor-pointer text-lg font-semibold text-slate-100 transition-colors duration-300 hover:text-[var(--accent)]">
@@ -784,3 +960,4 @@ export default function Home() {
     </main>
   );
 }
+

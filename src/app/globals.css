@@ -208,9 +208,37 @@ body::after {
   );
 }
 
+@keyframes watermarkDriftX {
+  0% {
+    transform: translate3d(-20px, 0, 0);
+  }
+  100% {
+    transform: translate3d(20px, 0, 0);
+  }
+}
+
+@keyframes watermarkBreathe {
+  0% {
+    filter: blur(6px) brightness(1.05) drop-shadow(0 0 22px rgba(255, 255, 255, 0.06));
+  }
+  50% {
+    filter: blur(6px) brightness(1.18) drop-shadow(0 0 26px rgba(255, 255, 255, 0.08));
+  }
+  100% {
+    filter: blur(6px) brightness(1.05) drop-shadow(0 0 22px rgba(255, 255, 255, 0.06));
+  }
+}
+
+.global-watermark-logo {
+  animation:
+    watermarkDriftX 20s ease-in-out infinite alternate,
+    watermarkBreathe 12s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
 [data-reveal] {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(16px);
   filter: blur(4px);
   transition:
     opacity 700ms ease-out,
@@ -223,6 +251,38 @@ body::after {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
+}
+
+@keyframes hero-moving-light {
+  0% {
+    transform: translateX(-12%) skewX(-14deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.08;
+  }
+  52% {
+    transform: translateX(132%) skewX(-14deg);
+    opacity: 0.12;
+  }
+  100% {
+    transform: translateX(146%) skewX(-14deg);
+    opacity: 0;
+  }
+}
+
+.hero-moving-light {
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(242, 195, 0, 0.06) 35%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(242, 195, 0, 0.05) 66%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  animation: hero-moving-light 18s linear infinite;
 }
 
 @keyframes auroraMove {
@@ -249,7 +309,9 @@ body::after {
   .hero-bg-reveal,
   .hero-content-reveal,
   .seal-reveal,
-  .overlay-breathe {
+  .overlay-breathe,
+  .hero-moving-light,
+  .global-watermark-logo {
     animation: none !important;
   }
 
