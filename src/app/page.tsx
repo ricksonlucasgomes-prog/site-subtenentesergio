@@ -446,7 +446,23 @@ export default function Home() {
   }
 
   return (
-    <main className="relative z-10 min-h-screen overflow-hidden bg-transparent text-slate-100">
+    <main className="relative min-h-screen overflow-hidden bg-transparent text-slate-100">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.22]"
+        style={{
+          backgroundImage: "url(/logo.svg)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "min(1100px, 95vw)",
+          filter: "drop-shadow(0 0 22px rgba(255,255,255,0.14))",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-white/45 backdrop-blur-[3px]"
+      />
+      <div className="relative z-10">
       <header
         className={`sticky top-0 z-40 border-b border-white/10 backdrop-blur-xl transition-all duration-300 ${
           isScrolled
@@ -957,6 +973,7 @@ export default function Home() {
           </p>
         </Container>
       </footer>
+      </div>
     </main>
   );
 }
