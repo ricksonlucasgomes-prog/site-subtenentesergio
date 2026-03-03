@@ -1,22 +1,18 @@
-import type { ReactNode } from "react";
+﻿import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-type CardProps = {
+type CardProps = ComponentPropsWithoutRef<"article"> & {
   children: ReactNode;
-  className?: string;
 };
 
-export function Card({ children, className = "" }: CardProps) {
+export function Card({ children, className = "", ...props }: CardProps) {
   return (
     <article
-      className={`relative overflow-hidden rounded-xl border border-primary/20 bg-white p-6 shadow-lg backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-xl ${className}`}
+      {...props}
+      className={`relative overflow-hidden rounded-2xl border border-white/15 bg-[#111418]/85 p-6 shadow-[0_20px_45px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_24px_52px_rgba(242,195,0,0.16)] ${className}`}
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/20 via-secondary/10 to-transparent opacity-50 transition-opacity duration-300"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-[1px] rounded-[11px] border border-white/6"
+        className="pointer-events-none absolute inset-[1px] rounded-[15px] border border-white/8"
       />
       <div className="relative z-10">{children}</div>
     </article>

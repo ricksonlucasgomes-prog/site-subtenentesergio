@@ -1,11 +1,10 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "../styles/tokens.css";
 
 @theme inline {
-  /* Backward-compatible theme vars used in current app classes */
   --color-fg: var(--color-text);
   --color-muted: var(--color-text-muted);
-  --color-yellow: var(--color-accent);
+  --color-yellow: var(--accent);
   --color-yellow-hover: var(--color-accent-dark);
   --color-yellow-soft: var(--color-accent-soft);
   --color-blue: var(--color-secondary);
@@ -18,17 +17,252 @@
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  --accent: #f2c300;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
   margin: 0;
   background:
-    radial-gradient(circle at top center, rgba(11, 143, 60, 0.25), transparent 55%),
-    radial-gradient(circle at 35% 25%, rgba(242, 195, 0, 0.14), transparent 45%),
-    radial-gradient(circle at 20% 10%, rgba(13, 47, 139, 0.12), transparent 35%),
-    var(--color-bg);
-  color: var(--color-text);
+    radial-gradient(circle at 15% 8%, rgba(242, 195, 0, 0.08), transparent 32%),
+    radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.05), transparent 24%),
+    linear-gradient(180deg, #0b0d10 0%, #07080a 38%, #07080a 100%);
+  color: #f8fafc;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+  filter: blur(28px) saturate(115%);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(242,195,0,0.16), transparent 42%),
+    radial-gradient(circle at 82% 10%, rgba(255,255,255,0.07), transparent 38%),
+    radial-gradient(circle at 70% 85%, rgba(242,195,0,0.10), transparent 48%),
+    radial-gradient(circle at 10% 80%, rgba(255,255,255,0.05), transparent 44%);
+  transform: translate3d(0,0,0);
+  will-change: transform;
+  animation: auroraMove 22s ease-in-out infinite;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px);
+  background-size: 3px 3px;
+  will-change: transform;
+  animation: grainMove 8s steps(8) infinite;
+}
+
+.cinematic-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #07080a;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cinematic-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 16% 10%, rgba(242, 195, 0, 0.18), transparent 36%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.cinematic-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.72);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.12;
+}
+
+.faq-item {
+  overflow: hidden;
+}
+
+.faq-item summary {
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+
+.faq-content > div {
+  overflow: hidden;
+}
+
+.faq-item[open] .faq-content {
+  grid-template-rows: 1fr;
+}
+
+@keyframes hero-bg-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-content-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-seal-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-bg-reveal {
+  animation: hero-bg-reveal 900ms ease-out both;
+}
+
+.hero-content-reveal {
+  animation: hero-content-reveal 500ms ease-out 120ms both;
+}
+
+.seal-reveal {
+  animation: hero-seal-reveal 420ms ease-out 180ms both;
+}
+
+@keyframes cinematicZoom {
+  0% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes overlay-breathe {
+  0% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 0.92;
+  }
+}
+
+.overlay-breathe {
+  animation: overlay-breathe 10s ease-in-out infinite;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.hero-mouse-glow {
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(242, 195, 0, 0.1),
+    transparent 42%
+  );
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms ease-out,
+    filter 700ms ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@keyframes auroraMove {
+  0%   { transform: translate3d(-1.2%, -0.8%, 0) scale(1.04) rotate(-0.6deg); }
+  50%  { transform: translate3d( 1.4%,  1.0%, 0) scale(1.08) rotate( 0.8deg); }
+  100% { transform: translate3d(-1.2%, -0.8%, 0) scale(1.04) rotate(-0.6deg); }
+}
+
+@keyframes grainMove {
+  0%   { transform: translate3d(0,0,0); }
+  10%  { transform: translate3d(-1%, -2%, 0); }
+  20%  { transform: translate3d(-3%,  1%, 0); }
+  30%  { transform: translate3d( 2%, -3%, 0); }
+  40%  { transform: translate3d(-2%,  3%, 0); }
+  50%  { transform: translate3d( 3%,  2%, 0); }
+  60%  { transform: translate3d( 1%, -1%, 0); }
+  70%  { transform: translate3d(-1%,  2%, 0); }
+  80%  { transform: translate3d( 2%,  1%, 0); }
+  90%  { transform: translate3d(-2%, -1%, 0); }
+  100% { transform: translate3d(0,0,0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-reveal,
+  .hero-content-reveal,
+  .seal-reveal,
+  .overlay-breathe {
+    animation: none !important;
+  }
+
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+

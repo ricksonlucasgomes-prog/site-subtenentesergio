@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
 import { Button, buttonStyles } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -17,25 +18,41 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const WHATSAPP_LINK = "https://wa.me/5562999999999";
 const INSTAGRAM_LINK = "https://instagram.com/subtenentesergio";
+const HERO_IMAGES = [
+  "/images/foto-oficial.jpg",
+  "/images/hero-1.jpg",
+  "/images/hero-2.jpg",
+  "/images/hero-3.jpg",
+  "/images/hero-4.jpg",
+  "/images/hero-5.jpg",
+];
+const HERO_SLIDE_INTERVAL_MS = 10000;
+const HERO_FADE_MS = 2000;
+
 const featuredVideo = {
   title: "Assista e entenda por que eu não paro.",
   subtitle: "Sem rodeio: posição firme, experiência real e compromisso com Goiás.",
   youtubeId: "",
 };
-const shorts: Array<{ title: string; youtubeUrl: string }> = [
+
+const shorts: Array<{ title: string; youtubeUrl: string; tag: string }> = [
   {
     title: "Recado direto sobre segurança nas ruas.",
     youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-1",
+    tag: "Segurança",
   },
   {
     title: "Valorização policial sem enrolação.",
     youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-2",
+    tag: "Categoria",
   },
   {
     title: "Família e ordem: compromisso de mandato.",
     youtubeUrl: "https://www.youtube.com/shorts/short-placeholder-3",
+    tag: "Valores",
   },
 ];
+
 const longVideos: Array<{ title: string; youtubeUrl: string }> = [
   {
     title: "Entrevista completa: prioridades para Brasília.",
@@ -52,6 +69,15 @@ const longVideos: Array<{ title: string; youtubeUrl: string }> = [
 ];
 
 export default function Home() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+  const rafRef = useRef<number | null>(null);
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [leavingIndex, setLeavingIndex] = useState<number | null>(null);
+  const leavingTimeoutRef = useRef<number | null>(null);
+
   const [formData, setFormData] = useState<FormData>({
     nome: "",
     whatsapp: "",
@@ -71,6 +97,142 @@ export default function Home() {
     ],
     [],
   );
+
+  const getRevealDelayStyle = (ms: number) =>
+    ({ "--reveal-delay": `${ms}ms` } as CSSProperties);
+
+  useEffect(() => {
+    const reduceMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarsePointerMedia = window.matchMedia("(pointer: coarse)");
+
+    const handleMediaChange = () => {
+      setPrefersReducedMotion(reduceMotionMedia.matches);
+      setIsCoarsePointer(coarsePointerMedia.matches);
+    };
+
+    handleMediaChange();
+    reduceMotionMedia.addEventListener("change", handleMediaChange);
+    coarsePointerMedia.addEventListener("change", handleMediaChange);
+
+    return () => {
+      reduceMotionMedia.removeEventListener("change", handleMediaChange);
+      coarsePointerMedia.removeEventListener("change", handleMediaChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const heroElement = heroRef.current;
+    if (!heroElement) {
+      return;
+    }
+
+    heroElement.style.setProperty("--mx", "50%");
+    heroElement.style.setProperty("--my", "50%");
+    heroElement.style.setProperty("--px", "0px");
+    heroElement.style.setProperty("--py", "0px");
+
+    if (isCoarsePointer || prefersReducedMotion) {
+      return;
+    }
+
+    const flushMousePosition = () => {
+      rafRef.current = null;
+      const { x, y } = mouseRef.current;
+      heroElement.style.setProperty("--mx", `${(x * 100).toFixed(2)}%`);
+      heroElement.style.setProperty("--my", `${(y * 100).toFixed(2)}%`);
+      heroElement.style.setProperty("--px", `${((x - 0.5) * 8).toFixed(2)}px`);
+      heroElement.style.setProperty("--py", `${((y - 0.5) * 6).toFixed(2)}px`);
+    };
+
+    const onMouseMove = (event: MouseEvent) => {
+      const rect = heroElement.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) {
+        return;
+      }
+      const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      mouseRef.current = { x, y };
+      if (rafRef.current === null) {
+        rafRef.current = window.requestAnimationFrame(flushMousePosition);
+      }
+    };
+
+    const onMouseLeave = () => {
+      mouseRef.current = { x: 0.5, y: 0.5 };
+      if (rafRef.current === null) {
+        rafRef.current = window.requestAnimationFrame(flushMousePosition);
+      }
+    };
+
+    heroElement.addEventListener("mousemove", onMouseMove);
+    heroElement.addEventListener("mouseleave", onMouseLeave);
+
+    return () => {
+      heroElement.removeEventListener("mousemove", onMouseMove);
+      heroElement.removeEventListener("mouseleave", onMouseLeave);
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [isCoarsePointer, prefersReducedMotion]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((prev) => {
+        const next = (prev + 1) % HERO_IMAGES.length;
+        setLeavingIndex(prev);
+
+        if (leavingTimeoutRef.current !== null) {
+          window.clearTimeout(leavingTimeoutRef.current);
+        }
+
+        leavingTimeoutRef.current = window.setTimeout(() => {
+          setLeavingIndex(null);
+          leavingTimeoutRef.current = null;
+        }, HERO_FADE_MS);
+
+        return next;
+      });
+    }, HERO_SLIDE_INTERVAL_MS);
+
+    return () => {
+      window.clearInterval(interval);
+      if (leavingTimeoutRef.current !== null) {
+        window.clearTimeout(leavingTimeoutRef.current);
+        leavingTimeoutRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    if (nodes.length === 0) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      nodes.forEach((node) => node.classList.add("is-revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
 
   function validate(values: FormData): FormErrors {
     const nextErrors: FormErrors = {};
@@ -113,464 +275,448 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen bg-white text-slate-900">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.14]"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%230B8F3C' fill-opacity='0.12'%3E%3Ccircle cx='8' cy='8' r='1'/%3E%3Ccircle cx='40' cy='22' r='1'/%3E%3Ccircle cx='82' cy='16' r='1'/%3E%3Ccircle cx='124' cy='28' r='1'/%3E%3Ccircle cx='20' cy='62' r='1'/%3E%3Ccircle cx='64' cy='54' r='1'/%3E%3Ccircle cx='108' cy='70' r='1'/%3E%3Ccircle cx='36' cy='102' r='1'/%3E%3Ccircle cx='86' cy='116' r='1'/%3E%3Ccircle cx='128' cy='96' r='1'/%3E%3C/g%3E%3C/svg%3E\")",
-        }}
-      />
+    <main className="relative z-10 min-h-screen overflow-hidden bg-transparent text-slate-100">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07080A]/90 backdrop-blur-xl">
+        <Container className="py-5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.svg"
+                alt="Logo oficial Subtenente Sérgio"
+                className="h-10 w-auto shrink-0 md:h-12"
+              />
+            </div>
+            <a
+              href={WHATSAPP_LINK}
+              className={buttonStyles("primary", "px-4 py-2 text-xs sm:text-sm")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp
+            </a>
+          </div>
+          <nav className="mt-4 flex items-center gap-6 text-sm font-semibold text-slate-300">
+            <a href="#bandeiras" className="transition-colors duration-300 hover:text-[var(--accent)]">
+              Bandeiras
+            </a>
+            <a href="#apoie" className="transition-colors duration-300 hover:text-[var(--accent)]">
+              Apoie
+            </a>
+            <a href="#faq" className="transition-colors duration-300 hover:text-[var(--accent)]">
+              FAQ
+            </a>
+          </nav>
+        </Container>
+      </header>
 
-      <div className="relative z-10">
-        <header className="sticky top-0 z-30 border-b border-primary/20 bg-white/95 shadow-sm backdrop-blur">
-          <Container className="py-6">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex min-w-0 items-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo.svg"
-                  alt="Logo oficial Subtenente Sérgio"
-                  className="h-10 w-auto shrink-0 md:h-12"
-                />
-              </div>
+      <Section
+        ref={heroRef}
+        className="relative overflow-hidden border-b border-white/10 !py-0 min-h-[70vh] md:min-h-[78vh]"
+        style={{ "--mx": "50%", "--my": "50%", "--px": "0px", "--py": "0px" } as CSSProperties}
+      >
+        <div
+          className="absolute inset-0 z-0"
+          style={
+            isCoarsePointer || prefersReducedMotion
+              ? undefined
+              : { transform: "translate3d(var(--px), var(--py), 0)", transition: "transform 120ms linear" }
+          }
+        >
+          {HERO_IMAGES.map((src, index) => {
+            const isActive = index === activeIndex;
+            const isLeaving = index === leavingIndex;
+            const zoomClass =
+              isActive || isLeaving ? "animate-[cinematicZoom_10s_ease-in-out_forwards]" : "";
+
+            return (
+              <Image
+                key={src}
+                src={src}
+                alt="Foto oficial do Subtenente Sérgio"
+                fill
+                sizes="100vw"
+                priority={index === 0}
+                className={`
+                  absolute inset-0 object-cover
+                  [object-position:50%_12%] md:[object-position:55%_20%]
+                  transition-opacity ease-in-out
+                  transform-gpu backface-hidden will-change-[opacity,transform] [transform-origin:center]
+                  ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"}
+                  ${zoomClass}
+                `}
+                style={{ transitionDuration: `${HERO_FADE_MS}ms` }}
+              />
+            );
+          })}
+        </div>
+
+        <div aria-hidden className="hero-mouse-glow pointer-events-none absolute inset-0 z-[9]" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-10 overlay-breathe">
+          <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/60 to-black/20" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent to-black/35" />
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 14% 12%, rgba(242, 195, 0, 0.07), transparent 42%)",
+            }}
+          />
+        </div>
+
+        <div className="absolute right-4 top-4 z-20 seal-reveal md:right-6 md:top-6">
+          <div className="w-[180px] rounded-2xl border border-white/15 bg-white/5 p-3 shadow-[0_10px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[220px] sm:p-4">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+              FOTO OFICIAL
+            </p>
+            <p className="mt-1 text-sm font-extrabold text-white sm:text-base">Subtenente Sérgio</p>
+            <div className="mt-2 h-[2px] w-14 bg-[var(--accent)]" />
+            <p className="mt-2 text-[11px] font-medium text-slate-300 sm:text-xs">Campanha 2026</p>
+          </div>
+        </div>
+
+        <div className="relative z-20 flex min-h-[70vh] items-end py-14 md:min-h-[78vh] md:py-20">
+          <div className="hero-content-reveal max-w-[600px] space-y-6 md:space-y-7">
+            <Badge className="border-white/35 bg-white/10 text-white">CAMPANHA 2026</Badge>
+            <h1 className="text-4xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl">
+              Goiás seguro com voz firme em Brasília.
+            </h1>
+            <p className="text-base text-slate-200 sm:text-lg md:text-xl">
+              Experiência real de rua e compromisso com quem protege as famílias goianas.
+            </p>
+            <div className="h-[3px] w-64 max-w-full bg-linear-to-r from-[var(--accent)] to-transparent" />
+            <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href={WHATSAPP_LINK}
-                className={buttonStyles(
-                  "primary",
-                  "px-4 py-2 text-xs transition duration-200 hover:scale-105 sm:text-sm",
-                )}
                 target="_blank"
                 rel="noopener noreferrer"
+                className={buttonStyles("primary", "w-full px-7 py-3.5 text-sm sm:w-auto")}
               >
-                WhatsApp
+                Falar no WhatsApp
+              </a>
+              <a
+                href="#apoie"
+                className={buttonStyles("secondary", "w-full px-7 py-3.5 text-sm sm:w-auto")}
+              >
+                Apoiar a campanha
               </a>
             </div>
-            <nav className="mt-4 flex items-center gap-6 text-sm font-semibold text-slate-700">
-              <a href="#bandeiras" className="transition-colors hover:text-primary">
-                Bandeiras
-              </a>
-              <a href="#apoie" className="transition-colors hover:text-primary">
-                Apoie
-              </a>
-              <a href="#faq" className="transition-colors hover:text-primary">
-                FAQ
-              </a>
-            </nav>
-          </Container>
-          <div className="pointer-events-none h-px w-full bg-linear-to-r from-transparent via-primary/60 to-transparent" />
-        </header>
+          </div>
+        </div>
+      </Section>
 
-        <Section className="relative overflow-hidden bg-gradient-to-br from-white via-primary-soft/35 to-bg-soft pb-20 pt-16 md:pb-28 md:pt-24">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-2 bg-linear-to-r from-primary via-accent to-primary opacity-85"
-          />
-          <div className="relative grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute right-0 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle at 70% 45%, rgba(11,143,60,0.16), transparent 62%)",
-              }}
+      <Section className="border-b border-white/10 bg-[#0B0D10]/85 pt-12 md:pt-16">
+        <div className="space-y-4">
+          <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+            {featuredVideo.title}
+          </h2>
+          <p data-reveal style={getRevealDelayStyle(80)} className="max-w-2xl text-lg text-slate-300">
+            {featuredVideo.subtitle}
+          </p>
+        </div>
+        <div
+          data-reveal
+          style={getRevealDelayStyle(120)}
+          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+        >
+          <p className="mb-3 px-1 text-lg font-bold text-white">Vídeo em destaque</p>
+          <div className="aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-black">
+            <iframe
+              className="h-full w-full"
+              src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`}
+              title={featuredVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
             />
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonStyles("primary", "px-7 py-3.5")}
+          >
+            Falar no WhatsApp
+          </a>
+          <a href="#apoie" className={buttonStyles("secondary", "px-7 py-3.5")}>
+            Quero apoiar
+          </a>
+        </div>
+      </Section>
 
-            <div className="space-y-7">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -left-10 -top-14 h-72 w-72 rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle at 30% 40%, rgba(11,143,60,0.18), transparent 60%)",
-                }}
-              />
-              <Badge>PMGO | Presidente da ASSEGO</Badge>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                Campanha 2026
-              </p>
-              <h1 className="text-4xl font-black leading-[0.98] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
-                Goias seguro com voz firme em Brasilia.
-              </h1>
-              <p className="max-w-2xl text-base text-slate-700 sm:text-lg md:text-xl">
-                Experiencia real de rua e compromisso com quem protege as familias goianas.
-              </p>
-              <div className="h-[3px] w-56 max-w-full bg-linear-to-r from-primary via-accent/70 to-transparent" />
-              <p className="hidden text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                A VOZ DA SEGURANÇA EM BRASÍLIA
-              </p>
-              <h1
-                className="text-5xl font-black leading-[1.02] tracking-tight text-slate-900 md:text-7xl"
-                hidden
-              >
-                Subtenente Sérgio{" "}
-                <span className="text-primary">
-                  não para.
-                </span>
-              </h1>
-              <div className="hidden h-[3px] w-56 max-w-full bg-linear-to-r from-primary to-transparent" />
-              <p className="hidden max-w-xl text-lg text-slate-700 md:text-xl">
-                Segurança pública não se faz com discurso. Se faz com coragem,
-                experiência e posicionamento firme. É isso que Goiás vai levar
-                para Brasília.
-              </p>
-              <div className="flex flex-col gap-3 sm:flex-row">
+      <Section id="bandeiras" className="border-b border-white/10 bg-[#07080A]/85">
+        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          Bandeiras
+        </h2>
+        <p data-reveal style={getRevealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
+          Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
+        </p>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <Card data-reveal style={getRevealDelayStyle(0)}>
+            <h3 className="text-xl font-bold text-white">Segurança</h3>
+            <p className="mt-3 text-sm text-slate-300">Combate firme ao crime. Tolerância zero com a impunidade.</p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(80)}>
+            <h3 className="text-xl font-bold text-white">Valorização</h3>
+            <p className="mt-3 text-sm text-slate-300">
+              Respeito, estrutura e reconhecimento para quem protege a sociedade.
+            </p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(160)}>
+            <h3 className="text-xl font-bold text-white">Família</h3>
+            <p className="mt-3 text-sm text-slate-300">Defesa da família, da educação com valores e da ordem social.</p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(240)}>
+            <h3 className="text-xl font-bold text-white">Ordem</h3>
+            <p className="mt-3 text-sm text-slate-300">
+              Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
+            </p>
+          </Card>
+        </div>
+      </Section>
+
+      <Section className="border-b border-white/10 bg-[#0B0D10]/85">
+        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          Prova social
+        </h2>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {testimonials.map((item, index) => (
+            <Card key={item} data-reveal style={getRevealDelayStyle(index * 80)}>
+              <p className="text-base leading-relaxed text-slate-200">&quot;{item}&quot;</p>
+              <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">Apoiador(a)</p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="border-b border-white/10 bg-[#07080A]/85">
+        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          Vídeos
+        </h2>
+        <div className="mt-10 grid gap-12">
+          <div>
+            <h3 data-reveal style={getRevealDelayStyle(40)} className="text-2xl font-bold text-white">
+              Curtos (Reels/Shorts)
+            </h3>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {shorts.map((video, index) => (
                 <a
-                  href={WHATSAPP_LINK}
+                  key={video.youtubeUrl}
+                  data-reveal
+                  style={getRevealDelayStyle(index * 70)}
+                  href={video.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={buttonStyles("primary", "w-full sm:w-auto")}
+                  className="group block rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_12px_30px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:shadow-[0_16px_36px_rgba(242,195,0,0.15)]"
                 >
-                  Falar no WhatsApp
+                  <div className="relative aspect-[9/16] overflow-hidden rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                    <span className="rounded-full border border-white/25 bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-100">
+                      {video.tag}
+                    </span>
+                    <div className="flex h-full items-center justify-center">
+                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-xl text-black shadow-[0_0_24px_rgba(242,195,0,0.4)]">
+                        &#9654;
+                      </span>
+                    </div>
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
+                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-white">{video.title}</p>
+                  </div>
                 </a>
-                <a href="#apoie" className={buttonStyles("secondary", "w-full sm:w-auto")}>
-                  Apoiar a campanha
-                </a>
-              </div>
+              ))}
             </div>
+          </div>
 
-            <div className="mx-auto w-full max-w-[520px]">
-              <div className="relative overflow-hidden rounded-[28px] border border-primary/25 bg-white shadow-[0_20px_45px_rgba(11,143,60,0.16)]">
-                <div
-                  aria-hidden="true"
-                  className="h-2 w-full bg-linear-to-r from-primary via-accent to-primary"
-                />
-                <div className="aspect-[4/5] bg-linear-to-b from-white via-primary-soft/20 to-bg-soft">
-                  {/* TODO: Substituir este placeholder pela foto oficial do candidato */}
-                  <div className="flex h-full items-center justify-center p-6 text-center">
-                    <div className="space-y-3">
-                      <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary/80">
-                        Foto oficial
-                      </p>
-                      <p className="text-2xl font-extrabold text-primary sm:text-3xl">
-                        Subtenente Sergio
-                      </p>
-                      <p className="text-sm text-slate-600">
-                        Inserir imagem em alta resolucao para fortalecer a primeira dobra.
-                      </p>
+          <div>
+            <h3 data-reveal style={getRevealDelayStyle(60)} className="text-2xl font-bold text-white">
+              Vídeos completos
+            </h3>
+            <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {longVideos.map((video, index) => (
+                <a
+                  key={video.youtubeUrl}
+                  data-reveal
+                  style={getRevealDelayStyle(index * 70)}
+                  href={video.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_12px_30px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:shadow-[0_16px_36px_rgba(242,195,0,0.15)]"
+                >
+                  <div className="aspect-video rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                    <div className="flex h-full items-center justify-center">
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-lg text-black">
+                        &#9654;
+                      </span>
                     </div>
                   </div>
+                  <p className="mt-3 text-sm font-semibold text-slate-100 transition-colors duration-300 group-hover:text-[var(--accent)]">
+                    {video.title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section id="apoie" className="border-b border-white/10 bg-[#0B0D10]/85">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div data-reveal>
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Cadastro de apoiadores</h2>
+            <p className="mt-4 text-lg text-slate-300">
+              Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
+            </p>
+          </div>
+          <Card data-reveal style={getRevealDelayStyle(100)} className="border-white/20 bg-[#12161C]">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <div>
+                <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-slate-100">
+                  Nome
+                </label>
+                <input
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={(event) =>
+                    setFormData((prev) => ({ ...prev, nome: event.target.value }))
+                  }
+                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  placeholder="Seu nome"
+                />
+                {errors.nome ? <p className="mt-1 text-xs text-red-400">{errors.nome}</p> : null}
+              </div>
+              <div>
+                <label htmlFor="whatsapp" className="mb-1 block text-sm font-semibold text-slate-100">
+                  WhatsApp
+                </label>
+                <input
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={(event) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      whatsapp: event.target.value,
+                    }))
+                  }
+                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  placeholder="(62) 99999-9999"
+                />
+                {errors.whatsapp ? <p className="mt-1 text-xs text-red-400">{errors.whatsapp}</p> : null}
+              </div>
+              <div>
+                <label htmlFor="cidade" className="mb-1 block text-sm font-semibold text-slate-100">
+                  Cidade
+                </label>
+                <input
+                  id="cidade"
+                  name="cidade"
+                  value={formData.cidade}
+                  onChange={(event) =>
+                    setFormData((prev) => ({ ...prev, cidade: event.target.value }))
+                  }
+                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  placeholder="Sua cidade"
+                />
+                {errors.cidade ? <p className="mt-1 text-xs text-red-400">{errors.cidade}</p> : null}
+              </div>
+              <Button type="submit" className="w-full px-7 py-3.5">
+                Cadastrar apoio
+              </Button>
+              {feedback ? (
+                <p
+                  role="status"
+                  aria-live="polite"
+                  className={`rounded-md px-3 py-2 text-sm ${
+                    feedback.type === "success"
+                      ? "bg-[var(--accent)]/15 text-[var(--accent)]"
+                      : "bg-red-500/15 text-red-300"
+                  }`}
+                >
+                  {feedback.message}
+                </p>
+              ) : null}
+            </form>
+          </Card>
+        </div>
+      </Section>
+
+      <Section id="faq" className="bg-[#07080A]/85">
+        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          Perguntas frequentes
+        </h2>
+        <div className="mt-10 space-y-4">
+          {[
+            {
+              q: "Quais são as prioridades do mandato?",
+              a: "Segurança pública, valorização policial, família e ordem social.",
+            },
+            {
+              q: "Como posso apoiar a campanha?",
+              a: "Com cadastro no formulário, compartilhamento dos materiais e mobilização local.",
+            },
+            {
+              q: "Existe agenda presencial?",
+              a: "Sim, com divulgação contínua no Instagram oficial e nos canais da equipe.",
+            },
+            {
+              q: "Como enviar demandas da categoria?",
+              a: "Pelo WhatsApp oficial e pelos canais de atendimento da campanha.",
+            },
+            {
+              q: "Onde acompanho notícias e posicionamentos?",
+              a: "No Instagram oficial e nas publicações semanais da campanha.",
+            },
+          ].map((item, index) => (
+            <details
+              key={item.q}
+              data-reveal
+              style={getRevealDelayStyle(index * 50)}
+              className="faq-item rounded-xl border border-white/15 bg-[#111418]/85 p-5"
+            >
+              <summary className="cursor-pointer text-lg font-semibold text-slate-100 transition-colors duration-300 hover:text-[var(--accent)]">
+                {item.q}
+              </summary>
+              <div className="faq-content">
+                <div>
+                  <p className="mt-3 text-sm text-slate-300">{item.a}</p>
                 </div>
               </div>
-            </div>
+            </details>
+          ))}
+        </div>
+      </Section>
 
-            <Card className="hidden border-primary/30 bg-white text-slate-800 shadow-[0_8px_28px_rgba(11,143,60,0.12)]">
-              <h2 className="text-2xl font-bold text-primary">Autoridade e experiência</h2>
-              <p className="mt-3 text-sm text-slate-600">PMGO | Presidente da ASSEGO</p>
-              <ul className="mt-6 space-y-3 text-sm text-slate-700">
-                <li>- Placeholder: anos de serviço e atuação operacional.</li>
-                <li>- Placeholder: liderança em pautas da categoria policial.</li>
-                <li>- Placeholder: articulação por segurança e ordem pública.</li>
-              </ul>
-            </Card>
-          </div>
-        </Section>
-
-        <Section className="bg-white pt-10 md:pt-14">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">{featuredVideo.title}</h2>
-            <p className="max-w-2xl text-lg text-slate-700">{featuredVideo.subtitle}</p>
-          </div>
-          <div className="mx-auto mt-8 w-full max-w-4xl overflow-hidden rounded-xl border border-primary/30 bg-white shadow-[0_10px_30px_rgba(11,143,60,0.1)]">
-            <div className="aspect-video w-full">
-              <iframe
-                className="h-full w-full"
-                src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`}
-                title={featuredVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+      <footer className="border-t border-white/10 bg-[#0B0D10] text-slate-100">
+        <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm">Subtenente Sérgio | Presidente da ASSEGO</p>
+          <div className="flex items-center gap-3 text-sm font-semibold">
             <a
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonStyles("primary")}
+              className="transition-colors duration-300 hover:text-[var(--accent)]"
             >
-              Falar no WhatsApp
+              WhatsApp
             </a>
-            <a href="#apoie" className={buttonStyles("secondary")}>
-              Quero apoiar
+            <a
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-300 hover:text-[var(--accent)]"
+            >
+              Instagram
             </a>
           </div>
-        </Section>
-
-        <Section id="bandeiras" className="bg-bg-soft/70">
-          <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">Bandeiras</h2>
-          <p className="mt-4 max-w-2xl text-lg text-slate-700">
-            Prioridades para uma representação firme, técnica e conectada com quem
-            vive a realidade da segurança.
+        </Container>
+        <Container className="pb-8">
+          <p className="text-xs text-slate-400">
+            Aviso LGPD: seus dados serão usados apenas para comunicação da campanha.
           </p>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <h3 className="text-xl font-bold text-primary">Segurança</h3>
-              <p className="mt-3 text-sm text-slate-700">
-                Combate firme ao crime. Tolerância zero com a impunidade.
-              </p>
-            </Card>
-            <Card>
-              <h3 className="text-xl font-bold text-primary">Valorização</h3>
-              <p className="mt-3 text-sm text-slate-700">
-                Respeito, estrutura e reconhecimento para quem protege a
-                sociedade.
-              </p>
-            </Card>
-            <Card>
-              <h3 className="text-xl font-bold text-primary">Família</h3>
-              <p className="mt-3 text-sm text-slate-700">
-                Defesa da família, da educação com valores e da ordem social.
-              </p>
-            </Card>
-            <Card>
-              <h3 className="text-xl font-bold text-primary">Ordem</h3>
-              <p className="mt-3 text-sm text-slate-700">
-                Autoridade, disciplina e compromisso com a lei. O Brasil precisa
-                de direção.
-              </p>
-            </Card>
-          </div>
-        </Section>
-
-        <Section className="bg-white">
-          <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">Prova social</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {testimonials.map((item) => (
-              <Card key={item}>
-                <p className="text-base leading-relaxed text-slate-700">&quot;{item}&quot;</p>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-primary">
-                  Apoiador(a)
-                </p>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        <Section className="bg-bg-soft/50">
-          <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">Vídeos</h2>
-          <div className="mt-10 grid gap-12">
-            <div>
-              <h3 className="text-2xl font-bold text-primary">Curtos (Reels/Shorts)</h3>
-              <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {shorts.map((video) => (
-                  <a
-                    key={video.youtubeUrl}
-                    href={video.youtubeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block rounded-xl border border-primary/20 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
-                  >
-                    <div className="rounded-lg bg-linear-to-br from-white via-primary-soft/45 to-bg-soft p-[1px]">
-                      <div className="relative overflow-hidden aspect-[9/16] rounded-[inherit] border border-primary/25 bg-linear-to-b from-white to-bg-soft p-4">
-                        <div className="flex h-full items-center justify-center">
-                          <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white text-xl shadow-[0_0_18px_rgba(11,143,60,0.28)]">
-                            &#9654;
-                          </span>
-                        </div>
-                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-white/95 via-white/65 to-transparent" />
-                        <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-slate-900">
-                          {video.title}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-bold text-primary">Vídeos completos</h3>
-              <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {longVideos.map((video) => (
-                  <a
-                    key={video.youtubeUrl}
-                    href={video.youtubeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block rounded-xl border border-primary/20 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
-                  >
-                    <div className="aspect-video rounded-lg border border-primary/20 bg-linear-to-b from-white to-bg-soft p-4">
-                      <div className="flex h-full items-center justify-center">
-                        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white text-lg">
-                          &#9654;
-                        </span>
-                      </div>
-                    </div>
-                    <p className="mt-3 text-sm font-semibold text-slate-800 group-hover:text-primary">
-                      {video.title}
-                    </p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        <Section id="apoie" className="bg-white">
-          <div className="grid gap-10 md:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">
-                Cadastro de apoiadores
-              </h2>
-              <p className="mt-4 text-lg text-slate-700">
-                Preencha seus dados para receber materiais, agenda e formas de
-                participar da campanha.
-              </p>
-            </div>
-            <Card className="border-primary/25 bg-white">
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                <div>
-                  <label htmlFor="nome" className="mb-1 block text-sm font-semibold">
-                    Nome
-                  </label>
-                  <input
-                    id="nome"
-                    name="nome"
-                    value={formData.nome}
-                    onChange={(event) =>
-                      setFormData((prev) => ({ ...prev, nome: event.target.value }))
-                    }
-                    className="w-full rounded-lg border border-primary/30 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-primary"
-                    placeholder="Seu nome"
-                  />
-                  {errors.nome ? (
-                    <p className="mt-1 text-xs text-red-600">{errors.nome}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <label
-                    htmlFor="whatsapp"
-                    className="mb-1 block text-sm font-semibold"
-                  >
-                    WhatsApp
-                  </label>
-                  <input
-                    id="whatsapp"
-                    name="whatsapp"
-                    value={formData.whatsapp}
-                    onChange={(event) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        whatsapp: event.target.value,
-                      }))
-                    }
-                    className="w-full rounded-lg border border-primary/30 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-primary"
-                    placeholder="(62) 99999-9999"
-                  />
-                  {errors.whatsapp ? (
-                    <p className="mt-1 text-xs text-red-600">{errors.whatsapp}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <label htmlFor="cidade" className="mb-1 block text-sm font-semibold">
-                    Cidade
-                  </label>
-                  <input
-                    id="cidade"
-                    name="cidade"
-                    value={formData.cidade}
-                    onChange={(event) =>
-                      setFormData((prev) => ({ ...prev, cidade: event.target.value }))
-                    }
-                    className="w-full rounded-lg border border-primary/30 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-primary"
-                    placeholder="Sua cidade"
-                  />
-                  {errors.cidade ? (
-                    <p className="mt-1 text-xs text-red-600">{errors.cidade}</p>
-                  ) : null}
-                </div>
-                <Button type="submit" className="w-full">
-                  Cadastrar apoio
-                </Button>
-                {feedback ? (
-                  <p
-                    role="status"
-                    aria-live="polite"
-                    className={`rounded-md px-3 py-2 text-sm ${
-                      feedback.type === "success"
-                        ? "bg-primary-soft text-primary"
-                        : "bg-secondary-soft text-secondary"
-                    }`}
-                  >
-                    {feedback.message}
-                  </p>
-                ) : null}
-              </form>
-            </Card>
-          </div>
-        </Section>
-
-        <Section id="faq" className="bg-bg-soft/70">
-          <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">Perguntas frequentes</h2>
-          <div className="mt-10 space-y-4">
-            {[
-              {
-                q: "Quais são as prioridades do mandato?",
-                a: "Placeholder: segurança pública, valorização policial, família e ordem social.",
-              },
-              {
-                q: "Como posso apoiar a campanha?",
-                a: "Placeholder: cadastro no formulário, compartilhamento e mobilização local.",
-              },
-              {
-                q: "Existe agenda presencial?",
-                a: "Placeholder: sim, com divulgação em redes sociais e grupos oficiais.",
-              },
-              {
-                q: "Como enviar demandas da categoria?",
-                a: "Placeholder: pelo WhatsApp e pelos canais da equipe.",
-              },
-              {
-                q: "Onde acompanho notícias e posicionamentos?",
-                a: "Placeholder: no Instagram oficial e materiais da campanha.",
-              },
-            ].map((item) => (
-              <details
-                key={item.q}
-                className="rounded-lg border border-primary/20 bg-white p-5 shadow-sm"
-              >
-                <summary className="cursor-pointer list-none text-lg font-semibold text-slate-900">
-                  {item.q}
-                </summary>
-                <p className="mt-3 text-sm text-slate-700">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </Section>
-
-        <footer className="border-t border-primary/30 bg-primary text-white">
-          <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm">Subtenente Sérgio (PMGO) | Presidente da ASSEGO</p>
-            <div className="flex items-center gap-3 text-sm font-semibold">
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white/80"
-              >
-                WhatsApp
-              </a>
-              <a
-                href={INSTAGRAM_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white/80"
-              >
-                Instagram
-              </a>
-            </div>
-          </Container>
-          <Container className="pb-8">
-            <p className="text-xs text-white/80">
-              Aviso LGPD (placeholder): seus dados serão usados apenas para
-              comunicação da campanha.
-            </p>
-          </Container>
-        </footer>
-      </div>
+        </Container>
+      </footer>
     </main>
   );
 }

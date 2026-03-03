@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Subtenente Sergio (PMGO)",
+  title: "Subtenente Sergio",
   description:
     "Landing page oficial do Subtenente Sergio: seguranca publica, valorizacao policial, familia e ordem.",
 };
