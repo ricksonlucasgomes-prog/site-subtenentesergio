@@ -46,3 +46,7 @@ next-env.d.ts
 *.log
 dev-check*
 dev-run*
+
+.next
+node_modules
+*.log
