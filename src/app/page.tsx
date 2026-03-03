@@ -379,7 +379,7 @@ export default function Home() {
                 priority={index === 0}
                 className={`
                   absolute inset-0 object-cover
-                  [object-position:50%_12%] md:[object-position:55%_20%]
+                  [object-position:65%_30%]
                   transition-opacity ease-in-out
                   transform-gpu backface-hidden will-change-[opacity,transform] [transform-origin:center]
                   ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"}
@@ -393,14 +393,28 @@ export default function Home() {
 
         <div aria-hidden className="hero-mouse-glow pointer-events-none absolute inset-0 z-[9]" />
         <div aria-hidden className="pointer-events-none absolute inset-0 z-10 overlay-breathe">
-          <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/60 to-black/20" />
-          <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent to-black/35" />
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 to-transparent" />
           <div
             className="absolute inset-0"
             style={{
               background:
                 "radial-gradient(circle at 14% 12%, rgba(242, 195, 0, 0.07), transparent 42%)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[520px] md:h-[640px]"
+            style={{
+              background:
+                "radial-gradient(120% 70% at 50% 100%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0) 70%)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[320px] md:h-[420px]"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(7,8,10,1) 0%, rgba(7,8,10,0.97) 20%, rgba(7,8,10,0.75) 45%, rgba(7,8,10,0.35) 70%, rgba(242,195,0,0.05) 82%, rgba(7,8,10,0) 100%)",
             }}
           />
         </div>
@@ -417,12 +431,19 @@ export default function Home() {
         </div>
 
         <div className="relative z-20 flex min-h-[70vh] items-end py-14 md:min-h-[78vh] md:py-20">
-          <div className="hero-content-reveal max-w-[600px] space-y-6 md:space-y-7">
-            <Badge className="border-white/35 bg-white/10 text-white">CAMPANHA 2026</Badge>
-            <h1 className="text-4xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl">
-              Goiás seguro com voz firme em Brasília.
+          <div className="hero-content-reveal max-w-[42rem] space-y-7 md:space-y-8 lg:max-w-[45rem]">
+            <Badge className="border-white/25 bg-white/8 text-slate-100">CAMPANHA 2026</Badge>
+            <h1
+              className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-slate-50 sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
+              style={{ textShadow: "0 6px 22px rgba(0, 0, 0, 0.35)" }}
+            >
+              GOIÁS SEGURO
+              <br />
+              COM VOZ FIRME EM
+              <br />
+        <span className="text-[#009440]">BRASÍLIA</span>.
             </h1>
-            <p className="text-base text-slate-200 sm:text-lg md:text-xl">
+            <p className="text-base leading-relaxed text-slate-200/90 sm:text-lg">
               Experiência real de rua e compromisso com quem protege as famílias goianas.
             </p>
             <div className="h-[3px] w-64 max-w-full bg-linear-to-r from-[var(--accent)] to-transparent" />
@@ -437,12 +458,46 @@ export default function Home() {
               </a>
               <a
                 href="#apoie"
-                className={buttonStyles("secondary", "w-full px-7 py-3.5 text-sm sm:w-auto")}
+                className={buttonStyles(
+                  "secondary",
+                  "w-full border-white/20 bg-transparent px-7 py-3.5 text-sm hover:bg-white/5 sm:w-auto",
+                )}
               >
                 Apoiar a campanha
               </a>
             </div>
           </div>
+        </div>
+      </Section>
+
+      <Section id="bandeiras" className="border-b border-white/10 bg-[#07080A]/85">
+        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          Bandeiras
+        </h2>
+        <p data-reveal style={getRevealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
+          Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
+        </p>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <Card data-reveal style={getRevealDelayStyle(0)}>
+            <h3 className="text-xl font-bold text-white">Segurança</h3>
+            <p className="mt-3 text-sm text-slate-300">Combate firme ao crime. Tolerância zero com a impunidade.</p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(80)}>
+            <h3 className="text-xl font-bold text-white">Valorização</h3>
+            <p className="mt-3 text-sm text-slate-300">
+              Respeito, estrutura e reconhecimento para quem protege a sociedade.
+            </p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(160)}>
+            <h3 className="text-xl font-bold text-white">Família</h3>
+            <p className="mt-3 text-sm text-slate-300">Defesa da família, da educação com valores e da ordem social.</p>
+          </Card>
+          <Card data-reveal style={getRevealDelayStyle(240)}>
+            <h3 className="text-xl font-bold text-white">Ordem</h3>
+            <p className="mt-3 text-sm text-slate-300">
+              Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
+            </p>
+          </Card>
         </div>
       </Section>
 
@@ -484,37 +539,6 @@ export default function Home() {
           <a href="#apoie" className={buttonStyles("secondary", "px-7 py-3.5")}>
             Quero apoiar
           </a>
-        </div>
-      </Section>
-
-      <Section id="bandeiras" className="border-b border-white/10 bg-[#07080A]/85">
-        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
-          Bandeiras
-        </h2>
-        <p data-reveal style={getRevealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
-          Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
-        </p>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Card data-reveal style={getRevealDelayStyle(0)}>
-            <h3 className="text-xl font-bold text-white">Segurança</h3>
-            <p className="mt-3 text-sm text-slate-300">Combate firme ao crime. Tolerância zero com a impunidade.</p>
-          </Card>
-          <Card data-reveal style={getRevealDelayStyle(80)}>
-            <h3 className="text-xl font-bold text-white">Valorização</h3>
-            <p className="mt-3 text-sm text-slate-300">
-              Respeito, estrutura e reconhecimento para quem protege a sociedade.
-            </p>
-          </Card>
-          <Card data-reveal style={getRevealDelayStyle(160)}>
-            <h3 className="text-xl font-bold text-white">Família</h3>
-            <p className="mt-3 text-sm text-slate-300">Defesa da família, da educação com valores e da ordem social.</p>
-          </Card>
-          <Card data-reveal style={getRevealDelayStyle(240)}>
-            <h3 className="text-xl font-bold text-white">Ordem</h3>
-            <p className="mt-3 text-sm text-slate-300">
-              Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
-            </p>
-          </Card>
         </div>
       </Section>
 
