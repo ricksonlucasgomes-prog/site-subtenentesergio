@@ -1,11 +1,24 @@
 :root {
-  --color-primary: #0b8f3c;
-  --color-primary-dark: #07662b;
-  --color-primary-soft: rgba(11, 143, 60, 0.18);
+  --color-background: #0a0b0d;
+  --color-background-soft: #0d1014;
+  --color-card: #12161b;
+  --color-card-strong: #171c23;
 
-  --color-accent: #f2c300;
-  --color-accent-dark: #c89f00;
-  --color-accent-soft: rgba(242, 195, 0, 0.18);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  --color-foreground: #f8fafc;
+  --color-muted-foreground: #cbd5e1;
+  --color-subtle-foreground: #94a3b8;
+
+  --color-primary: #f2c300;
+  --color-primary-hover: #ddb200;
+  --color-primary-active: #c9a100;
+  --color-primary-soft: rgba(242, 195, 0, 0.18);
+
+  --color-accent: #009440;
+  --color-accent-hover: #007a35;
+  --color-accent-soft: rgba(0, 148, 64, 0.2);
 
   --color-secondary: #0d2f8b;
   --color-secondary-dark: #0a2368;
@@ -14,27 +27,26 @@
   --color-black: #000000;
   --color-white: #ffffff;
 
-  --color-bg: #000000;
-  --color-bg-soft: #09110d;
-  --color-card: #0e1611;
-  --color-text: #ffffff;
-  --color-text-muted: #d2e3d9;
+  --color-bg: var(--color-background);
+  --color-bg-soft: var(--color-background-soft);
+  --color-text: var(--color-foreground);
+  --color-text-muted: var(--color-muted-foreground);
 
   /* Backward-compatible aliases */
-  --bg: var(--color-bg);
-  --fg: var(--color-text);
-  --muted: var(--color-text-muted);
+  --bg: var(--color-background);
+  --fg: var(--color-foreground);
+  --muted: var(--color-muted-foreground);
   --card: var(--color-card);
 
-  --brand-yellow: var(--color-accent);
-  --brand-yellow-hover: var(--color-accent-dark);
-  --brand-yellow-soft: var(--color-accent-soft);
+  --brand-yellow: var(--color-primary);
+  --brand-yellow-hover: var(--color-primary-hover);
+  --brand-yellow-soft: var(--color-primary-soft);
 
   --brand-blue: var(--color-secondary);
   --brand-blue-hover: var(--color-secondary-dark);
   --brand-blue-soft: var(--color-secondary-soft);
 
-  --brand-green: var(--color-primary);
-  --brand-green-hover: var(--color-primary-dark);
-  --brand-green-soft: var(--color-primary-soft);
+  --brand-green: var(--color-accent);
+  --brand-green-hover: var(--color-accent-hover);
+  --brand-green-soft: var(--color-accent-soft);
 }

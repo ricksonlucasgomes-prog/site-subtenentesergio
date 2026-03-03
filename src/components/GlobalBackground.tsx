@@ -79,8 +79,8 @@ export function GlobalBackground() {
           }}
         />
       </div>
-      <div className="absolute inset-0 bg-black/36" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_65%)]" />
+      <div className="absolute inset-0 bg-background/40" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(242,195,0,0.04),transparent_65%)]" />
     </div>
   );
 }

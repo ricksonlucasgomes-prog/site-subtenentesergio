@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -210,15 +210,15 @@ function StatsCounters() {
   }, [start]);
 
   return (
-    <Section className="border-b border-white/10 bg-[#0B0D10]/85 py-12 md:py-16">
+    <Section className="border-b border-border bg-background py-12 md:py-16">
       <div
         ref={sectionRef}
         data-reveal
-        className="overflow-hidden rounded-3xl border border-white/15 bg-[#111418]/75 p-6 shadow-[0_18px_42px_rgba(0,0,0,0.35)] backdrop-blur-md md:p-8"
+        className="overflow-hidden rounded-3xl border border-border-strong bg-card p-6 shadow-[0_18px_42px_rgba(0,0,0,0.35)] backdrop-blur-md md:p-8"
       >
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">TEMAS E COMPROMISSOS</h2>
-          <p className="mt-3 text-base text-slate-300 sm:text-lg">
+          <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">TEMAS E COMPROMISSOS</h2>
+          <p className="mt-3 text-base text-muted-foreground sm:text-lg">
             Números que refletem presença, trabalho e prioridades para Brasília.
           </p>
         </div>
@@ -228,12 +228,12 @@ function StatsCounters() {
               key={stat.label}
               data-reveal
               style={revealDelayStyle(index * 80)}
-              className={`rounded-2xl border border-white/10 p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:shadow-[0_0_40px_rgba(0,148,64,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
-                index > 0 ? "md:border-l md:border-white/15" : "md:border-transparent"
+              className={`rounded-2xl border border-border p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_0_40px_rgba(0,148,64,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
+                index > 0 ? "md:border-l md:border-border-strong" : "md:border-transparent"
               }`}
             >
               <p
-                className={`text-4xl font-black tracking-tight text-white drop-shadow-[0_0_18px_rgba(0,148,64,0.35)] transition-transform duration-[120ms] md:text-5xl ${
+                className={`text-4xl font-black tracking-tight text-foreground drop-shadow-[0_0_18px_rgba(0,148,64,0.35)] transition-transform duration-[120ms] md:text-5xl ${
                   isBouncing[index] ? "scale-[1.03]" : "scale-100"
                 }`}
               >
@@ -250,7 +250,7 @@ function StatsCounters() {
                   {stat.suffix ? <span>{stat.suffix}</span> : null}
                 </span>
               </p>
-              <p className="mt-2 text-xs font-bold tracking-[0.16em] text-[var(--accent)]">
+              <p className="mt-2 text-xs font-bold tracking-[0.16em] text-primary">
                 {stat.label}
               </p>
             </div>
@@ -446,7 +446,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-transparent text-slate-100">
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.22]"
@@ -460,14 +460,14 @@ export default function Home() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-white/45 backdrop-blur-[3px]"
+        className="pointer-events-none absolute inset-0 z-0 bg-background/45 backdrop-blur-[3px]"
       />
       <div className="relative z-10">
       <header
-        className={`sticky top-0 z-40 border-b border-white/10 backdrop-blur-xl transition-all duration-300 ${
+        className={`sticky top-0 z-40 border-b border-border backdrop-blur-xl transition-all duration-300 ${
           isScrolled
-            ? "bg-[#07080A]/88 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
-            : "bg-[#07080A]/55"
+            ? "bg-background/90 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
+            : "bg-background/65"
         }`}
       >
         <Container className="h-14 md:h-16">
@@ -480,27 +480,27 @@ export default function Home() {
                 className="h-11 w-auto shrink-0 md:h-12"
               />
               <div className="hidden min-w-0 sm:block">
-                <p className="truncate text-sm font-bold text-white">Subtenente Sérgio</p>
-                <p className="text-xs text-slate-400">Campanha 2026</p>
+                <p className="truncate text-sm font-bold text-foreground">Subtenente Sérgio</p>
+                <p className="text-xs text-subtle-foreground">Campanha 2026</p>
               </div>
             </div>
 
             <nav className="hidden items-center gap-2 lg:flex">
               <a
                 href="#bandeiras"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
               >
                 Bandeiras
               </a>
               <a
                 href="#apoie"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
               >
                 Apoie
               </a>
               <a
                 href="#faq"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-slate-200 transition-all duration-200 hover:bg-white/8 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
               >
                 FAQ
               </a>
@@ -509,7 +509,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <a
                 href="#bandeiras"
-                className="rounded-full border border-white/15 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-200 transition-colors duration-200 hover:bg-white/10 lg:hidden"
+                className="rounded-full border border-border-strong px-3 py-1.5 text-xs font-semibold tracking-wide text-muted-foreground transition-colors duration-200 hover:bg-card-strong lg:hidden"
               >
                 Menu
               </a>
@@ -531,7 +531,7 @@ export default function Home() {
 
       <Section
         ref={heroRef}
-        className="relative overflow-hidden border-b border-white/10 !py-0 min-h-[70vh] md:min-h-[78vh]"
+        className="relative overflow-hidden border-b border-border !py-0 min-h-[70vh] md:min-h-[78vh]"
         style={{ "--mx": "50%", "--my": "50%", "--px": "0px", "--py": "0px" } as CSSProperties}
       >
         <div
@@ -600,33 +600,33 @@ export default function Home() {
         </div>
 
         <div className="absolute right-4 top-4 z-20 seal-reveal md:right-6 md:top-6">
-          <div className="w-[180px] rounded-2xl border border-white/15 bg-white/5 p-3 shadow-[0_10px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[220px] sm:p-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+          <div className="w-[180px] rounded-2xl border border-border-strong bg-card p-3 shadow-[0_10px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[220px] sm:p-4">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               FOTO OFICIAL
             </p>
-            <p className="mt-1 text-sm font-extrabold text-white sm:text-base">Subtenente Sérgio</p>
-            <div className="mt-2 h-[2px] w-14 bg-[var(--accent)]" />
-            <p className="mt-2 text-[11px] font-medium text-slate-300 sm:text-xs">Campanha 2026</p>
+            <p className="mt-1 text-sm font-extrabold text-foreground sm:text-base">Subtenente Sérgio</p>
+            <div className="mt-2 h-[2px] w-14 bg-primary" />
+            <p className="mt-2 text-[11px] font-medium text-muted-foreground sm:text-xs">Campanha 2026</p>
           </div>
         </div>
 
         <div className="relative z-20 flex min-h-[70vh] items-end py-14 md:min-h-[78vh] md:py-20">
           <div className="hero-content-reveal max-w-[42rem] space-y-7 md:space-y-8 lg:max-w-[45rem]">
-            <Badge className="border-white/25 bg-white/8 text-slate-100">CAMPANHA 2026</Badge>
+            <Badge className="border-border-strong bg-card text-foreground">CAMPANHA 2026</Badge>
             <h1
-              className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-slate-50 sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
+              className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
               style={{ textShadow: "0 6px 22px rgba(0, 0, 0, 0.35)" }}
             >
               GOIÁS SEGURO
               <br />
               COM VOZ FIRME EM
               <br />
-              <span className="text-[#009440]">BRASÍLIA</span>.
+              <span className="text-accent">BRASÍLIA</span>.
             </h1>
-            <p className="text-base leading-relaxed text-slate-200/90 sm:text-lg">
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               Experiência real de rua e compromisso com quem protege as famílias goianas.
             </p>
-            <div className="h-[3px] w-64 max-w-full bg-linear-to-r from-[var(--accent)] to-transparent" />
+            <div className="h-[3px] w-64 max-w-full bg-linear-to-r from-primary to-transparent" />
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href={WHATSAPP_LINK}
@@ -640,7 +640,7 @@ export default function Home() {
                 href="#apoie"
                 className={buttonStyles(
                   "secondary",
-                  "w-full border-white/20 bg-transparent px-7 py-3.5 text-sm hover:bg-white/5 sm:w-auto",
+                  "w-full border-border-strong bg-transparent px-7 py-3.5 text-sm hover:bg-card sm:w-auto",
                 )}
               >
                 Apoiar a campanha
@@ -650,31 +650,31 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="bandeiras" className="border-b border-white/10 bg-[#07080A]/85">
-        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+      <Section id="bandeiras" className="border-b border-border bg-background">
+        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
           Bandeiras
         </h2>
-        <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-slate-300">
+        <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-muted-foreground">
           Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
         </p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <Card data-reveal style={revealDelayStyle(0)}>
-            <h3 className="text-xl font-bold text-white">Segurança</h3>
-            <p className="mt-3 text-sm text-slate-300">Combate firme ao crime. Tolerância zero com a impunidade.</p>
+            <h3 className="text-xl font-bold text-foreground">Segurança</h3>
+            <p className="mt-3 text-sm text-muted-foreground">Combate firme ao crime. Tolerância zero com a impunidade.</p>
           </Card>
           <Card data-reveal style={revealDelayStyle(80)}>
-            <h3 className="text-xl font-bold text-white">Valorização</h3>
-            <p className="mt-3 text-sm text-slate-300">
+            <h3 className="text-xl font-bold text-foreground">Valorização</h3>
+            <p className="mt-3 text-sm text-muted-foreground">
               Respeito, estrutura e reconhecimento para quem protege a sociedade.
             </p>
           </Card>
           <Card data-reveal style={revealDelayStyle(160)}>
-            <h3 className="text-xl font-bold text-white">Família</h3>
-            <p className="mt-3 text-sm text-slate-300">Defesa da família, da educação com valores e da ordem social.</p>
+            <h3 className="text-xl font-bold text-foreground">Família</h3>
+            <p className="mt-3 text-sm text-muted-foreground">Defesa da família, da educação com valores e da ordem social.</p>
           </Card>
           <Card data-reveal style={revealDelayStyle(240)}>
-            <h3 className="text-xl font-bold text-white">Ordem</h3>
-            <p className="mt-3 text-sm text-slate-300">
+            <h3 className="text-xl font-bold text-foreground">Ordem</h3>
+            <p className="mt-3 text-sm text-muted-foreground">
               Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
             </p>
           </Card>
@@ -683,22 +683,22 @@ export default function Home() {
 
       <StatsCounters />
 
-      <Section className="border-b border-white/10 bg-[#0B0D10]/85 pt-12 md:pt-16">
+      <Section className="border-b border-border bg-background pt-12 md:pt-16">
         <div className="space-y-4">
-          <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
             {featuredVideo.title}
           </h2>
-          <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-slate-300">
+          <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-muted-foreground">
             {featuredVideo.subtitle}
           </p>
         </div>
         <div
           data-reveal
           style={revealDelayStyle(120)}
-          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-[#111418]/80 p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden rounded-2xl border border-border-strong bg-card p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
         >
-          <p className="mb-3 px-1 text-lg font-bold text-white">Vídeo em destaque</p>
-          <div className="aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-black">
+          <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
+          <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
             <iframe
               className="h-full w-full"
               src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`}
@@ -724,27 +724,27 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section className="border-b border-white/10 bg-[#0B0D10]/85">
-        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+      <Section className="border-b border-border bg-background">
+        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
           Prova social
         </h2>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {testimonials.map((item, index) => (
             <Card key={item} data-reveal style={revealDelayStyle(index * 80)}>
-              <p className="text-base leading-relaxed text-slate-200">&quot;{item}&quot;</p>
-              <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">Apoiador(a)</p>
+              <p className="text-base leading-relaxed text-muted-foreground">&quot;{item}&quot;</p>
+              <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-primary">Apoiador(a)</p>
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section className="border-b border-white/10 bg-[#07080A]/85">
-        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+      <Section className="border-b border-border bg-background">
+        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
           Vídeos
         </h2>
         <div className="mt-10 grid gap-12">
           <div>
-            <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-white">
+            <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-foreground">
               Curtos (Reels/Shorts)
             </h3>
             <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -753,17 +753,17 @@ export default function Home() {
                   key={short.youtubeId}
                   data-reveal
                   style={revealDelayStyle(index * 70)}
-                  className="group block rounded-2xl border border-white/14 bg-white/5 p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
+                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
                 >
-                  <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                  <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
                     />
-                    <span className="rounded-full border border-white/25 bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-100">
+                    <span className="rounded-full border border-border-strong bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-foreground">
                       {short.tag}
                     </span>
-                    <div className="mt-3 h-[calc(100%-3rem)] overflow-hidden rounded-lg border border-white/10 bg-black">
+                    <div className="mt-3 h-[calc(100%-3rem)] overflow-hidden rounded-lg border border-border bg-black">
                       <iframe
                         className="w-full h-full"
                         src={`https://www.youtube.com/embed/${short.youtubeId}`}
@@ -774,7 +774,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
-                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-white">{short.title}</p>
+                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-foreground">{short.title}</p>
                   </div>
                 </div>
               ))}
@@ -782,7 +782,7 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-white">
+            <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-foreground">
               Vídeos completos
             </h3>
             <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -794,20 +794,20 @@ export default function Home() {
                   href={video.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-white/14 bg-white/5 p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
+                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
                 >
-                  <div className="relative aspect-video rounded-xl border border-white/15 bg-linear-to-b from-[#1A1F26] to-[#0B0D10] p-4">
+                  <div className="relative aspect-video rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
                     />
                     <div className="flex h-full items-center justify-center">
-                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-lg text-black">
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg text-black">
                         &#9654;
                       </span>
                     </div>
                   </div>
-                  <p className="mt-3 text-sm font-semibold text-slate-100 transition-colors duration-300 group-hover:text-[var(--accent)]">
+                  <p className="mt-3 text-sm font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                     {video.title}
                   </p>
                 </a>
@@ -817,18 +817,18 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="apoie" className="border-b border-white/10 bg-[#0B0D10]/85">
+      <Section id="apoie" className="border-b border-border bg-background">
         <div className="grid gap-10 md:grid-cols-2">
           <div data-reveal>
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Cadastro de apoiadores</h2>
-            <p className="mt-4 text-lg text-slate-300">
+            <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
+            <p className="mt-4 text-lg text-muted-foreground">
               Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
             </p>
           </div>
-          <Card data-reveal style={revealDelayStyle(100)} className="border-white/20 bg-[#12161C]">
+          <Card data-reveal style={revealDelayStyle(100)} className="border-border-strong bg-card-strong">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
-                <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-slate-100">
+                <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-foreground">
                   Nome
                 </label>
                 <input
@@ -838,13 +838,13 @@ export default function Home() {
                   onChange={(event) =>
                     setFormData((prev) => ({ ...prev, nome: event.target.value }))
                   }
-                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
                   placeholder="Seu nome"
                 />
                 {errors.nome ? <p className="mt-1 text-xs text-red-400">{errors.nome}</p> : null}
               </div>
               <div>
-                <label htmlFor="whatsapp" className="mb-1 block text-sm font-semibold text-slate-100">
+                <label htmlFor="whatsapp" className="mb-1 block text-sm font-semibold text-foreground">
                   WhatsApp
                 </label>
                 <input
@@ -857,13 +857,13 @@ export default function Home() {
                       whatsapp: event.target.value,
                     }))
                   }
-                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
                   placeholder="(62) XXXXX-XXXX"
                 />
                 {errors.whatsapp ? <p className="mt-1 text-xs text-red-400">{errors.whatsapp}</p> : null}
               </div>
               <div>
-                <label htmlFor="cidade" className="mb-1 block text-sm font-semibold text-slate-100">
+                <label htmlFor="cidade" className="mb-1 block text-sm font-semibold text-foreground">
                   Cidade
                 </label>
                 <input
@@ -873,7 +873,7 @@ export default function Home() {
                   onChange={(event) =>
                     setFormData((prev) => ({ ...prev, cidade: event.target.value }))
                   }
-                  className="w-full rounded-lg border border-white/20 bg-[#0B0D10] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 transition-colors duration-300 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]"
+                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
                   placeholder="Sua cidade"
                 />
                 {errors.cidade ? <p className="mt-1 text-xs text-red-400">{errors.cidade}</p> : null}
@@ -887,7 +887,7 @@ export default function Home() {
                   aria-live="polite"
                   className={`rounded-md px-3 py-2 text-sm ${
                     feedback.type === "success"
-                      ? "bg-[var(--accent)]/15 text-[var(--accent)]"
+                      ? "bg-primary/15 text-primary"
                       : "bg-red-500/15 text-red-300"
                   }`}
                 >
@@ -899,8 +899,8 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="faq" className="bg-[#07080A]/85">
-        <h2 data-reveal className="text-3xl font-extrabold text-white sm:text-4xl">
+      <Section id="faq" className="bg-background">
+        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
           Perguntas frequentes
         </h2>
         <div className="mt-10 space-y-4">
@@ -930,14 +930,14 @@ export default function Home() {
               key={item.q}
               data-reveal
               style={revealDelayStyle(index * 50)}
-              className="faq-item rounded-xl border border-white/15 bg-[#111418]/85 p-5"
+              className="faq-item rounded-xl border border-border-strong bg-card p-5"
             >
-              <summary className="cursor-pointer text-lg font-semibold text-slate-100 transition-colors duration-300 hover:text-[var(--accent)]">
+              <summary className="cursor-pointer text-lg font-semibold text-foreground transition-colors duration-300 hover:text-primary">
                 {item.q}
               </summary>
               <div className="faq-content">
                 <div>
-                  <p className="mt-3 text-sm text-slate-300">{item.a}</p>
+                  <p className="mt-3 text-sm text-muted-foreground">{item.a}</p>
                 </div>
               </div>
             </details>
@@ -945,7 +945,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <footer className="border-t border-white/10 bg-[#0B0D10] text-slate-100">
+      <footer className="border-t border-border bg-background text-foreground">
         <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm">Subtenente Sérgio | Presidente da ASSEGO</p>
           <div className="flex items-center gap-3 text-sm font-semibold">
@@ -953,7 +953,7 @@ export default function Home() {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors duration-300 hover:text-[var(--accent)]"
+              className="transition-colors duration-300 hover:text-primary"
             >
               WhatsApp
             </a>
@@ -961,14 +961,14 @@ export default function Home() {
               href={INSTAGRAM_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors duration-300 hover:text-[var(--accent)]"
+              className="transition-colors duration-300 hover:text-primary"
             >
               Instagram
             </a>
           </div>
         </Container>
         <Container className="pb-8">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-subtle-foreground">
             Aviso LGPD: seus dados serão usados apenas para comunicação da campanha.
           </p>
         </Container>
