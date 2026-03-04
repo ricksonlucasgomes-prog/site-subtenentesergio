@@ -8,6 +8,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          blue: "var(--brand-blue)",
+          green: "var(--brand-green)",
+          yellow: "var(--brand-yellow)",
+          white: "var(--brand-white)",
+        },
         background: "var(--color-background)",
         "background-soft": "var(--color-background-soft)",
         card: "var(--color-card)",
@@ -18,14 +24,14 @@ export default {
         "muted-foreground": "var(--color-muted-foreground)",
         "subtle-foreground": "var(--color-subtle-foreground)",
 
-        primary: "var(--color-primary)",
+        primary: "var(--brand-yellow)",
         "primary-hover": "var(--color-primary-hover)",
         "primary-active": "var(--color-primary-active)",
         "primary-soft": "var(--color-primary-soft)",
-        accent: "var(--color-accent)",
+        accent: "var(--brand-green)",
         "accent-hover": "var(--color-accent-hover)",
         "accent-soft": "var(--color-accent-soft)",
-        secondary: "var(--color-secondary)",
+        secondary: "var(--brand-blue)",
         "secondary-dark": "var(--color-secondary-dark)",
         "secondary-soft": "var(--color-secondary-soft)",
         black: "var(--color-black)",

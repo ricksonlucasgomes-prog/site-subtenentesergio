@@ -1,4 +1,9 @@
 :root {
+  --brand-blue: #002776;
+  --brand-green: #0d7c35;
+  --brand-yellow: #ffdf00;
+  --brand-white: #ffffff;
+
   --color-background: #0a0b0d;
   --color-background-soft: #0d1014;
   --color-card: #12161b;
@@ -11,18 +16,18 @@
   --color-muted-foreground: #cbd5e1;
   --color-subtle-foreground: #94a3b8;
 
-  --color-primary: #f2c300;
-  --color-primary-hover: #ddb200;
-  --color-primary-active: #c9a100;
-  --color-primary-soft: rgba(242, 195, 0, 0.18);
+  --color-primary: var(--brand-yellow);
+  --color-primary-hover: #f2d400;
+  --color-primary-active: #e3c800;
+  --color-primary-soft: rgba(255, 223, 0, 0.2);
 
-  --color-accent: #009440;
-  --color-accent-hover: #007a35;
-  --color-accent-soft: rgba(0, 148, 64, 0.2);
+  --color-accent: var(--brand-green);
+  --color-accent-hover: #0b6a2d;
+  --color-accent-soft: rgba(13, 124, 53, 0.2);
 
-  --color-secondary: #0d2f8b;
-  --color-secondary-dark: #0a2368;
-  --color-secondary-soft: rgba(13, 47, 139, 0.2);
+  --color-secondary: var(--brand-blue);
+  --color-secondary-dark: #001f5f;
+  --color-secondary-soft: rgba(0, 39, 118, 0.24);
 
   --color-black: #000000;
   --color-white: #ffffff;
@@ -38,15 +43,12 @@
   --muted: var(--color-muted-foreground);
   --card: var(--color-card);
 
-  --brand-yellow: var(--color-primary);
   --brand-yellow-hover: var(--color-primary-hover);
   --brand-yellow-soft: var(--color-primary-soft);
 
-  --brand-blue: var(--color-secondary);
   --brand-blue-hover: var(--color-secondary-dark);
   --brand-blue-soft: var(--color-secondary-soft);
 
-  --brand-green: var(--color-accent);
   --brand-green-hover: var(--color-accent-hover);
   --brand-green-soft: var(--color-accent-soft);
 }

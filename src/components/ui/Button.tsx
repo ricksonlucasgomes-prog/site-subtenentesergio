@@ -7,9 +7,9 @@ const baseClass =
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-black shadow-[0_12px_28px_rgba(242,195,0,0.25)] hover:bg-primary-hover hover:shadow-[0_18px_38px_rgba(242,195,0,0.38)] active:bg-primary-active",
+    "bg-primary text-[#101113] shadow-[0_12px_28px_rgba(255,223,0,0.28)] hover:bg-primary-hover hover:shadow-[0_18px_38px_rgba(255,223,0,0.34)] active:bg-primary-active",
   secondary:
-    "border border-border bg-card text-foreground hover:bg-card-strong hover:border-border-strong",
+    "border border-[var(--stroke)] bg-transparent text-foreground hover:bg-white/[0.06] hover:border-border-strong",
   ghost: "text-foreground hover:bg-card",
 };
 

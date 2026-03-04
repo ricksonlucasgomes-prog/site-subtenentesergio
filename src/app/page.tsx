@@ -5,8 +5,10 @@ import Image from "next/image";
 import { revealDelayStyle, useScrollReveal } from "@/components/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Button, buttonStyles } from "@/components/ui/Button";
+import CinematicBackground from "@/components/ui/CinematicBackground";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { Section } from "@/components/ui/Section";
 
 type FormData = {
@@ -211,10 +213,10 @@ function StatsCounters() {
 
   return (
     <Section className="border-b border-border bg-background py-12 md:py-16">
-      <div
+      <GlassCard
         ref={sectionRef}
         data-reveal
-        className="overflow-hidden rounded-3xl border border-border-strong bg-card p-6 shadow-[0_18px_42px_rgba(0,0,0,0.35)] backdrop-blur-md md:p-8"
+        className="overflow-hidden rounded-3xl p-6 md:p-8"
       >
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">TEMAS E COMPROMISSOS</h2>
@@ -228,12 +230,12 @@ function StatsCounters() {
               key={stat.label}
               data-reveal
               style={revealDelayStyle(index * 80)}
-              className={`rounded-2xl border border-border p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_0_40px_rgba(0,148,64,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
+              className={`rounded-2xl border border-[var(--stroke)] bg-white/[0.03] p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-[rgba(255,223,0,0.3)] hover:shadow-[0_0_40px_rgba(13,124,53,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
                 index > 0 ? "md:border-l md:border-border-strong" : "md:border-transparent"
               }`}
             >
               <p
-                className={`text-4xl font-black tracking-tight text-foreground drop-shadow-[0_0_18px_rgba(0,148,64,0.35)] transition-transform duration-[120ms] md:text-5xl ${
+                className={`text-4xl font-black tracking-tight text-foreground drop-shadow-[0_0_18px_rgba(13,124,53,0.35)] transition-transform duration-[120ms] md:text-5xl ${
                   isBouncing[index] ? "scale-[1.03]" : "scale-100"
                 }`}
               >
@@ -243,7 +245,7 @@ function StatsCounters() {
                     className="absolute inset-0 -z-10 blur-xl opacity-30"
                     style={{
                       background:
-                        "radial-gradient(circle at center, rgba(0,148,64,0.45), transparent 70%)",
+                        "radial-gradient(circle at center, rgba(13,124,53,0.45), transparent 70%)",
                     }}
                   />
                   {formatStatValue(currentValues[index] ?? 0, stat)}
@@ -256,7 +258,7 @@ function StatsCounters() {
             </div>
           ))}
         </div>
-      </div>
+      </GlassCard>
     </Section>
   );
 }
@@ -446,28 +448,13 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.22]"
-        style={{
-          backgroundImage: "url(/logo.svg)",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "min(1100px, 95vw)",
-          filter: "drop-shadow(0 0 22px rgba(255,255,255,0.14))",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-background/45 backdrop-blur-[3px]"
-      />
-      <div className="relative z-10">
+    <CinematicBackground>
+      <main className="relative z-10 min-h-screen overflow-hidden text-foreground">
       <header
         className={`sticky top-0 z-40 border-b border-border backdrop-blur-xl transition-all duration-300 ${
           isScrolled
-            ? "bg-background/90 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
-            : "bg-background/65"
+            ? "bg-background/75 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
+            : "bg-background/55"
         }`}
       >
         <Container className="h-14 md:h-16">
@@ -477,7 +464,7 @@ export default function Home() {
               <img
                 src="/logo.svg"
                 alt="Logo oficial Subtenente Sérgio"
-                className="h-11 w-auto shrink-0 md:h-12"
+                className="h-11 w-auto shrink-0 rounded-md bg-white px-1 py-0.5 md:h-12"
               />
               <div className="hidden min-w-0 sm:block">
                 <p className="truncate text-sm font-bold text-foreground">Subtenente Sérgio</p>
@@ -517,7 +504,7 @@ export default function Home() {
                 href={WHATSAPP_LINK}
                 className={buttonStyles(
                   "primary",
-                  "px-4 py-2 text-xs shadow-[0_10px_24px_rgba(242,195,0,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(242,195,0,0.36)] sm:text-sm",
+                  "px-4 py-2 text-xs shadow-[0_10px_24px_rgba(255,223,0,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,223,0,0.34)] sm:text-sm",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -580,7 +567,7 @@ export default function Home() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at 14% 12%, rgba(242, 195, 0, 0.07), transparent 42%)",
+                "radial-gradient(circle at 14% 12%, rgba(255, 223, 0, 0.07), transparent 42%)",
             }}
           />
           <div
@@ -594,25 +581,25 @@ export default function Home() {
             className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[320px] md:h-[420px]"
             style={{
               background:
-                "linear-gradient(to top, rgba(7,8,10,1) 0%, rgba(7,8,10,0.97) 20%, rgba(7,8,10,0.75) 45%, rgba(7,8,10,0.35) 70%, rgba(242,195,0,0.05) 82%, rgba(7,8,10,0) 100%)",
+                "linear-gradient(to top, rgba(7,8,10,1) 0%, rgba(7,8,10,0.97) 20%, rgba(7,8,10,0.75) 45%, rgba(7,8,10,0.35) 70%, rgba(255,223,0,0.05) 82%, rgba(7,8,10,0) 100%)",
             }}
           />
         </div>
 
         <div className="absolute right-4 top-4 z-20 seal-reveal md:right-6 md:top-6">
-          <div className="w-[180px] rounded-2xl border border-border-strong bg-card p-3 shadow-[0_10px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[220px] sm:p-4">
+          <GlassCard className="w-[180px] p-3 sm:w-[220px] sm:p-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               FOTO OFICIAL
             </p>
             <p className="mt-1 text-sm font-extrabold text-foreground sm:text-base">Subtenente Sérgio</p>
             <div className="mt-2 h-[2px] w-14 bg-primary" />
             <p className="mt-2 text-[11px] font-medium text-muted-foreground sm:text-xs">Campanha 2026</p>
-          </div>
+          </GlassCard>
         </div>
 
         <div className="relative z-20 flex min-h-[70vh] items-end py-14 md:min-h-[78vh] md:py-20">
           <div className="hero-content-reveal max-w-[42rem] space-y-7 md:space-y-8 lg:max-w-[45rem]">
-            <Badge className="border-border-strong bg-card text-foreground">CAMPANHA 2026</Badge>
+            <Badge className="border-[var(--stroke)] bg-accent-soft text-foreground">CAMPANHA 2026</Badge>
             <h1
               className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
               style={{ textShadow: "0 6px 22px rgba(0, 0, 0, 0.35)" }}
@@ -658,26 +645,26 @@ export default function Home() {
           Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
         </p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Card data-reveal style={revealDelayStyle(0)}>
+          <GlassCard data-reveal style={revealDelayStyle(0)}>
             <h3 className="text-xl font-bold text-foreground">Segurança</h3>
             <p className="mt-3 text-sm text-muted-foreground">Combate firme ao crime. Tolerância zero com a impunidade.</p>
-          </Card>
-          <Card data-reveal style={revealDelayStyle(80)}>
+          </GlassCard>
+          <GlassCard data-reveal style={revealDelayStyle(80)}>
             <h3 className="text-xl font-bold text-foreground">Valorização</h3>
             <p className="mt-3 text-sm text-muted-foreground">
               Respeito, estrutura e reconhecimento para quem protege a sociedade.
             </p>
-          </Card>
-          <Card data-reveal style={revealDelayStyle(160)}>
+          </GlassCard>
+          <GlassCard data-reveal style={revealDelayStyle(160)}>
             <h3 className="text-xl font-bold text-foreground">Família</h3>
             <p className="mt-3 text-sm text-muted-foreground">Defesa da família, da educação com valores e da ordem social.</p>
-          </Card>
-          <Card data-reveal style={revealDelayStyle(240)}>
+          </GlassCard>
+          <GlassCard data-reveal style={revealDelayStyle(240)}>
             <h3 className="text-xl font-bold text-foreground">Ordem</h3>
             <p className="mt-3 text-sm text-muted-foreground">
               Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
             </p>
-          </Card>
+          </GlassCard>
         </div>
       </Section>
 
@@ -692,10 +679,10 @@ export default function Home() {
             {featuredVideo.subtitle}
           </p>
         </div>
-        <div
+        <GlassCard
           data-reveal
           style={revealDelayStyle(120)}
-          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden rounded-2xl border border-border-strong bg-card p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
         >
           <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
           <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
@@ -708,7 +695,7 @@ export default function Home() {
               allowFullScreen
             />
           </div>
-        </div>
+        </GlassCard>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
             href={WHATSAPP_LINK}
@@ -753,7 +740,7 @@ export default function Home() {
                   key={short.youtubeId}
                   data-reveal
                   style={revealDelayStyle(index * 70)}
-                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
+                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
                 >
                   <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
                     <div
@@ -794,7 +781,7 @@ export default function Home() {
                   href={video.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(242,195,0,0.18)]"
+                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
                 >
                   <div className="relative aspect-video rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
                     <div
@@ -825,7 +812,7 @@ export default function Home() {
               Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
             </p>
           </div>
-          <Card data-reveal style={revealDelayStyle(100)} className="border-border-strong bg-card-strong">
+          <GlassCard data-reveal style={revealDelayStyle(100)} className="bg-white/[0.07]">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
                 <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-foreground">
@@ -895,7 +882,7 @@ export default function Home() {
                 </p>
               ) : null}
             </form>
-          </Card>
+          </GlassCard>
         </div>
       </Section>
 
@@ -930,7 +917,7 @@ export default function Home() {
               key={item.q}
               data-reveal
               style={revealDelayStyle(index * 50)}
-              className="faq-item rounded-xl border border-border-strong bg-card p-5"
+              className="faq-item rounded-xl border border-[var(--stroke)] bg-[var(--glass)] p-5 backdrop-blur-lg"
             >
               <summary className="cursor-pointer text-lg font-semibold text-foreground transition-colors duration-300 hover:text-primary">
                 {item.q}
@@ -973,8 +960,8 @@ export default function Home() {
           </p>
         </Container>
       </footer>
-      </div>
-    </main>
+      </main>
+    </CinematicBackground>
   );
 }
 

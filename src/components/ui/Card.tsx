@@ -8,7 +8,7 @@ export function Card({ children, className = "", ...props }: CardProps) {
   return (
     <article
       {...props}
-      className={`group relative overflow-hidden rounded-2xl border border-border bg-card p-6 text-foreground shadow-[0_18px_40px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_24px_52px_rgba(242,195,0,0.16)] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-[var(--stroke)] bg-[var(--panel)] p-6 text-foreground shadow-[var(--shadow)] backdrop-blur-md transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_22px_50px_rgba(0,0,0,0.44),0_0_0_1px_rgba(0,39,118,0.18),0_0_20px_rgba(255,223,0,0.12)] ${className}`}
     >
       <div
         aria-hidden="true"
@@ -16,7 +16,7 @@ export function Card({ children, className = "", ...props }: CardProps) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-[1px] rounded-[15px] border border-border"
+        className="pointer-events-none absolute inset-[1px] rounded-[15px] border border-[var(--stroke)]"
       />
       <div className="relative z-10">{children}</div>
     </article>

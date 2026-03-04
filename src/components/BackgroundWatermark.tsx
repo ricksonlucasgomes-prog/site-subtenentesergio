@@ -69,24 +69,15 @@ export function BackgroundWatermark() {
         className="absolute left-1/2 top-1/2 will-change-transform"
         style={{ transform: "translate3d(-50%, -50%, 0)" }}
       >
-        <div
-          className="relative"
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(circle at center, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.2) 72%, transparent 100%)",
-            maskImage:
-              "radial-gradient(circle at center, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.2) 72%, transparent 100%)",
-          }}
-        >
+        <div className="relative">
           <Image
             src="/images/logo-watermark.png"
             alt=""
             width={1400}
             height={1400}
             priority
-            className="h-auto w-[clamp(720px,70vw,1200px)] opacity-[0.11] sm:opacity-[0.16] lg:opacity-[0.2] [filter:blur(1px)_saturate(0.9)]"
+            className="h-auto w-[clamp(720px,70vw,1200px)] opacity-[0.08] sm:opacity-[0.11] lg:opacity-[0.14]"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_0%,rgba(10,11,13,0.08)_42%,rgba(10,11,13,0.26)_72%,rgba(10,11,13,0.4)_100%)] backdrop-blur-[1.2px]" />
         </div>
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,11,13,0.26)_0%,rgba(10,11,13,0.42)_100%)]" />
