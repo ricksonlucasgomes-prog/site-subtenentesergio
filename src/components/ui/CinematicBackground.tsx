@@ -103,12 +103,14 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
     <div
       ref={watermarkRef}
       aria-hidden
-      className="pointer-events-none fixed left-1/2 top-1/2 z-[3] h-[1200px] w-[1200px] -translate-x-1/2 -translate-y-1/2 opacity-[0.18] md:h-[1500px] md:w-[1500px]"
+      className="pointer-events-none fixed left-1/2 top-1/2 z-[3] h-[1200px] w-[1200px] -translate-x-1/2 -translate-y-1/2 opacity-[0.2] md:h-[1500px] md:w-[1500px]"
       style={{
         backgroundImage: "url('/images/logo-watermark.png')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "contain",
+        mixBlendMode: "soft-light",
+        filter: "saturate(1.08) contrast(1.06)",
       }}
     />
 

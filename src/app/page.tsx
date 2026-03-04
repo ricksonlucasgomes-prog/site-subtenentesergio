@@ -212,53 +212,56 @@ function StatsCounters() {
   }, [start]);
 
   return (
-    <Section className="border-b border-border bg-background py-12 md:py-16">
-      <GlassCard
-        ref={sectionRef}
-        data-reveal
-        className="overflow-hidden rounded-3xl p-6 md:p-8"
-      >
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">TEMAS E COMPROMISSOS</h2>
-          <p className="mt-3 text-base text-muted-foreground sm:text-lg">
-            Números que refletem presença, trabalho e prioridades para Brasília.
-          </p>
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
-          {STATS.map((stat, index) => (
-            <div
-              key={stat.label}
-              data-reveal
-              style={revealDelayStyle(index * 80)}
-              className={`rounded-2xl border border-[var(--stroke)] bg-white/[0.03] p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-[rgba(255,223,0,0.3)] hover:shadow-[0_0_40px_rgba(13,124,53,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
-                index > 0 ? "md:border-l md:border-border-strong" : "md:border-transparent"
-              }`}
-            >
-              <p
-                className={`text-4xl font-black tracking-tight text-foreground drop-shadow-[0_0_18px_rgba(13,124,53,0.35)] transition-transform duration-[120ms] md:text-5xl ${
-                  isBouncing[index] ? "scale-[1.03]" : "scale-100"
+    <Section className="border-b border-border bg-transparent py-12 md:py-16">
+      <div className="relative">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+        <GlassCard
+          ref={sectionRef}
+          data-reveal
+          className="overflow-hidden rounded-3xl p-6 md:p-8"
+        >
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">TEMAS E COMPROMISSOS</h2>
+            <p className="mt-3 text-base text-muted-foreground sm:text-lg">
+              Números que refletem presença, trabalho e prioridades para Brasília.
+            </p>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
+            {STATS.map((stat, index) => (
+              <div
+                key={stat.label}
+                data-reveal
+                style={revealDelayStyle(index * 80)}
+                className={`rounded-2xl border border-[var(--stroke)] bg-white/[0.03] p-4 text-center transition-transform duration-300 hover:-translate-y-0.5 hover:border-[rgba(255,223,0,0.3)] hover:shadow-[0_0_40px_rgba(13,124,53,0.12)] md:rounded-none md:border-y-0 md:border-r-0 md:px-6 md:py-4 ${
+                  index > 0 ? "md:border-l md:border-border-strong" : "md:border-transparent"
                 }`}
               >
-                <span className="relative inline-block">
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 -z-10 blur-xl opacity-30"
-                    style={{
-                      background:
-                        "radial-gradient(circle at center, rgba(13,124,53,0.45), transparent 70%)",
-                    }}
-                  />
-                  {formatStatValue(currentValues[index] ?? 0, stat)}
-                  {stat.suffix ? <span>{stat.suffix}</span> : null}
-                </span>
-              </p>
-              <p className="mt-2 text-xs font-bold tracking-[0.16em] text-primary">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </GlassCard>
+                <p
+                  className={`text-4xl font-black tracking-tight text-foreground drop-shadow-[0_0_18px_rgba(13,124,53,0.35)] transition-transform duration-[120ms] md:text-5xl ${
+                    isBouncing[index] ? "scale-[1.03]" : "scale-100"
+                  }`}
+                >
+                  <span className="relative inline-block">
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 -z-10 blur-xl opacity-30"
+                      style={{
+                        background:
+                          "radial-gradient(circle at center, rgba(13,124,53,0.45), transparent 70%)",
+                      }}
+                    />
+                    {formatStatValue(currentValues[index] ?? 0, stat)}
+                    {stat.suffix ? <span>{stat.suffix}</span> : null}
+                  </span>
+                </p>
+                <p className="mt-2 text-xs font-bold tracking-[0.16em] text-primary">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+      </div>
     </Section>
   );
 }
@@ -637,183 +640,197 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="bandeiras" className="border-b border-border bg-background">
-        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-          Bandeiras
-        </h2>
-        <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
-        </p>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <GlassCard data-reveal style={revealDelayStyle(0)}>
-            <h3 className="text-xl font-bold text-foreground">Segurança</h3>
-            <p className="mt-3 text-sm text-muted-foreground">Combate firme ao crime. Tolerância zero com a impunidade.</p>
-          </GlassCard>
-          <GlassCard data-reveal style={revealDelayStyle(80)}>
-            <h3 className="text-xl font-bold text-foreground">Valorização</h3>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Respeito, estrutura e reconhecimento para quem protege a sociedade.
-            </p>
-          </GlassCard>
-          <GlassCard data-reveal style={revealDelayStyle(160)}>
-            <h3 className="text-xl font-bold text-foreground">Família</h3>
-            <p className="mt-3 text-sm text-muted-foreground">Defesa da família, da educação com valores e da ordem social.</p>
-          </GlassCard>
-          <GlassCard data-reveal style={revealDelayStyle(240)}>
-            <h3 className="text-xl font-bold text-foreground">Ordem</h3>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
-            </p>
-          </GlassCard>
+      <Section id="bandeiras" className="border-b border-border bg-transparent">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
+            Bandeiras
+          </h2>
+          <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-muted-foreground">
+            Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
+          </p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <GlassCard data-reveal style={revealDelayStyle(0)}>
+              <h3 className="text-xl font-bold text-foreground">Segurança</h3>
+              <p className="mt-3 text-sm text-muted-foreground">Combate firme ao crime. Tolerância zero com a impunidade.</p>
+            </GlassCard>
+            <GlassCard data-reveal style={revealDelayStyle(80)}>
+              <h3 className="text-xl font-bold text-foreground">Valorização</h3>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Respeito, estrutura e reconhecimento para quem protege a sociedade.
+              </p>
+            </GlassCard>
+            <GlassCard data-reveal style={revealDelayStyle(160)}>
+              <h3 className="text-xl font-bold text-foreground">Família</h3>
+              <p className="mt-3 text-sm text-muted-foreground">Defesa da família, da educação com valores e da ordem social.</p>
+            </GlassCard>
+            <GlassCard data-reveal style={revealDelayStyle(240)}>
+              <h3 className="text-xl font-bold text-foreground">Ordem</h3>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
+              </p>
+            </GlassCard>
+          </div>
         </div>
       </Section>
 
       <StatsCounters />
 
-      <Section className="border-b border-border bg-background pt-12 md:pt-16">
-        <div className="space-y-4">
-          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-            {featuredVideo.title}
-          </h2>
-          <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-muted-foreground">
-            {featuredVideo.subtitle}
-          </p>
-        </div>
-        <GlassCard
-          data-reveal
-          style={revealDelayStyle(120)}
-          className="mx-auto mt-8 w-full max-w-[1280px] overflow-hidden p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
-        >
-          <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
-          <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
-            <iframe
-              className="h-full w-full"
-              src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`}
-              title={featuredVideo.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
-        </GlassCard>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonStyles("primary", "px-7 py-3.5")}
-          >
-            Falar no WhatsApp
-          </a>
-          <a href="#apoie" className={buttonStyles("secondary", "px-7 py-3.5")}>
-            Quero apoiar
-          </a>
-        </div>
-      </Section>
-
-      <Section className="border-b border-border bg-background">
-        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-          Prova social
-        </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {testimonials.map((item, index) => (
-            <Card key={item} data-reveal style={revealDelayStyle(index * 80)}>
-              <p className="text-base leading-relaxed text-muted-foreground">&quot;{item}&quot;</p>
-              <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-primary">Apoiador(a)</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="border-b border-border bg-background">
-        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-          Vídeos
-        </h2>
-        <div className="mt-10 grid gap-12">
-          <div>
-            <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-foreground">
-              Curtos (Reels/Shorts)
-            </h3>
-            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {shorts.map((short, index) => (
-                <div
-                  key={short.youtubeId}
-                  data-reveal
-                  style={revealDelayStyle(index * 70)}
-                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
-                >
-                  <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
-                    />
-                    <span className="rounded-full border border-border-strong bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-foreground">
-                      {short.tag}
-                    </span>
-                    <div className="mt-3 h-[calc(100%-3rem)] overflow-hidden rounded-lg border border-border bg-black">
-                      <iframe
-                        className="w-full h-full"
-                        src={`https://www.youtube.com/embed/${short.youtubeId}`}
-                        title={short.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                      />
-                    </div>
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
-                    <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-foreground">{short.title}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-foreground">
-              Vídeos completos
-            </h3>
-            <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {longVideos.map((video, index) => (
-                <a
-                  key={video.youtubeUrl}
-                  data-reveal
-                  style={revealDelayStyle(index * 70)}
-                  href={video.youtubeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
-                >
-                  <div className="relative aspect-video rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
-                    />
-                    <div className="flex h-full items-center justify-center">
-                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg text-black">
-                        &#9654;
-                      </span>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-sm font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
-                    {video.title}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section id="apoie" className="border-b border-border bg-background">
-        <div className="grid gap-10 md:grid-cols-2">
-          <div data-reveal>
-            <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
+      <Section className="border-b border-border bg-transparent pt-12 md:pt-16">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <div className="space-y-4">
+            <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
+              {featuredVideo.title}
+            </h2>
+            <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-muted-foreground">
+              {featuredVideo.subtitle}
             </p>
           </div>
-          <GlassCard data-reveal style={revealDelayStyle(100)} className="bg-white/[0.07]">
-            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+          <GlassCard
+            data-reveal
+            style={revealDelayStyle(120)}
+            className="mx-auto mt-8 w-full max-w-[1280px] overflow-hidden p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+          >
+            <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
+            <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
+              <iframe
+                className="h-full w-full"
+                src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`}
+                title={featuredVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </GlassCard>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonStyles("primary", "px-7 py-3.5")}
+            >
+              Falar no WhatsApp
+            </a>
+            <a href="#apoie" className={buttonStyles("secondary", "px-7 py-3.5")}>
+              Quero apoiar
+            </a>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="border-b border-border bg-transparent">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
+            Prova social
+          </h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {testimonials.map((item, index) => (
+              <Card key={item} data-reveal style={revealDelayStyle(index * 80)}>
+                <p className="text-base leading-relaxed text-muted-foreground">&quot;{item}&quot;</p>
+                <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-primary">Apoiador(a)</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section className="border-b border-border bg-transparent">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
+            Vídeos
+          </h2>
+          <div className="mt-10 grid gap-12">
+            <div>
+              <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-foreground">
+                Curtos (Reels/Shorts)
+              </h3>
+              <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {shorts.map((short, index) => (
+                  <div
+                    key={short.youtubeId}
+                    data-reveal
+                    style={revealDelayStyle(index * 70)}
+                    className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
+                  >
+                    <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
+                      />
+                      <span className="rounded-full border border-border-strong bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-foreground">
+                        {short.tag}
+                      </span>
+                      <div className="mt-3 h-[calc(100%-3rem)] overflow-hidden rounded-lg border border-border bg-black">
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${short.youtubeId}`}
+                          title={short.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                      </div>
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
+                      <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold text-foreground">{short.title}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-foreground">
+                Vídeos completos
+              </h3>
+              <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {longVideos.map((video, index) => (
+                  <a
+                    key={video.youtubeUrl}
+                    data-reveal
+                    style={revealDelayStyle(index * 70)}
+                    href={video.youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block rounded-2xl border border-border bg-card p-3 shadow-[0_14px_34px_rgba(0,0,0,0.42)] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_46px_rgba(255,223,0,0.14)]"
+                  >
+                    <div className="relative aspect-video rounded-xl border border-border-strong bg-linear-to-b from-card-strong to-background p-4">
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-xl bg-[linear-gradient(155deg,rgba(255,255,255,0.08)_0%,transparent_55%)]"
+                      />
+                      <div className="flex h-full items-center justify-center">
+                        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg text-black">
+                          &#9654;
+                        </span>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-sm font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      {video.title}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section id="apoie" className="border-b border-border bg-transparent">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <div className="grid gap-10 md:grid-cols-2">
+            <div data-reveal>
+              <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
+              </p>
+            </div>
+            <GlassCard data-reveal style={revealDelayStyle(100)} className="bg-white/[0.07]">
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
                 <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-foreground">
                   Nome
@@ -881,17 +898,20 @@ export default function Home() {
                   {feedback.message}
                 </p>
               ) : null}
-            </form>
-          </GlassCard>
+              </form>
+            </GlassCard>
+          </div>
         </div>
       </Section>
 
-      <Section id="faq" className="bg-background">
-        <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-          Perguntas frequentes
-        </h2>
-        <div className="mt-10 space-y-4">
-          {[
+      <Section id="faq" className="bg-transparent">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
+            Perguntas frequentes
+          </h2>
+          <div className="mt-10 space-y-4">
+            {[
             {
               q: "Quais são as prioridades do mandato?",
               a: "Segurança pública, valorização policial, família e ordem social.",
@@ -912,53 +932,57 @@ export default function Home() {
               q: "Onde acompanho notícias e posicionamentos?",
               a: "No Instagram oficial e nas publicações semanais da campanha.",
             },
-          ].map((item, index) => (
-            <details
-              key={item.q}
-              data-reveal
-              style={revealDelayStyle(index * 50)}
-              className="faq-item rounded-xl border border-[var(--stroke)] bg-[var(--glass)] p-5 backdrop-blur-lg"
-            >
-              <summary className="cursor-pointer text-lg font-semibold text-foreground transition-colors duration-300 hover:text-primary">
-                {item.q}
-              </summary>
-              <div className="faq-content">
-                <div>
-                  <p className="mt-3 text-sm text-muted-foreground">{item.a}</p>
+            ].map((item, index) => (
+              <details
+                key={item.q}
+                data-reveal
+                style={revealDelayStyle(index * 50)}
+                className="faq-item rounded-xl border border-[var(--stroke)] bg-[var(--glass)] p-5 backdrop-blur-lg"
+              >
+                <summary className="cursor-pointer text-lg font-semibold text-foreground transition-colors duration-300 hover:text-primary">
+                  {item.q}
+                </summary>
+                <div className="faq-content">
+                  <div>
+                    <p className="mt-3 text-sm text-muted-foreground">{item.a}</p>
+                  </div>
                 </div>
-              </div>
-            </details>
-          ))}
+              </details>
+            ))}
+          </div>
         </div>
       </Section>
 
-      <footer className="border-t border-border bg-background text-foreground">
-        <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm">Subtenente Sérgio | Presidente da ASSEGO</p>
-          <div className="flex items-center gap-3 text-sm font-semibold">
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors duration-300 hover:text-primary"
-            >
-              WhatsApp
-            </a>
-            <a
-              href={INSTAGRAM_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors duration-300 hover:text-primary"
-            >
-              Instagram
-            </a>
-          </div>
-        </Container>
-        <Container className="pb-8">
-          <p className="text-xs text-subtle-foreground">
-            Aviso LGPD: seus dados serão usados apenas para comunicação da campanha.
-          </p>
-        </Container>
+      <footer className="border-t border-border bg-transparent text-foreground">
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm">Subtenente Sérgio | Presidente da ASSEGO</p>
+            <div className="flex items-center gap-3 text-sm font-semibold">
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors duration-300 hover:text-primary"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={INSTAGRAM_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors duration-300 hover:text-primary"
+              >
+                Instagram
+              </a>
+            </div>
+          </Container>
+          <Container className="pb-8">
+            <p className="text-xs text-subtle-foreground">
+              Aviso LGPD: seus dados serão usados apenas para comunicação da campanha.
+            </p>
+          </Container>
+        </div>
       </footer>
       </main>
     </CinematicBackground>
