@@ -602,7 +602,7 @@ export default function Home() {
             <Badge className="border-[var(--stroke)] bg-accent-soft text-foreground">CAMPANHA 2026</Badge>
             <h1
               className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
-              style={{ textShadow: "0 6px 22px rgba(0, 0, 0, 0.35)" }}
+              style={{ textShadow: "0 10px 36px rgba(0,0,0,0.68)" }}
             >
               GOIÁS SEGURO
               <br />
@@ -613,7 +613,7 @@ export default function Home() {
             <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               Experiência real de rua e compromisso com quem protege as famílias goianas.
             </p>
-            <div className="h-[3px] w-64 max-w-full bg-linear-to-r from-primary to-transparent" />
+            <div className="h-[3px] w-64 rounded-full bg-[linear-gradient(90deg,rgba(255,223,0,0.95),rgba(13,124,53,0.55),rgba(0,39,118,0.35),transparent)]" />
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href={WHATSAPP_LINK}
@@ -682,7 +682,7 @@ export default function Home() {
         <GlassCard
           data-reveal
           style={revealDelayStyle(120)}
-          className="mx-auto mt-8 w-full max-w-5xl overflow-hidden p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+          className="mx-auto mt-8 w-full max-w-[1280px] overflow-hidden p-3 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
         >
           <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
           <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
