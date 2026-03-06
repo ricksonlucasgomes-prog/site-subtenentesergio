@@ -454,52 +454,52 @@ export default function Home() {
     <CinematicBackground>
       <main className="relative z-10 min-h-screen overflow-hidden text-foreground">
       <header
-        className={`sticky top-0 z-40 border-b border-border backdrop-blur-xl transition-all duration-300 ${
+        className={`sticky top-0 z-40 border-b border-white/10 backdrop-blur-2xl transition-all duration-300 ${
           isScrolled
-            ? "bg-background/75 shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
-            : "bg-background/55"
+            ? "bg-[linear-gradient(180deg,rgba(2,12,38,0.88),rgba(4,19,58,0.72))] shadow-[0_18px_48px_rgba(0,0,0,0.42)]"
+            : "bg-[linear-gradient(180deg,rgba(2,12,38,0.62),rgba(4,19,58,0.44))]"
         }`}
       >
-        <Container className="h-14 md:h-16">
-          <div className="flex h-full items-center justify-between gap-3">
-            <div className="flex min-w-0 items-center gap-3">
+        <Container className="py-3">
+          <div className="flex h-[68px] items-center justify-between gap-3 rounded-[1.6rem] border border-white/12 bg-[linear-gradient(135deg,rgba(5,24,74,0.82),rgba(4,33,96,0.68))] px-4 shadow-[0_16px_40px_rgba(1,7,24,0.4)] ring-1 ring-[rgba(255,255,255,0.06)] md:h-[76px] md:px-6 lg:px-7">
+            <div className="flex min-w-0 items-center gap-3 md:gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo.svg"
                 alt="Logo oficial Subtenente Sérgio"
-                className="h-11 w-auto shrink-0 rounded-md bg-white px-1 py-0.5 md:h-12"
+                className="h-11 w-auto shrink-0 rounded-xl bg-white/95 px-1.5 py-1 shadow-[0_10px_24px_rgba(255,255,255,0.18)] md:h-12"
               />
               <div className="hidden min-w-0 sm:block">
-                <p className="truncate text-sm font-bold text-foreground">Subtenente Sérgio</p>
-                <p className="text-xs text-subtle-foreground">Campanha 2026</p>
+                <p className="truncate text-sm font-extrabold uppercase tracking-[0.18em] text-white/95">Subtenente Sérgio</p>
+                <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/64">Campanha 2026</p>
               </div>
             </div>
 
             <nav className="hidden items-center gap-2 lg:flex">
               <a
                 href="#bandeiras"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
+                className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/7 hover:text-white"
               >
                 Bandeiras
               </a>
               <a
                 href="#apoie"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
+                className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/7 hover:text-white"
               >
                 Apoie
               </a>
               <a
                 href="#faq"
-                className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground"
+                className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/7 hover:text-white"
               >
                 FAQ
               </a>
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <a
                 href="#bandeiras"
-                className="rounded-full border border-border-strong px-3 py-1.5 text-xs font-semibold tracking-wide text-muted-foreground transition-colors duration-200 hover:bg-card-strong lg:hidden"
+                className="rounded-full border border-white/14 bg-white/6 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/78 transition-colors duration-200 hover:bg-white/10 lg:hidden"
               >
                 Menu
               </a>
@@ -507,7 +507,7 @@ export default function Home() {
                 href={WHATSAPP_LINK}
                 className={buttonStyles(
                   "primary",
-                  "px-4 py-2 text-xs shadow-[0_10px_24px_rgba(255,223,0,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,223,0,0.34)] sm:text-sm",
+                  "px-5 py-2.5 text-[11px] font-extrabold uppercase tracking-[0.18em] shadow-[0_14px_32px_rgba(255,223,0,0.34)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(255,223,0,0.42)] sm:px-6 sm:text-xs",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -521,7 +521,7 @@ export default function Home() {
 
       <Section
         ref={heroRef}
-        className="relative overflow-hidden border-b border-border !py-0 min-h-[70vh] md:min-h-[78vh]"
+        className="relative min-h-[70vh] overflow-hidden border-b border-border !py-0 md:min-h-[78vh]"
         style={{ "--mx": "50%", "--my": "50%", "--px": "0px", "--py": "0px" } as CSSProperties}
       >
         <div
@@ -562,75 +562,98 @@ export default function Home() {
 
         <div aria-hidden className="hero-mouse-glow pointer-events-none absolute inset-0 z-[9]" />
         <div aria-hidden className="pointer-events-none absolute inset-0 z-10 overlay-breathe">
-          <div className="hero-moving-light absolute inset-y-0 left-[-35%] w-[65%]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/45 to-transparent" />
+          <div className="hero-moving-light absolute inset-y-0 left-[-25%] w-[52%] opacity-80" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,11,31,0.9)_0%,rgba(4,16,48,0.72)_42%,rgba(4,16,48,0.18)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,8,23,0.26)_0%,rgba(1,8,23,0.08)_20%,rgba(1,8,23,0.62)_100%)]" />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at 14% 12%, rgba(255, 223, 0, 0.07), transparent 42%)",
+                "radial-gradient(circle at 18% 18%, rgba(255, 223, 0, 0.12), transparent 36%)",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 76% 22%, rgba(255,255,255,0.08), transparent 28%)",
             }}
           />
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[520px] md:h-[640px]"
             style={{
               background:
-                "radial-gradient(120% 70% at 50% 100%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0) 70%)",
+                "radial-gradient(120% 70% at 50% 100%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.28) 42%, rgba(0,0,0,0) 70%)",
             }}
           />
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[320px] md:h-[420px]"
             style={{
               background:
-                "linear-gradient(to top, rgba(7,8,10,1) 0%, rgba(7,8,10,0.97) 20%, rgba(7,8,10,0.75) 45%, rgba(7,8,10,0.35) 70%, rgba(255,223,0,0.05) 82%, rgba(7,8,10,0) 100%)",
+                "linear-gradient(to top, rgba(7,8,10,1) 0%, rgba(7,8,10,0.96) 22%, rgba(7,8,10,0.68) 48%, rgba(7,8,10,0.26) 72%, rgba(255,223,0,0.05) 84%, rgba(7,8,10,0) 100%)",
             }}
           />
         </div>
 
-        <div className="absolute right-4 top-4 z-20 seal-reveal md:right-6 md:top-6">
-          <GlassCard className="w-[180px] p-3 sm:w-[220px] sm:p-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              FOTO OFICIAL
+        <div className="absolute right-4 top-5 z-20 seal-reveal md:right-8 md:top-8">
+          <GlassCard className="w-[198px] border-white/12 bg-[linear-gradient(145deg,rgba(3,18,58,0.74),rgba(7,30,84,0.52))] p-3.5 shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:w-[240px] sm:p-4">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
+              Gabinete de campanha
             </p>
-            <p className="mt-1 text-sm font-extrabold text-foreground sm:text-base">Subtenente Sérgio</p>
-            <div className="mt-2 h-[2px] w-14 bg-primary" />
-            <p className="mt-2 text-[11px] font-medium text-muted-foreground sm:text-xs">Campanha 2026</p>
+            <p className="mt-2 text-sm font-extrabold uppercase tracking-[0.16em] text-white sm:text-base">Subtenente Sérgio</p>
+            <div className="mt-3 flex items-center gap-2">
+              <div className="h-[2px] w-12 bg-primary" />
+              <div className="h-[2px] flex-1 bg-white/12" />
+            </div>
+            <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.16em] text-white/72 sm:text-xs">
+              Presença, ordem e representação
+            </p>
           </GlassCard>
         </div>
 
-        <div className="relative z-20 flex min-h-[70vh] items-end py-14 md:min-h-[78vh] md:py-20">
-          <div className="hero-content-reveal max-w-[42rem] space-y-7 md:space-y-8 lg:max-w-[45rem]">
-            <Badge className="border-[var(--stroke)] bg-accent-soft text-foreground">CAMPANHA 2026</Badge>
+        <div className="relative z-20 flex min-h-[70vh] items-end py-16 md:min-h-[78vh] md:py-24">
+          <div className="hero-content-reveal max-w-[44rem] space-y-7 md:space-y-9 lg:max-w-[48rem]">
+            <Badge className="border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] px-4 py-1.5 text-white">
+              CAMPANHA 2026
+            </Badge>
+            <div className="h-[2px] max-w-[12rem] rounded-full bg-[linear-gradient(90deg,rgba(255,223,0,0.95),rgba(255,255,255,0.28),transparent)]" />
             <h1
-              className="text-[38px] font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-5xl md:text-[64px] md:tracking-[-0.02em]"
-              style={{ textShadow: "0 10px 36px rgba(0,0,0,0.68)" }}
+              className="max-w-[13ch] text-[40px] font-black uppercase leading-[0.9] tracking-[-0.03em] text-white sm:text-[56px] md:text-[76px]"
+              style={{ textShadow: "0 14px 40px rgba(0,0,0,0.62)" }}
             >
               GOIÁS SEGURO
               <br />
-              COM VOZ FIRME EM
+              EXIGE VOZ FIRME
               <br />
               <span className="text-accent">BRASÍLIA</span>.
             </h1>
-            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Experiência real de rua e compromisso com quem protege as famílias goianas.
+            <p className="max-w-[38rem] text-base leading-relaxed text-white/78 sm:text-lg md:text-[1.15rem]">
+              Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.
             </p>
-            <div className="h-[3px] w-64 rounded-full bg-[linear-gradient(90deg,rgba(255,223,0,0.95),rgba(13,124,53,0.55),rgba(0,39,118,0.35),transparent)]" />
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60 sm:text-xs">
+              <span>Segurança pública</span>
+              <span className="h-1 w-1 rounded-full bg-primary" />
+              <span>Valorização policial</span>
+              <span className="h-1 w-1 rounded-full bg-primary" />
+              <span>Ordem e família</span>
+            </div>
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row">
               <a
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={buttonStyles("primary", "w-full px-7 py-3.5 text-sm sm:w-auto")}
+                className={buttonStyles(
+                  "primary",
+                  "w-full px-8 py-4 text-sm font-extrabold uppercase tracking-[0.16em] shadow-[0_16px_34px_rgba(255,223,0,0.34)] sm:w-auto",
+                )}
               >
-                Falar no WhatsApp
+                Falar com a equipe
               </a>
               <a
                 href="#apoie"
                 className={buttonStyles(
                   "secondary",
-                  "w-full border-border-strong bg-transparent px-7 py-3.5 text-sm hover:bg-card sm:w-auto",
+                  "w-full border-white/18 bg-white/6 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white hover:bg-white/10 sm:w-auto",
                 )}
               >
                 Apoiar a campanha
@@ -642,33 +665,74 @@ export default function Home() {
 
       <Section id="bandeiras" className="border-b border-border bg-transparent">
         <div className="relative">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
-          <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
-            Bandeiras
-          </h2>
-          <p data-reveal style={revealDelayStyle(80)} className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            Prioridades para uma representação firme, técnica e conectada com quem vive a realidade da segurança.
-          </p>
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(6,26,74,0.14),transparent_72%)]" />
+          <div className="max-w-3xl space-y-5">
+            <Badge data-reveal className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">
+              Prioridades de mandato
+            </Badge>
+            <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">
+              Bandeiras
+            </h2>
+            <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              Eixos de atuaÃ§Ã£o com postura institucional, prioridade polÃ­tica clara e compromisso direto com a realidade das famÃ­lias goianas.
+            </p>
+          </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <GlassCard data-reveal style={revealDelayStyle(0)}>
-              <h3 className="text-xl font-bold text-foreground">Segurança</h3>
-              <p className="mt-3 text-sm text-muted-foreground">Combate firme ao crime. Tolerância zero com a impunidade.</p>
+            <GlassCard
+              data-reveal
+              style={revealDelayStyle(0)}
+              className="group relative overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(4,18,54,0.72),rgba(8,11,18,0.88))] p-6 shadow-[0_24px_48px_rgba(0,0,0,0.32)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_26px_56px_rgba(255,223,0,0.12)]"
+            >
+              <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,223,0,0.75),transparent)]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Prioridade 01</p>
+              <h3 className="mt-4 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">SeguranÃ§a</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/72">Combate firme ao crime, inteligÃªncia operacional e defesa objetiva de quem vive sob pressÃ£o nas ruas.</p>
+              <div className="mt-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                <span className="h-[2px] w-10 bg-primary" />
+                Ordem pÃºblica
+              </div>
             </GlassCard>
-            <GlassCard data-reveal style={revealDelayStyle(80)}>
-              <h3 className="text-xl font-bold text-foreground">Valorização</h3>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Respeito, estrutura e reconhecimento para quem protege a sociedade.
-              </p>
+            <GlassCard
+              data-reveal
+              style={revealDelayStyle(80)}
+              className="group relative overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(4,18,54,0.72),rgba(8,11,18,0.88))] p-6 shadow-[0_24px_48px_rgba(0,0,0,0.32)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_26px_56px_rgba(255,223,0,0.12)]"
+            >
+              <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,223,0,0.75),transparent)]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Prioridade 02</p>
+              <h3 className="mt-4 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">ValorizaÃ§Ã£o</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/72">Respeito, estrutura e reconhecimento para os profissionais que sustentam a seguranÃ§a pÃºblica com disciplina e coragem.</p>
+              <div className="mt-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                <span className="h-[2px] w-10 bg-primary" />
+                Defesa da categoria
+              </div>
             </GlassCard>
-            <GlassCard data-reveal style={revealDelayStyle(160)}>
-              <h3 className="text-xl font-bold text-foreground">Família</h3>
-              <p className="mt-3 text-sm text-muted-foreground">Defesa da família, da educação com valores e da ordem social.</p>
+            <GlassCard
+              data-reveal
+              style={revealDelayStyle(160)}
+              className="group relative overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(4,18,54,0.72),rgba(8,11,18,0.88))] p-6 shadow-[0_24px_48px_rgba(0,0,0,0.32)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_26px_56px_rgba(255,223,0,0.12)]"
+            >
+              <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,223,0,0.75),transparent)]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Prioridade 03</p>
+              <h3 className="mt-4 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">FamÃ­lia</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/72">ProteÃ§Ã£o da famÃ­lia, educaÃ§Ã£o com valores e polÃ­ticas pÃºblicas que reforcem estabilidade social e responsabilidade coletiva.</p>
+              <div className="mt-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                <span className="h-[2px] w-10 bg-primary" />
+                Base da sociedade
+              </div>
             </GlassCard>
-            <GlassCard data-reveal style={revealDelayStyle(240)}>
-              <h3 className="text-xl font-bold text-foreground">Ordem</h3>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Autoridade, disciplina e compromisso com a lei. O Brasil precisa de direção.
-              </p>
+            <GlassCard
+              data-reveal
+              style={revealDelayStyle(240)}
+              className="group relative overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(4,18,54,0.72),rgba(8,11,18,0.88))] p-6 shadow-[0_24px_48px_rgba(0,0,0,0.32)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_26px_56px_rgba(255,223,0,0.12)]"
+            >
+              <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,223,0,0.75),transparent)]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Prioridade 04</p>
+              <h3 className="mt-4 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">Ordem</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/72">Autoridade responsÃ¡vel, compromisso com a lei e direÃ§Ã£o firme para devolver previsibilidade ao paÃ­s.</p>
+              <div className="mt-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                <span className="h-[2px] w-10 bg-primary" />
+                LideranÃ§a institucional
+              </div>
             </GlassCard>
           </div>
         </div>
@@ -722,7 +786,7 @@ export default function Home() {
 
       <Section className="border-b border-border bg-transparent">
         <div className="relative">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" />
           <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
             Prova social
           </h2>
@@ -739,7 +803,7 @@ export default function Home() {
 
       <Section className="border-b border-border bg-transparent">
         <div className="relative">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" />
           <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
             Vídeos
           </h2>
@@ -822,17 +886,46 @@ export default function Home() {
       <Section id="apoie" className="border-b border-border bg-transparent">
         <div className="relative">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
-          <div className="grid gap-10 md:grid-cols-2">
-            <div data-reveal>
-              <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Preencha seus dados para receber materiais, agenda e formas de participar da campanha.
-              </p>
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <div data-reveal className="max-w-xl space-y-6 pt-2">
+              <Badge className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">
+                MobilizaÃ§Ã£o 2026
+              </Badge>
+              <div className="space-y-4">
+                <h2 className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Entre na mobilizaÃ§Ã£o e receba agenda, materiais oficiais e orientaÃ§Ãµes para fortalecer a campanha na sua cidade.
+                </p>
+              </div>
+              <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(4,18,54,0.5),rgba(8,11,18,0.74))] p-5 shadow-[0_22px_46px_rgba(0,0,0,0.26)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Por que se cadastrar</p>
+                <div className="mt-4 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
+                    <p className="text-sm leading-relaxed text-white/74">Receber materiais prontos para mobilizaÃ§Ã£o local e divulgaÃ§Ã£o responsÃ¡vel.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
+                    <p className="text-sm leading-relaxed text-white/74">Acompanhar agenda, posicionamentos e convocaÃ§Ãµes da equipe de campanha.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
+                    <p className="text-sm leading-relaxed text-white/74">Conectar sua cidade a uma representaÃ§Ã£o firme, organizada e institucional.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <GlassCard data-reveal style={revealDelayStyle(100)} className="bg-white/[0.07]">
+            <GlassCard data-reveal style={revealDelayStyle(100)} className="border-white/12 bg-[linear-gradient(180deg,rgba(4,18,54,0.7),rgba(8,11,18,0.9))] p-6 shadow-[0_26px_60px_rgba(0,0,0,0.34)] sm:p-7">
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Cadastro oficial</p>
+                  <h3 className="mt-2 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">FortaleÃ§a a campanha</h3>
+                </div>
+                <div aria-hidden className="hidden h-12 w-12 rounded-full border border-white/12 bg-[radial-gradient(circle,rgba(255,223,0,0.34),rgba(255,223,0,0.02))] sm:block" />
+              </div>
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
-                <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-foreground">
+                <label htmlFor="nome" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/62">
                   Nome
                 </label>
                 <input
@@ -842,13 +935,13 @@ export default function Home() {
                   onChange={(event) =>
                     setFormData((prev) => ({ ...prev, nome: event.target.value }))
                   }
-                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
-                  placeholder="Seu nome"
+                  className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-sm text-foreground outline-none placeholder:text-white/28 transition-all duration-300 focus:border-primary focus:bg-white/[0.08] focus:ring-2 focus:ring-primary/40"
+                  placeholder="Seu nome completo"
                 />
                 {errors.nome ? <p className="mt-1 text-xs text-red-400">{errors.nome}</p> : null}
               </div>
               <div>
-                <label htmlFor="whatsapp" className="mb-1 block text-sm font-semibold text-foreground">
+                <label htmlFor="whatsapp" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/62">
                   WhatsApp
                 </label>
                 <input
@@ -861,13 +954,13 @@ export default function Home() {
                       whatsapp: event.target.value,
                     }))
                   }
-                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
-                  placeholder="(62) XXXXX-XXXX"
+                  className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-sm text-foreground outline-none placeholder:text-white/28 transition-all duration-300 focus:border-primary focus:bg-white/[0.08] focus:ring-2 focus:ring-primary/40"
+                  placeholder="(62) 99999-9999"
                 />
                 {errors.whatsapp ? <p className="mt-1 text-xs text-red-400">{errors.whatsapp}</p> : null}
               </div>
               <div>
-                <label htmlFor="cidade" className="mb-1 block text-sm font-semibold text-foreground">
+                <label htmlFor="cidade" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/62">
                   Cidade
                 </label>
                 <input
@@ -877,19 +970,19 @@ export default function Home() {
                   onChange={(event) =>
                     setFormData((prev) => ({ ...prev, cidade: event.target.value }))
                   }
-                  className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-foreground0 transition-colors duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
+                  className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-sm text-foreground outline-none placeholder:text-white/28 transition-all duration-300 focus:border-primary focus:bg-white/[0.08] focus:ring-2 focus:ring-primary/40"
                   placeholder="Sua cidade"
                 />
                 {errors.cidade ? <p className="mt-1 text-xs text-red-400">{errors.cidade}</p> : null}
               </div>
-              <Button type="submit" className="w-full px-7 py-3.5">
-                Cadastrar apoio
+              <Button type="submit" className="w-full px-7 py-4 text-sm font-extrabold uppercase tracking-[0.16em] shadow-[0_18px_36px_rgba(255,223,0,0.24)]">
+                Quero participar
               </Button>
               {feedback ? (
                 <p
                   role="status"
                   aria-live="polite"
-                  className={`rounded-md px-3 py-2 text-sm ${
+                  className={`rounded-xl px-4 py-3 text-sm ${
                     feedback.type === "success"
                       ? "bg-primary/15 text-primary"
                       : "bg-red-500/15 text-red-300"
@@ -906,7 +999,7 @@ export default function Home() {
 
       <Section id="faq" className="bg-transparent">
         <div className="relative">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[rgba(10,11,13,0.55)]" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(6,26,74,0.12),transparent_72%)]" />
           <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">
             Perguntas frequentes
           </h2>
