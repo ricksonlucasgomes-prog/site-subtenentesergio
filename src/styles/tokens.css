@@ -6,11 +6,11 @@
 
   --t-color-background: #001437;
   --t-color-background-soft: #001a45;
-  --t-color-card: #002055;
-  --t-color-card-strong: #002766;
+  --t-color-card: rgba(7, 27, 74, 0.30);
+  --t-color-card-strong: rgba(8, 33, 92, 0.40);
 
-  --t-color-border: rgba(255,255,255,0.10);
-  --t-color-border-strong: rgba(255,255,255,0.16);
+  --t-color-border: rgba(255,255,255,0.09);
+  --t-color-border-strong: rgba(255,255,255,0.14);
 
   --t-color-foreground: #f8fafc;
   --t-color-muted-foreground: #cbd5e1;

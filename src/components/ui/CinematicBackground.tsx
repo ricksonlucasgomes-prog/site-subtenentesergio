@@ -76,7 +76,7 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
         background: [
           "radial-gradient(circle at 18% 14%, rgba(255,223,0,0.10), transparent 42%)",
           "radial-gradient(circle at 82% 18%, rgba(0,39,118,0.18), transparent 44%)",
-          "linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 32%, rgba(0,0,0,0.78) 100%)",
+          "linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.12) 32%, rgba(0,0,0,0.46) 100%)",
           "linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%)",
         ].join(", "),
       }}
@@ -88,7 +88,7 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
       className="pointer-events-none fixed inset-0 z-0"
       style={{
         background:
-          "radial-gradient(78% 70% at 50% 45%, rgba(0,0,0,0.00) 35%, rgba(0,0,0,0.72) 100%)",
+          "radial-gradient(78% 70% at 50% 45%, rgba(0,0,0,0.00) 38%, rgba(0,0,0,0.52) 100%)",
       }}
     />
 
@@ -120,7 +120,7 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
       className="pointer-events-none fixed inset-0 z-[2]"
       style={{
         background:
-          "linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.10) 36%, rgba(0,0,0,0.55) 100%)",
+          "linear-gradient(180deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.04) 36%, rgba(0,0,0,0.28) 100%)",
       }}
     />
 
