@@ -1,0 +1,18 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#031433"/>
+  <circle cx="400" cy="400" r="360" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="300" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+  <circle cx="235" cy="240" r="110" fill="rgba(255,223,0,0.10)"/>
+  <circle cx="590" cy="180" r="90" fill="rgba(255,255,255,0.08)"/>
+  <path d="M230 520C280 430 350 380 430 380C510 380 580 430 630 520" stroke="#FFDF00" stroke-width="22" stroke-linecap="round"/>
+  <rect x="318" y="210" width="164" height="210" rx="82" fill="rgba(255,255,255,0.20)"/>
+  <rect x="248" y="520" width="304" height="58" rx="29" fill="rgba(255,255,255,0.16)"/>
+  <text x="400" y="658" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="40" letter-spacing="8">SERVICO</text>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(232 178) rotate(51.6) scale(722.944)">
+      <stop stop-color="#0B2D7C"/>
+      <stop offset="0.62" stop-color="#072358"/>
+      <stop offset="1" stop-color="#021124"/>
+    </radialGradient>
+  </defs>
+</svg>

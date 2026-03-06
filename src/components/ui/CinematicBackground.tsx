@@ -15,13 +15,16 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
 
     const applyParallax = (scrollY: number) => {
       if (!watermarkRef.current) {
         return;
       }
-      const offsetY = Math.min(32, scrollY * 0.045);
-      watermarkRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0)`;
+      const maxOffset = mobileQuery.matches ? 26 : 56;
+      const speed = mobileQuery.matches ? 0.02 : 0.04;
+      const offsetY = Math.min(maxOffset, scrollY * speed);
+      watermarkRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0) scale(1.02)`;
     };
 
     const flush = () => {
@@ -67,74 +70,51 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
   }, []);
 
   return (
-  <div className="relative min-h-screen overflow-hidden bg-[var(--bg-0)]">
-    {/* Base color wash + cinematic gradients */}
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{
-        background: [
-          "radial-gradient(circle at 18% 14%, rgba(255,223,0,0.10), transparent 42%)",
-          "radial-gradient(circle at 82% 18%, rgba(0,39,118,0.18), transparent 44%)",
-          "linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.12) 32%, rgba(0,0,0,0.46) 100%)",
-          "linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%)",
-        ].join(", "),
-      }}
-    />
+    <div className="relative min-h-screen overflow-hidden bg-[var(--bg-0)]">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(circle at 16% 12%, rgba(255,223,0,0.08), transparent 36%)",
+            "radial-gradient(circle at 82% 18%, rgba(0,39,118,0.16), transparent 42%)",
+            "radial-gradient(circle at 54% 82%, rgba(255,255,255,0.03), transparent 32%)",
+            "linear-gradient(180deg, rgba(1,9,28,0.16) 0%, rgba(1,9,28,0.04) 24%, rgba(1,9,28,0.22) 100%)",
+            "linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 46%, var(--bg-0) 100%)",
+          ].join(", "),
+        }}
+      />
 
-    {/* Vignette (borda mais “cinema”) */}
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{
-        background:
-          "radial-gradient(78% 70% at 50% 45%, rgba(0,0,0,0.00) 38%, rgba(0,0,0,0.52) 100%)",
-      }}
-    />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: "radial-gradient(84% 72% at 50% 45%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.38) 100%)",
+        }}
+      />
 
-    {/* Grain bem sutil */}
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 opacity-[0.16]"
-      style={{ backgroundImage: "var(--grain)" }}
-    />
+      <div aria-hidden className="site-watermark-shell">
+        <div ref={watermarkRef} className="site-watermark-logo global-watermark-logo" />
+      </div>
 
-    {/* Watermark logo ao fundo (não mexer nas cores da marca; só opacidade/posição) */}
-    <div
-      ref={watermarkRef}
-      aria-hidden
-      className="pointer-events-none fixed left-1/2 top-1/2 z-[3] h-[1200px] w-[1200px] -translate-x-1/2 -translate-y-1/2 opacity-[0.2] md:h-[1500px] md:w-[1500px]"
-      style={{
-        backgroundImage: "url('/images/logo-watermark.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "contain",
-        mixBlendMode: "soft-light",
-        filter: "saturate(1.08) contrast(1.06)",
-      }}
-    />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[2] opacity-[0.11]"
+        style={{ backgroundImage: "var(--grain)" }}
+      />
 
-    {/* Scrim top (cinema) */}
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-[2]"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.04) 36%, rgba(0,0,0,0.28) 100%)",
-      }}
-    />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[2]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.03) 30%, rgba(0,0,0,0.2) 100%)",
+        }}
+      />
 
-    {/* Accent glows discretos */}
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-[2]"
-      style={{
-        background:
-          "radial-gradient(circle at 20% 28%, rgba(255,223,0,0.06), transparent 34%), radial-gradient(circle at 76% 72%, rgba(0,39,118,0.10), transparent 40%)",
-      }}
-    />
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-[2] site-section-glow" />
 
-    <div className="relative z-10">{children}</div>
-  </div>
+      <div className="relative z-10">{children}</div>
+    </div>
   );
 }

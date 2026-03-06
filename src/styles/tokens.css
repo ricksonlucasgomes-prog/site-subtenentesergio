@@ -5,9 +5,9 @@
   --brand-white: #ffffff;
 
   --t-color-background: #001437;
-  --t-color-background-soft: #001a45;
-  --t-color-card: rgba(7, 27, 74, 0.30);
-  --t-color-card-strong: rgba(8, 33, 92, 0.40);
+  --t-color-background-soft: #001943;
+  --t-color-card: rgba(9, 24, 63, 0.18);
+  --t-color-card-strong: rgba(11, 31, 79, 0.24);
 
   --t-color-border: rgba(255,255,255,0.09);
   --t-color-border-strong: rgba(255,255,255,0.14);
@@ -63,4 +63,13 @@
 
   --brand-green-hover: var(--color-accent-hover);
   --brand-green-soft: var(--color-accent-soft);
+
+  --surface-glass: rgba(255, 255, 255, 0.038);
+  --surface-glass-strong: rgba(255, 255, 255, 0.055);
+  --surface-panel: rgba(7, 21, 54, 0.20);
+  --surface-panel-strong: rgba(8, 24, 62, 0.28);
+  --surface-line: rgba(255, 255, 255, 0.10);
+  --surface-line-strong: rgba(255, 255, 255, 0.15);
+  --surface-shadow: 0 18px 54px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --surface-shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 39, 118, 0.12), 0 0 20px rgba(255, 223, 0, 0.06);
 }

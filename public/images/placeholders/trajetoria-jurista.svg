@@ -1,0 +1,19 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#021124"/>
+  <circle cx="400" cy="400" r="360" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="300" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+  <path d="M275 292H525" stroke="#FFDF00" stroke-width="24" stroke-linecap="round"/>
+  <path d="M400 292V502" stroke="rgba(255,255,255,0.24)" stroke-width="24" stroke-linecap="round"/>
+  <path d="M316 326L258 412H374L316 326Z" fill="rgba(255,255,255,0.18)"/>
+  <path d="M484 326L426 412H542L484 326Z" fill="rgba(255,255,255,0.18)"/>
+  <rect x="306" y="520" width="188" height="38" rx="19" fill="rgba(255,255,255,0.16)"/>
+  <circle cx="222" cy="220" r="90" fill="rgba(255,223,0,0.08)"/>
+  <text x="400" y="654" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="38" letter-spacing="8">JUSTICA</text>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(212 158) rotate(49.7) scale(743.168)">
+      <stop stop-color="#0A2F77"/>
+      <stop offset="0.6" stop-color="#08245A"/>
+      <stop offset="1" stop-color="#021124"/>
+    </radialGradient>
+  </defs>
+</svg>

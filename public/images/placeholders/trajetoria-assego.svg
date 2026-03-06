@@ -1,0 +1,19 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#021124"/>
+  <circle cx="400" cy="400" r="360" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="300" stroke="rgba(255,255,255,0.24)" stroke-width="2"/>
+  <rect x="182" y="232" width="436" height="248" rx="42" fill="rgba(255,255,255,0.12)"/>
+  <rect x="222" y="280" width="356" height="22" rx="11" fill="rgba(255,223,0,0.90)"/>
+  <rect x="222" y="332" width="286" height="18" rx="9" fill="rgba(255,255,255,0.24)"/>
+  <rect x="222" y="380" width="248" height="18" rx="9" fill="rgba(255,255,255,0.18)"/>
+  <circle cx="588" cy="196" r="70" fill="rgba(255,223,0,0.12)"/>
+  <circle cx="234" cy="604" r="88" fill="rgba(255,255,255,0.08)"/>
+  <text x="400" y="640" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="40" letter-spacing="8">ASSEGO</text>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(176 140) rotate(46.7) scale(760.256)">
+      <stop stop-color="#123B94"/>
+      <stop offset="0.55" stop-color="#08255C"/>
+      <stop offset="1" stop-color="#031126"/>
+    </radialGradient>
+  </defs>
+</svg>

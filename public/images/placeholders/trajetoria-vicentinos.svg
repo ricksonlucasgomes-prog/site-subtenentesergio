@@ -1,0 +1,18 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#021124"/>
+  <circle cx="400" cy="400" r="360" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="302" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+  <circle cx="320" cy="340" r="78" fill="rgba(255,255,255,0.18)"/>
+  <circle cx="478" cy="340" r="78" fill="rgba(255,255,255,0.14)"/>
+  <path d="M236 518C280 442 340 404 400 404C460 404 520 442 564 518" stroke="#FFDF00" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="212" cy="212" r="82" fill="rgba(255,223,0,0.10)"/>
+  <circle cx="590" cy="562" r="96" fill="rgba(255,255,255,0.07)"/>
+  <text x="400" y="652" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="34" letter-spacing="8">GOIAS</text>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(216 144) rotate(51.8) scale(735.989)">
+      <stop stop-color="#0C327C"/>
+      <stop offset="0.6" stop-color="#082457"/>
+      <stop offset="1" stop-color="#021124"/>
+    </radialGradient>
+  </defs>
+</svg>
