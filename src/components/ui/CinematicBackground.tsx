@@ -21,10 +21,10 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
       if (!watermarkRef.current) {
         return;
       }
-      const maxOffset = mobileQuery.matches ? 26 : 56;
+      const maxOffset = mobileQuery.matches ? 20 : 52;
       const speed = mobileQuery.matches ? 0.02 : 0.04;
       const offsetY = Math.min(maxOffset, scrollY * speed);
-      watermarkRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0) scale(1.02)`;
+      watermarkRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0)`;
     };
 
     const flush = () => {
@@ -58,10 +58,12 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
     onMotionChange();
     window.addEventListener("scroll", onScroll, { passive: true });
     mediaQuery.addEventListener("change", onMotionChange);
+    mobileQuery.addEventListener("change", onMotionChange);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       mediaQuery.removeEventListener("change", onMotionChange);
+      mobileQuery.removeEventListener("change", onMotionChange);
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
@@ -76,10 +78,10 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           background: [
-            "radial-gradient(circle at 16% 12%, rgba(255,223,0,0.08), transparent 36%)",
-            "radial-gradient(circle at 82% 18%, rgba(0,39,118,0.16), transparent 42%)",
-            "radial-gradient(circle at 54% 82%, rgba(255,255,255,0.03), transparent 32%)",
-            "linear-gradient(180deg, rgba(1,9,28,0.16) 0%, rgba(1,9,28,0.04) 24%, rgba(1,9,28,0.22) 100%)",
+            "radial-gradient(circle at 16% 12%, rgba(255,223,0,0.09), transparent 38%)",
+            "radial-gradient(circle at 82% 18%, rgba(0,39,118,0.14), transparent 44%)",
+            "radial-gradient(circle at 54% 82%, rgba(255,255,255,0.028), transparent 34%)",
+            "linear-gradient(180deg, rgba(1,9,28,0.12) 0%, rgba(1,9,28,0.03) 24%, rgba(1,9,28,0.16) 100%)",
             "linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 46%, var(--bg-0) 100%)",
           ].join(", "),
         }}
@@ -89,7 +91,7 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
         aria-hidden
         className="pointer-events-none fixed inset-0 z-0"
         style={{
-          background: "radial-gradient(84% 72% at 50% 45%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.38) 100%)",
+          background: "radial-gradient(86% 74% at 50% 45%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.3) 100%)",
         }}
       />
 
@@ -108,7 +110,7 @@ export default function CinematicBackground({ children }: CinematicBackgroundPro
         className="pointer-events-none fixed inset-0 z-[2]"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.03) 30%, rgba(0,0,0,0.2) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.02) 32%, rgba(0,0,0,0.13) 100%)",
         }}
       />
 
