@@ -402,11 +402,11 @@ export default function Home() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[440px] md:h-[640px]" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(2,10,25,0.06) 26%, rgba(2,10,25,0.44) 100%)" }} />
           </div>
           <div className="relative z-20 flex min-h-[88svh] items-end py-14 md:min-h-[78vh] md:py-24">
-            <div className="hero-content-reveal max-w-[44rem] space-y-6 pt-[4.5rem] sm:space-y-7 md:space-y-9 lg:max-w-[48rem]">
+            <div className="hero-content-reveal max-w-[46rem] space-y-6 pt-[4.5rem] sm:space-y-7 md:space-y-9 lg:max-w-[52rem]">
               <Badge className="border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] px-4 py-1.5 text-[11px] text-white sm:text-xs">CAMPANHA 2026</Badge>
               <div className="h-[2px] max-w-[9rem] rounded-full bg-[linear-gradient(90deg,rgba(255,223,0,0.95),rgba(255,255,255,0.28),transparent)] sm:max-w-[12rem]" />
               <h1 className="max-w-[11ch] text-[clamp(2.8rem,12vw,4rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white sm:max-w-[13ch] sm:text-[56px] md:text-[76px]" style={{ textShadow: "0 14px 40px rgba(0,0,0,0.62)" }}>GOIÁS SEGURO<br />EXIGE VOZ FIRME<br />EM <span className="text-accent">BRASÍLIA</span>.</h1>
-              <p className="max-w-[34rem] text-[15px] leading-relaxed text-white/80 sm:text-lg md:max-w-[38rem] md:text-[1.15rem]">Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.</p>
+              <p className="max-w-[36rem] text-[15px] leading-relaxed text-white/80 sm:text-lg md:max-w-[42rem] md:text-[1.15rem]">Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.</p>
               <div className="flex max-w-[24rem] flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62 sm:max-w-none sm:text-xs"><span>Segurança pública</span><span className="h-1 w-1 rounded-full bg-primary" /><span>Valorização policial</span><span className="h-1 w-1 rounded-full bg-primary" /><span>Ordem e família</span></div>
               <div className="flex w-full max-w-md flex-col gap-3 pt-2 sm:max-w-none sm:flex-row">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={buttonStyles("primary", "w-full px-6 py-4 text-sm font-extrabold uppercase tracking-[0.16em] shadow-[0_16px_34px_rgba(255,223,0,0.34)] sm:w-auto sm:min-w-[15.5rem]")}>Falar com a equipe</a>
@@ -445,7 +445,7 @@ export default function Home() {
         <Section id="trajetoria" className="bg-transparent">
           <div className="relative">
             <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-              <div className="max-w-xl space-y-5">
+              <div className="max-w-[42rem] space-y-5">
                 <Badge data-reveal className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">Trajetória e serviço</Badge>
                 <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Uma trajetória construída no serviço</h2>
                 <p data-reveal style={revealDelayStyle(80)} className="text-lg leading-relaxed text-muted-foreground">Da defesa da família à representação institucional, cada etapa reforça compromisso, experiência e presença real na vida pública e social de Goiás.</p>
@@ -495,7 +495,7 @@ export default function Home() {
               <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">{featuredVideo.title}</h2>
               <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-muted-foreground">{featuredVideo.subtitle}</p>
             </div>
-            <GlassCard data-reveal style={revealDelayStyle(120)} className="mx-auto mt-8 w-full max-w-[1280px] overflow-hidden p-3 shadow-[0_10px_22px_rgba(0,0,0,0.1)]">
+            <GlassCard data-reveal style={revealDelayStyle(120)} className="mx-auto mt-8 w-full max-w-[1520px] overflow-hidden p-3 shadow-[0_10px_22px_rgba(0,0,0,0.1)]">
               <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
               <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
                 <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
@@ -565,7 +565,7 @@ export default function Home() {
         <Section id="apoie" className="bg-transparent">
           <div className="relative">
             <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-              <div data-reveal className="max-w-xl space-y-6 pt-2">
+              <div data-reveal className="max-w-[42rem] space-y-6 pt-2">
                 <Badge className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">Mobilização 2026</Badge>
                 <div className="space-y-4">
                   <h2 className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
