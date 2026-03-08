@@ -5,7 +5,6 @@ import Image from "next/image";
 import { revealDelayStyle, useScrollReveal } from "@/components/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Button, buttonStyles } from "@/components/ui/Button";
-import CinematicBackground from "@/components/ui/CinematicBackground";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -230,8 +229,10 @@ function FloatingSocialButtons() {
 
 export default function Home() {
   const heroRef = useRef<HTMLElement | null>(null);
+  const watermarkRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const rafRef = useRef<number | null>(null);
+  const watermarkRafRef = useRef<number | null>(null);
   const leavingTimeoutRef = useRef<number | null>(null);
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -335,6 +336,55 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+    const applyParallax = (scrollY: number) => {
+      if (!watermarkRef.current) return;
+      const maxOffset = mobileQuery.matches ? 18 : 40;
+      const speed = mobileQuery.matches ? 0.016 : 0.028;
+      const offsetY = Math.min(maxOffset, scrollY * speed);
+      watermarkRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0)`;
+    };
+
+    const flush = () => {
+      watermarkRafRef.current = null;
+      applyParallax(window.scrollY || 0);
+    };
+
+    const onScroll = () => {
+      if (mediaQuery.matches) return;
+      if (watermarkRafRef.current === null) {
+        watermarkRafRef.current = window.requestAnimationFrame(flush);
+      }
+    };
+
+    const onMotionChange = () => {
+      if (!watermarkRef.current) return;
+      if (mediaQuery.matches) {
+        watermarkRef.current.style.transform = "translate3d(-50%, -50%, 0)";
+        return;
+      }
+      applyParallax(window.scrollY || 0);
+    };
+
+    onMotionChange();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    mediaQuery.addEventListener("change", onMotionChange);
+    mobileQuery.addEventListener("change", onMotionChange);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      mediaQuery.removeEventListener("change", onMotionChange);
+      mobileQuery.removeEventListener("change", onMotionChange);
+      if (watermarkRafRef.current !== null) {
+        window.cancelAnimationFrame(watermarkRafRef.current);
+        watermarkRafRef.current = null;
+      }
+    };
+  }, []);
+
   function validate(values: FormData): FormErrors {
     const nextErrors: FormErrors = {};
     if (values.nome.trim().length < 3) nextErrors.nome = "Informe um nome válido.";
@@ -356,8 +406,40 @@ export default function Home() {
   }
 
   return (
-    <CinematicBackground>
-      <main className="relative z-10 min-h-screen overflow-hidden text-foreground">
+    <main className="relative isolate min-h-screen overflow-x-hidden bg-[#04142b] text-foreground">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 select-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: [
+              "radial-gradient(circle at 16% 8%, rgba(255,223,0,0.09), transparent 28%)",
+              "radial-gradient(circle at 84% 12%, rgba(12,48,130,0.18), transparent 34%)",
+              "radial-gradient(circle at 50% 36%, rgba(255,255,255,0.028), transparent 28%)",
+              "radial-gradient(circle at 50% 82%, rgba(4,11,27,0), rgba(3,9,24,0.32) 56%, rgba(2,7,18,0.76) 100%)",
+              "linear-gradient(180deg, rgba(2,12,31,0.92) 0%, rgba(3,18,48,0.98) 38%, rgba(2,10,26,1) 100%)",
+            ].join(", "),
+          }}
+        />
+        <div
+          ref={watermarkRef}
+          className="absolute left-1/2 top-[58%] will-change-transform"
+          style={{ transform: "translate3d(-50%, -50%, 0)" }}
+        >
+          <Image
+            src="/images/logo-watermark.png"
+            alt=""
+            width={1500}
+            height={1500}
+            priority
+            className="h-auto w-[clamp(1100px,84vw,1600px)] max-w-none opacity-[0.045] sm:opacity-[0.05] lg:opacity-[0.06] pointer-events-none select-none"
+          />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_52%,rgba(255,255,255,0.025),transparent_24%),radial-gradient(circle_at_22%_20%,rgba(255,223,0,0.028),transparent_24%),radial-gradient(circle_at_78%_18%,rgba(255,255,255,0.022),transparent_22%)]" />
+        <div className="absolute inset-0 opacity-[0.1]" style={{ backgroundImage: "var(--grain)" }} />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.2)_0%,rgba(0,0,0,0.04)_26%,rgba(0,0,0,0.18)_100%)]" />
+      </div>
+
+      <div className="relative z-10 min-h-screen">
         <header className={`sticky top-0 z-40 border-b border-white/10 backdrop-blur-2xl transition-all duration-300 ${isScrolled ? "bg-[linear-gradient(180deg,rgba(2,12,38,0.78),rgba(4,19,58,0.58))] shadow-[0_18px_42px_rgba(0,0,0,0.28)]" : "bg-[linear-gradient(180deg,rgba(2,12,38,0.42),rgba(4,19,58,0.28))]"}`}>
           <Container className="py-3">
             <div className="flex h-[68px] items-center justify-between gap-3 rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,rgba(5,24,74,0.58),rgba(4,33,96,0.38))] px-4 shadow-[0_16px_32px_rgba(1,7,24,0.24)] ring-1 ring-[rgba(255,255,255,0.05)] md:h-[76px] md:px-6 lg:px-7">
@@ -508,7 +590,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section className="border-b border-border bg-transparent">
+        <Section className="bg-transparent">
           <div className="relative">
             <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">Prova social</h2>
             <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -522,7 +604,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section className="border-b border-border bg-transparent">
+        <Section className="bg-transparent">
           <div className="relative">
             <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">Vídeos</h2>
             <div className="mt-10 grid gap-12">
@@ -640,7 +722,7 @@ export default function Home() {
             <Container className="pb-8"><p className="text-xs text-subtle-foreground">Aviso LGPD: seus dados serão usados apenas para a comunicação da campanha.</p></Container>
           </div>
         </footer>
-      </main>
-    </CinematicBackground>
+      </div>
+    </main>
   );
 }

@@ -255,113 +255,6 @@ body::after {
   );
 }
 
-@keyframes watermarkDriftX {
-  0% {
-    transform: translate3d(-20px, 0, 0);
-  }
-  100% {
-    transform: translate3d(20px, 0, 0);
-  }
-}
-
-@keyframes watermarkBreathe {
-  0% {
-    opacity: 0.11;
-  }
-  50% {
-    opacity: 0.15;
-  }
-  100% {
-    opacity: 0.11;
-  }
-}
-
-.global-watermark-logo {
-  animation:
-    watermarkDriftX 22s ease-in-out infinite alternate,
-    watermarkBreathe 14s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.site-watermark-shell {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.site-watermark-shell::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(120vw, 1480px);
-  height: min(120vw, 1480px);
-  transform: translate3d(-50%, -50%, 0);
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.045) 24%, transparent 66%);
-  filter: blur(28px);
-  opacity: 0.68;
-}
-
-.site-watermark-shell::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 36%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(8px);
-  opacity: 0.24;
-}
-
-.site-watermark-logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100vw;
-  height: 100vh;
-  transform: translate3d(-50%, -50%, 0);
-  background-image: url("/images/logo-watermark.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: clamp(680px, 58vw, 1180px);
-  mix-blend-mode: screen;
-  opacity: 0.3;
-  filter: blur(0.25px) saturate(1) contrast(1.16);
-  will-change: transform, opacity;
-}
-
-.site-section-glow {
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 223, 0, 0.026), transparent 30%),
-    radial-gradient(circle at 82% 24%, rgba(0, 39, 118, 0.044), transparent 36%),
-    radial-gradient(circle at 50% 78%, rgba(255, 255, 255, 0.016), transparent 28%);
-}
-
-@media (max-width: 767px) {
-  .site-watermark-shell::before {
-    width: min(132vw, 760px);
-    height: min(132vw, 760px);
-    opacity: 0.46;
-  }
-
-  .site-watermark-shell::after {
-    backdrop-filter: blur(5px);
-    opacity: 0.16;
-  }
-
-  .site-watermark-logo {
-    width: 100vw;
-    height: 100vh;
-    background-size: clamp(280px, 78vw, 420px);
-    background-position: center 46%;
-    opacity: 0.22;
-  }
-}
-
 [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
@@ -436,13 +329,8 @@ body::after {
   .hero-content-reveal,
   .seal-reveal,
   .overlay-breathe,
-  .hero-moving-light,
-  .global-watermark-logo {
+  .hero-moving-light {
     animation: none !important;
-  }
-
-  .site-watermark-logo {
-    transform: translate3d(-50%, -50%, 0) !important;
   }
 
   body::before,
