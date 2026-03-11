@@ -401,13 +401,13 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="relative h-[2.9rem] w-[12.15rem] shrink min-w-0 sm:h-[3.15rem] sm:w-[13.8rem]">
+              <div className="relative flex h-[2.34rem] w-[11.35rem] shrink min-w-0 items-center sm:h-[2.52rem] sm:w-[12.1rem]">
                 <Image
                   src="/images/header-wordmark.svg"
                   alt="Logo Subtenente Sérgio"
                   fill
-                  sizes="(max-width: 640px) 194px, 221px"
-                  className="object-contain object-left"
+                  sizes="(max-width: 640px) 182px, 194px"
+                  className="object-contain object-left object-center"
                 />
               </div>
             </a>
@@ -441,6 +441,20 @@ export default function Home() {
               />
             );
           })}
+        </div>
+
+        <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
+          <div className="absolute left-1/2 top-1/2 h-[128%] w-[128%] -translate-x-[16%] -translate-y-1/2 opacity-[0.12] mix-blend-screen blur-[1px] sm:opacity-[0.14] lg:h-[134%] lg:w-[134%]">
+            <Image
+              src="/images/brazil-flag-premium-bg.svg"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-contain"
+            />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,8,16,0.78)_0%,rgba(4,8,16,0.34)_43%,rgba(4,8,16,0.78)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_56%_44%,rgba(255,223,0,0.06),transparent_24%),radial-gradient(circle_at_66%_54%,rgba(20,105,255,0.08),transparent_24%),radial-gradient(circle_at_42%_30%,rgba(0,161,55,0.08),transparent_26%)]" />
         </div>
 
         <div className="pointer-events-none absolute inset-0 z-[3] hero-mouse-glow opacity-90" />
