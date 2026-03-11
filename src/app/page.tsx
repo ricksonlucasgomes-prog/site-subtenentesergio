@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { CSSProperties, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -13,7 +13,17 @@ import { Section } from "@/components/ui/Section";
 type FormData = { nome: string; whatsapp: string; cidade: string };
 type FormErrors = Partial<Record<keyof FormData, string>>;
 type StatItem = { value: number; label: string; suffix?: string; format?: "compactThousandsPt" | "plain" };
-type TrajectoryItem = { title: string; label: string; alt: string; image: string; size: "sm" | "md" | "lg" };
+type TrajectoryItem = {
+  title: string;
+  label: string;
+  alt: string;
+  variant: "large" | "medium" | "small";
+  subtitle?: string;
+  description: string;
+  imageSrc?: string;
+  iconSrc?: string;
+  objectPosition?: string;
+};
 
 const WHATSAPP_LINK = "https://wa.me/5562995073952";
 const INSTAGRAM_LINK = "https://instagram.com/subtenentesergio";
@@ -22,44 +32,81 @@ const HERO_SLIDE_INTERVAL_MS = 10000;
 const HERO_FADE_MS = 2000;
 
 const featuredVideo = {
-  title: "Assista e entenda por que eu não paro.",
-  subtitle: "Sem rodeios: posição firme, experiência real e compromisso com Goiás.",
+  title: "Assista e entenda por que eu nÃ£o paro.",
+  subtitle: "Sem rodeios: posiÃ§Ã£o firme, experiÃªncia real e compromisso com GoiÃ¡s.",
   youtubeId: "bP133Tsw-Zc",
 };
 
 const shorts = [
-  { title: "Recado direto sobre segurança nas ruas.", youtubeId: "ED_POXa7vo0", tag: "Segurança" },
-  { title: "Valorização policial sem enrolação.", youtubeId: "short-placeholder-2", tag: "Categoria" },
-  { title: "Família e ordem: compromisso de mandato.", youtubeId: "short-placeholder-3", tag: "Valores" },
+  { title: "Recado direto sobre seguranÃ§a nas ruas.", youtubeId: "ED_POXa7vo0", tag: "SeguranÃ§a" },
+  { title: "ValorizaÃ§Ã£o policial sem enrolaÃ§Ã£o.", youtubeId: "short-placeholder-2", tag: "Categoria" },
+  { title: "FamÃ­lia e ordem: compromisso de mandato.", youtubeId: "short-placeholder-3", tag: "Valores" },
 ];
 
 const longVideos = [
-  { title: "Entrevista completa: prioridades para Brasília.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-1" },
-  { title: "Propostas para segurança pública em profundidade.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-2" },
-  { title: "Defesa da categoria policial: plano de ação.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-3" },
+  { title: "Entrevista completa: prioridades para BrasÃ­lia.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-1" },
+  { title: "Propostas para seguranÃ§a pÃºblica em profundidade.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-2" },
+  { title: "Defesa da categoria policial: plano de aÃ§Ã£o.", youtubeUrl: "https://www.youtube.com/watch?v=video-placeholder-3" },
 ];
 
 const STATS: StatItem[] = [
-  { value: 18, label: "PROJETOS EM DEFESA DO CIDADÃO", format: "plain" },
-  { value: 64, label: "AUDIÊNCIAS E REUNIÕES EM BRASÍLIA", format: "plain" },
+  { value: 18, label: "PROJETOS EM DEFESA DO CIDADÃƒO", format: "plain" },
+  { value: 64, label: "AUDIÃŠNCIAS E REUNIÃ•ES EM BRASÃLIA", format: "plain" },
   { value: 82, label: "BAIRROS VISITADOS", suffix: "+", format: "plain" },
   { value: 240, label: "DEMANDAS ENCAMINHADAS", suffix: "+", format: "plain" },
 ];
 
 const TRAJECTORY_ITEMS: TrajectoryItem[] = [
-  { title: "Conselheiro Tutelar", label: "Serviço público", alt: "Placeholder institucional para Conselheiro Tutelar", image: "/images/placeholders/trajetoria-conselheiro.svg", size: "lg" },
-  { title: "Presidente da ASSEGO", label: "Representação", alt: "Placeholder institucional para Presidente da ASSEGO", image: "/images/placeholders/trajetoria-assego.svg", size: "md" },
-  { title: "Igreja", label: "Comunidade", alt: "Placeholder institucional para atuação na Igreja", image: "/images/placeholders/trajetoria-igreja.svg", size: "sm" },
-  { title: "Jurista", label: "Formação", alt: "Placeholder institucional para atuação como jurista", image: "/images/placeholders/trajetoria-jurista.svg", size: "md" },
-  { title: "Vicentinos em Goiás", label: "Ação social", alt: "Placeholder institucional para atuação com os Vicentinos em Goiás", image: "/images/placeholders/trajetoria-vicentinos.svg", size: "lg" },
+  {
+    title: "Conselheiro Tutelar",
+    label: "Servi??o p??blico",
+    subtitle: "Prote??o direta ? fam??lia",
+    description: "Atua????o de linha de frente, presen?a institucional e defesa firme de quem mais precisa de amparo.",
+    alt: "Subtenente S??rgio como Conselheiro Tutelar",
+    imageSrc: "/images/conselheiro-tutelar.jpeg",
+    iconSrc: "/images/placeholders/trajetoria-conselheiro.svg",
+    objectPosition: "center 16%",
+    variant: "large",
+  },
+  {
+    title: "Presidente da ASSEGO",
+    label: "Representa????o",
+    subtitle: "Lideran?a de categoria",
+    description: "Articula????o institucional, defesa organizada da classe e voz firme nos espa?os de decis?o.",
+    alt: "Placeholder institucional para Presidente da ASSEGO",
+    iconSrc: "/images/placeholders/trajetoria-assego.svg",
+    variant: "medium",
+  },
+  {
+    title: "Igreja",
+    label: "Comunidade",
+    subtitle: "Base moral e presen?a social",
+    description: "Compromisso com valores, escuta da comunidade e servi?o pr?ximo das pessoas.",
+    alt: "Subtenente S??rgio em atua????o na Igreja",
+    imageSrc: "/images/igreja.jpeg",
+    iconSrc: "/images/placeholders/trajetoria-igreja.svg",
+    objectPosition: "center 14%",
+    variant: "small",
+  },
+  {
+    title: "Vicentinos em Goi??s",
+    label: "A????o social",
+    subtitle: "Servi?o que chega na ponta",
+    description: "Trabalho solid?rio com presen?a concreta, responsabilidade p?blica e impacto social real em Goi?s.",
+    alt: "Subtenente S??rgio em atua????o com os Vicentinos em Goi??s",
+    imageSrc: "/images/vicentinos.jpeg",
+    iconSrc: "/images/placeholders/trajetoria-vicentinos.svg",
+    objectPosition: "center 20%",
+    variant: "large",
+  },
 ];
 
 const FAQ_ITEMS = [
-  { q: "Quais são as prioridades do mandato?", a: "Segurança pública, valorização policial, defesa da família e compromisso com a ordem social." },
-  { q: "Como posso apoiar a campanha?", a: "Com cadastro no formulário, compartilhamento dos materiais oficiais e mobilização local na sua cidade." },
-  { q: "Haverá agenda presencial?", a: "Sim. A agenda é divulgada continuamente no Instagram oficial e nos canais da equipe." },
+  { q: "Quais sÃ£o as prioridades do mandato?", a: "SeguranÃ§a pÃºblica, valorizaÃ§Ã£o policial, defesa da famÃ­lia e compromisso com a ordem social." },
+  { q: "Como posso apoiar a campanha?", a: "Com cadastro no formulÃ¡rio, compartilhamento dos materiais oficiais e mobilizaÃ§Ã£o local na sua cidade." },
+  { q: "HaverÃ¡ agenda presencial?", a: "Sim. A agenda Ã© divulgada continuamente no Instagram oficial e nos canais da equipe." },
   { q: "Como posso enviar demandas da categoria?", a: "Pelo WhatsApp oficial e pelos canais de atendimento da campanha." },
-  { q: "Onde acompanho notícias e posicionamentos?", a: "No Instagram oficial e nas publicações semanais da campanha." },
+  { q: "Onde acompanho notÃ­cias e posicionamentos?", a: "No Instagram oficial e nas publicaÃ§Ãµes semanais da campanha." },
 ];
 
 function formatStatValue(value: number, stat: StatItem) {
@@ -168,7 +215,7 @@ function StatsCounters() {
         <GlassCard ref={sectionRef} data-reveal className="overflow-hidden rounded-3xl p-6 md:p-8">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">TEMAS E COMPROMISSOS</h2>
-            <p className="mt-3 text-base text-muted-foreground sm:text-lg">Números que refletem presença, trabalho e prioridades para Brasília.</p>
+            <p className="mt-3 text-base text-muted-foreground sm:text-lg">NÃºmeros que refletem presenÃ§a, trabalho e prioridades para BrasÃ­lia.</p>
           </div>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-0">
             {STATS.map((stat, index) => (
@@ -244,9 +291,9 @@ export default function Home() {
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   const testimonials = useMemo(() => [
-    "Sérgio conhece a rua, enfrenta o crime e não foge do debate quando o assunto é segurança.",
-    "A tropa precisa de voz firme em Brasília. Sérgio tem história, postura e coragem para representar.",
-    "Chega de promessa vazia. Queremos alguém que defenda polícia valorizada e a lei sendo cumprida.",
+    "SÃ©rgio conhece a rua, enfrenta o crime e nÃ£o foge do debate quando o assunto Ã© seguranÃ§a.",
+    "A tropa precisa de voz firme em BrasÃ­lia. SÃ©rgio tem histÃ³ria, postura e coragem para representar.",
+    "Chega de promessa vazia. Queremos alguÃ©m que defenda polÃ­cia valorizada e a lei sendo cumprida.",
   ], []);
 
   useScrollReveal();
@@ -387,8 +434,8 @@ export default function Home() {
 
   function validate(values: FormData): FormErrors {
     const nextErrors: FormErrors = {};
-    if (values.nome.trim().length < 3) nextErrors.nome = "Informe um nome válido.";
-    if (!/^\+?[0-9()\s-]{10,}$/.test(values.whatsapp.trim())) nextErrors.whatsapp = "Informe um WhatsApp válido com DDD.";
+    if (values.nome.trim().length < 3) nextErrors.nome = "Informe um nome vÃ¡lido.";
+    if (!/^\+?[0-9()\s-]{10,}$/.test(values.whatsapp.trim())) nextErrors.whatsapp = "Informe um WhatsApp vÃ¡lido com DDD.";
     if (values.cidade.trim().length < 2) nextErrors.cidade = "Informe sua cidade.";
     return nextErrors;
   }
@@ -446,16 +493,16 @@ export default function Home() {
               <div className="flex min-w-0 items-center gap-3 md:gap-4">
                 <div className="relative shrink-0">
                   <div aria-hidden className="pointer-events-none absolute inset-[-8%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.045),transparent_68%)] blur-md opacity-45" />
-                  <Image src="/logo.svg" alt="Logo oficial Subtenente Sérgio" width={120} height={48} className="relative h-10 w-auto object-contain opacity-95 mix-blend-screen [filter:contrast(1.06)_saturate(1.03)] drop-shadow-[0_8px_18px_rgba(0,0,0,0.16)] md:h-11" />
+                  <Image src="/logo.svg" alt="Logo oficial Subtenente SÃ©rgio" width={120} height={48} className="relative h-10 w-auto object-contain opacity-95 mix-blend-screen [filter:contrast(1.06)_saturate(1.03)] drop-shadow-[0_8px_18px_rgba(0,0,0,0.16)] md:h-11" />
                 </div>
                 <div className="hidden min-w-0 sm:block">
-                  <p className="truncate text-sm font-extrabold uppercase tracking-[0.18em] text-white/95">Subtenente Sérgio</p>
+                  <p className="truncate text-sm font-extrabold uppercase tracking-[0.18em] text-white/95">Subtenente SÃ©rgio</p>
                   <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/64">Campanha 2026</p>
                 </div>
               </div>
               <nav className="hidden items-center gap-2 lg:flex">
                 <a href="#bandeiras" className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/[0.07] hover:text-white">Bandeiras</a>
-                <a href="#trajetoria" className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/[0.07] hover:text-white">Trajetória</a>
+                <a href="#trajetoria" className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/[0.07] hover:text-white">TrajetÃ³ria</a>
                 <a href="#apoie" className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/[0.07] hover:text-white">Apoie</a>
                 <a href="#faq" className="rounded-full border border-transparent px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72 transition-all duration-200 hover:border-white/14 hover:bg-white/[0.07] hover:text-white">FAQ</a>
               </nav>
@@ -472,7 +519,7 @@ export default function Home() {
               const isActive = index === activeIndex;
               const isLeaving = index === leavingIndex;
               const zoomClass = isActive || isLeaving ? "animate-[cinematicZoom_10s_ease-in-out_forwards]" : "";
-              return <Image key={src} src={src} alt="Foto oficial do Subtenente Sérgio" fill sizes="100vw" priority={index === 0} className={`absolute inset-0 scale-[1.14] object-cover [object-position:58%_18%] md:scale-[1.1] md:[object-position:64%_26%] transition-opacity ease-in-out transform-gpu backface-hidden will-change-[opacity,transform] [transform-origin:center] ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"} ${zoomClass}`} style={{ transitionDuration: `${HERO_FADE_MS}ms` }} />;
+              return <Image key={src} src={src} alt="Foto oficial do Subtenente SÃ©rgio" fill sizes="100vw" priority={index === 0} className={`absolute inset-0 scale-[1.14] object-cover [object-position:58%_18%] md:scale-[1.1] md:[object-position:64%_26%] transition-opacity ease-in-out transform-gpu backface-hidden will-change-[opacity,transform] [transform-origin:center] ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"} ${zoomClass}`} style={{ transitionDuration: `${HERO_FADE_MS}ms` }} />;
             })}
           </div>
           <div aria-hidden className="hero-mouse-glow pointer-events-none absolute inset-0 z-[9]" />
@@ -487,9 +534,9 @@ export default function Home() {
             <div className="hero-content-reveal max-w-[46rem] space-y-6 pt-[4.5rem] sm:space-y-7 md:space-y-9 lg:max-w-[52rem]">
               <Badge className="border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] px-4 py-1.5 text-[11px] text-white sm:text-xs">CAMPANHA 2026</Badge>
               <div className="h-[2px] max-w-[9rem] rounded-full bg-[linear-gradient(90deg,rgba(255,223,0,0.95),rgba(255,255,255,0.28),transparent)] sm:max-w-[12rem]" />
-              <h1 className="max-w-[11ch] text-[clamp(2.8rem,12vw,4rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white sm:max-w-[13ch] sm:text-[56px] md:text-[76px]" style={{ textShadow: "0 14px 40px rgba(0,0,0,0.62)" }}>GOIÁS SEGURO<br />EXIGE VOZ FIRME<br />EM <span className="text-accent">BRASÍLIA</span>.</h1>
-              <p className="max-w-[36rem] text-[15px] leading-relaxed text-white/80 sm:text-lg md:max-w-[42rem] md:text-[1.15rem]">Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.</p>
-              <div className="flex max-w-[24rem] flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62 sm:max-w-none sm:text-xs"><span>Segurança pública</span><span className="h-1 w-1 rounded-full bg-primary" /><span>Valorização policial</span><span className="h-1 w-1 rounded-full bg-primary" /><span>Ordem e família</span></div>
+              <h1 className="max-w-[11ch] text-[clamp(2.8rem,12vw,4rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white sm:max-w-[13ch] sm:text-[56px] md:text-[76px]" style={{ textShadow: "0 14px 40px rgba(0,0,0,0.62)" }}>GOIÃS SEGURO<br />EXIGE VOZ FIRME<br />EM <span className="text-accent">BRASÃLIA</span>.</h1>
+              <p className="max-w-[36rem] text-[15px] leading-relaxed text-white/80 sm:text-lg md:max-w-[42rem] md:text-[1.15rem]">ExperiÃªncia de rua, disciplina institucional e compromisso direto com quem protege as famÃ­lias goianas.</p>
+              <div className="flex max-w-[24rem] flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62 sm:max-w-none sm:text-xs"><span>SeguranÃ§a pÃºblica</span><span className="h-1 w-1 rounded-full bg-primary" /><span>ValorizaÃ§Ã£o policial</span><span className="h-1 w-1 rounded-full bg-primary" /><span>Ordem e famÃ­lia</span></div>
               <div className="flex w-full max-w-md flex-col gap-3 pt-2 sm:max-w-none sm:flex-row">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={buttonStyles("primary", "w-full px-6 py-4 text-sm font-extrabold uppercase tracking-[0.16em] shadow-[0_16px_34px_rgba(255,223,0,0.34)] sm:w-auto sm:min-w-[15.5rem]")}>Falar com a equipe</a>
                 <a href="#apoie" className={buttonStyles("secondary", "w-full border-white/16 bg-white/[0.05] px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white hover:bg-white/[0.08] sm:w-auto sm:min-w-[14rem]")}>Apoiar a campanha</a>
@@ -503,14 +550,14 @@ export default function Home() {
             <div className="max-w-3xl space-y-5">
               <Badge data-reveal className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">Prioridades de mandato</Badge>
               <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Bandeiras</h2>
-              <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg leading-relaxed text-muted-foreground">Eixos de atuação com postura institucional, prioridade política clara e compromisso direto com a realidade das famílias goianas.</p>
+              <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg leading-relaxed text-muted-foreground">Eixos de atuaÃ§Ã£o com postura institucional, prioridade polÃ­tica clara e compromisso direto com a realidade das famÃ­lias goianas.</p>
             </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { prioridade: "Prioridade 01", titulo: "Segurança", texto: "Combate firme ao crime, inteligência operacional e defesa objetiva de quem vive sob pressão nas ruas.", rodape: "Ordem pública" },
-                { prioridade: "Prioridade 02", titulo: "Valorização", texto: "Respeito, estrutura e reconhecimento para os profissionais que sustentam a segurança pública com disciplina e coragem.", rodape: "Defesa da categoria" },
-                { prioridade: "Prioridade 03", titulo: "Família", texto: "Proteção da família, educação com valores e políticas públicas que reforcem estabilidade social e responsabilidade coletiva.", rodape: "Base da sociedade" },
-                { prioridade: "Prioridade 04", titulo: "Ordem", texto: "Autoridade responsável, compromisso com a lei e direção firme para devolver previsibilidade ao país.", rodape: "Liderança institucional" },
+                { prioridade: "Prioridade 01", titulo: "SeguranÃ§a", texto: "Combate firme ao crime, inteligÃªncia operacional e defesa objetiva de quem vive sob pressÃ£o nas ruas.", rodape: "Ordem pÃºblica" },
+                { prioridade: "Prioridade 02", titulo: "ValorizaÃ§Ã£o", texto: "Respeito, estrutura e reconhecimento para os profissionais que sustentam a seguranÃ§a pÃºblica com disciplina e coragem.", rodape: "Defesa da categoria" },
+                { prioridade: "Prioridade 03", titulo: "FamÃ­lia", texto: "ProteÃ§Ã£o da famÃ­lia, educaÃ§Ã£o com valores e polÃ­ticas pÃºblicas que reforcem estabilidade social e responsabilidade coletiva.", rodape: "Base da sociedade" },
+                { prioridade: "Prioridade 04", titulo: "Ordem", texto: "Autoridade responsÃ¡vel, compromisso com a lei e direÃ§Ã£o firme para devolver previsibilidade ao paÃ­s.", rodape: "LideranÃ§a institucional" },
               ].map((item, index) => (
                 <GlassCard key={item.titulo} data-reveal style={revealDelayStyle(index * 80)} className="group relative overflow-hidden border-white/10 bg-[var(--glass)] p-6 shadow-[0_14px_28px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_18px_34px_rgba(255,223,0,0.04)]">
                   <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,223,0,0.75),transparent)]" />
@@ -526,40 +573,51 @@ export default function Home() {
 
         <Section id="trajetoria" className="bg-transparent">
           <div className="relative">
-            <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-              <div className="max-w-[42rem] space-y-5">
-                <Badge data-reveal className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">Trajetória e serviço</Badge>
-                <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Uma trajetória construída no serviço</h2>
-                <p data-reveal style={revealDelayStyle(80)} className="text-lg leading-relaxed text-muted-foreground">Da defesa da família à representação institucional, cada etapa reforça compromisso, experiência e presença real na vida pública e social de Goiás.</p>
-                <GlassCard data-reveal style={revealDelayStyle(140)} className="rounded-[1.8rem] border-white/10 bg-[var(--glass)] p-6 shadow-[0_10px_22px_rgba(0,0,0,0.09)]">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/52">Marcos de atuação</p>
+            <div className="grid gap-10 lg:grid-cols-[0.84fr_1.16fr] lg:items-stretch lg:gap-12">
+              <div className="max-w-[42rem] space-y-5 lg:pr-4">
+                <Badge data-reveal className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">TrajetÃ³ria e serviÃ§o</Badge>
+                <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Uma trajetÃ³ria construÃ­da no serviÃ§o</h2>
+                <p data-reveal style={revealDelayStyle(80)} className="text-lg leading-relaxed text-muted-foreground">Da defesa da famÃ­lia Ã  representaÃ§Ã£o institucional, cada etapa reforÃ§a compromisso, experiÃªncia e presenÃ§a real na vida pÃºblica e social de GoiÃ¡s.</p>
+                <GlassCard data-reveal style={revealDelayStyle(140)} className="rounded-[2rem] border-white/10 bg-[linear-gradient(180deg,rgba(10,24,58,0.62),rgba(4,14,36,0.46))] p-6 shadow-[0_18px_40px_rgba(0,0,0,0.16)] backdrop-blur-[16px]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/52">Marcos de atuaÃ§Ã£o</p>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     {TRAJECTORY_ITEMS.map((item) => (
-                      <div key={`summary-${item.title}`} className="rounded-2xl border border-white/10 bg-white/[0.012] px-4 py-3">
+                      <div key={`summary-${item.title}`} className="rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015))] px-4 py-3">
                         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">{item.label}</p>
                         <p className="mt-2 text-sm font-semibold text-white/84">{item.title}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-white/58">{item.subtitle}</p>
                       </div>
                     ))}
                   </div>
                 </GlassCard>
               </div>
-              <div data-reveal style={revealDelayStyle(160)} className="relative isolate overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[linear-gradient(180deg,var(--panel),rgba(255,255,255,0.004))] px-4 py-8 shadow-[0_8px_18px_rgba(0,0,0,0.08)] backdrop-blur-[12px] sm:px-6 sm:py-10">
-                <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,223,0,0.045),transparent_22%),radial-gradient(circle_at_80%_18%,rgba(255,255,255,0.03),transparent_20%),linear-gradient(180deg,rgba(255,255,255,0.016),transparent_42%)]" />
-                <div className="relative grid grid-cols-2 place-items-center gap-x-3 gap-y-7 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-8">
+              <div data-reveal style={revealDelayStyle(160)} className="relative isolate overflow-hidden rounded-[2.3rem] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(7,20,50,0.84),rgba(4,13,33,0.86))] p-5 shadow-[0_26px_60px_rgba(0,0,0,0.22)] backdrop-blur-[16px] sm:p-7 lg:flex lg:min-h-[42rem] lg:items-center lg:p-8">
+                <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(255,223,0,0.08),transparent_24%),radial-gradient(circle_at_78%_16%,rgba(255,255,255,0.05),transparent_20%),radial-gradient(circle_at_52%_64%,rgba(12,48,130,0.16),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.022),transparent_42%)]" />
+                <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "var(--grain)" }} />
+                <div className="relative grid w-full grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2 lg:gap-7">
                   {TRAJECTORY_ITEMS.map((item, index) => {
-                    const sizeClass = item.size === "lg" ? "h-44 w-44 sm:h-52 sm:w-52" : item.size === "md" ? "h-36 w-36 sm:h-[10.5rem] sm:w-[10.5rem]" : "h-28 w-28 sm:h-32 sm:w-32";
-                    const offsetClass = index === 1 ? "sm:translate-y-8" : index === 2 ? "sm:-translate-y-3" : index === 3 ? "sm:-translate-y-10" : index === 4 ? "col-span-2 sm:col-span-1 sm:translate-y-4" : "";
+                    const mediaSrc = item.imageSrc ?? item.iconSrc ?? "/images/placeholders/trajetoria-assego.svg";
                     return (
-                      <article key={item.title} data-reveal style={revealDelayStyle(180 + index * 70)} className={`group relative flex flex-col items-center text-center ${offsetClass}`}>
-                        <div className={`${sizeClass} relative overflow-hidden rounded-full border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-2 shadow-[0_10px_22px_rgba(0,0,0,0.1)] ring-1 ring-[rgba(255,255,255,0.035)] transition-transform duration-300 group-hover:-translate-y-1`}>
-                          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_28%,rgba(255,223,0,0.14),transparent_34%)]" />
-                          <div className="relative h-full w-full overflow-hidden rounded-full border border-white/10">
-                            <Image src={item.image} alt={item.alt} fill sizes="(max-width: 640px) 176px, (max-width: 1024px) 210px, 240px" className="object-cover" />
-                            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,14,38,0.02),rgba(4,14,38,0.48))]" />
+                      <article key={item.title} data-reveal style={revealDelayStyle(180 + index * 70)} className="group flex min-h-[21rem] flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015))] px-5 py-6 text-center shadow-[0_18px_36px_rgba(0,0,0,0.16)] backdrop-blur-[10px] transition-all duration-300 hover:border-white/14 hover:shadow-[0_22px_42px_rgba(0,0,0,0.22)] sm:min-h-[22rem]">
+                        <div className="relative flex h-[14.5rem] w-[14.5rem] items-center justify-center overflow-hidden rounded-full border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[0.55rem] shadow-[0_20px_40px_rgba(0,0,0,0.24)] ring-1 ring-[rgba(255,255,255,0.045)] transition-transform duration-300 group-hover:-translate-y-1 sm:h-[15.5rem] sm:w-[15.5rem]">
+                          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_28%_24%,rgba(255,223,0,0.18),transparent_30%)]" />
+                          <div className="absolute inset-[4px] rounded-full border border-white/10" />
+                          <div className="relative h-full w-full overflow-hidden rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(9,20,48,0.96),rgba(5,14,36,0.98))]">
+                            <Image
+                              src={mediaSrc}
+                              alt={item.alt}
+                              fill
+                              sizes="(max-width: 640px) 248px, (max-width: 1024px) 280px, 300px"
+                              className="object-cover saturate-[0.88] contrast-[1.1] brightness-[0.68]"
+                              style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
+                            />
+                            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_48%_18%,rgba(255,255,255,0.14),transparent_34%)] mix-blend-screen opacity-75" />
+                            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,14,38,0.14)_0%,rgba(4,16,42,0.34)_42%,rgba(2,9,24,0.84)_100%)]" />
+                            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(135deg,rgba(3,15,45,0.38),rgba(7,28,78,0.12)_48%,rgba(1,7,18,0.52))]" />
                           </div>
                         </div>
-                        <span className="mt-4 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">{item.label}</span>
-                        <h3 className="mt-3 max-w-[15ch] text-sm font-bold uppercase tracking-[0.08em] text-foreground sm:text-base">{item.title}</h3>
+                        <span className="mt-5 inline-flex rounded-full border border-white/16 bg-[rgba(3,10,24,0.42)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/78 backdrop-blur-md">{item.label}</span>
+                        <h3 className="mt-3 max-w-[16rem] text-lg font-black uppercase leading-[1.02] tracking-[0.02em] text-white drop-shadow-[0_10px_24px_rgba(0,0,0,0.42)] sm:text-[1.35rem]">{item.title}</h3>
                       </article>
                     );
                   })}
@@ -578,7 +636,7 @@ export default function Home() {
               <p data-reveal style={revealDelayStyle(80)} className="max-w-2xl text-lg text-muted-foreground">{featuredVideo.subtitle}</p>
             </div>
             <GlassCard data-reveal style={revealDelayStyle(120)} className="mx-auto mt-8 w-full max-w-[1520px] overflow-hidden p-3 shadow-[0_10px_22px_rgba(0,0,0,0.1)]">
-              <p className="mb-3 px-1 text-lg font-bold text-foreground">Vídeo em destaque</p>
+              <p className="mb-3 px-1 text-lg font-bold text-foreground">VÃ­deo em destaque</p>
               <div className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black">
                 <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
               </div>
@@ -606,7 +664,7 @@ export default function Home() {
 
         <Section className="bg-transparent">
           <div className="relative">
-            <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">Vídeos</h2>
+            <h2 data-reveal className="text-3xl font-extrabold text-foreground sm:text-4xl">VÃ­deos</h2>
             <div className="mt-10 grid gap-12">
               <div>
                 <h3 data-reveal style={revealDelayStyle(40)} className="text-2xl font-bold text-foreground">Curtos (Reels/Shorts)</h3>
@@ -627,7 +685,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-foreground">Vídeos completos</h3>
+                <h3 data-reveal style={revealDelayStyle(60)} className="text-2xl font-bold text-foreground">VÃ­deos completos</h3>
                 <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                   {longVideos.map((video, index) => (
                     <a key={video.youtubeUrl} data-reveal style={revealDelayStyle(index * 70)} href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" className="group block rounded-2xl border border-border bg-[linear-gradient(180deg,var(--panel),rgba(255,255,255,0.008))] p-3 shadow-[0_10px_24px_rgba(0,0,0,0.12)] backdrop-blur-[13px] transition-all duration-300 motion-safe:hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_14px_28px_rgba(255,223,0,0.05)]">
@@ -648,17 +706,17 @@ export default function Home() {
           <div className="relative">
             <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
               <div data-reveal className="max-w-[42rem] space-y-6 pt-2">
-                <Badge className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">Mobilização 2026</Badge>
+                <Badge className="border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-4 py-1.5 text-white">MobilizaÃ§Ã£o 2026</Badge>
                 <div className="space-y-4">
                   <h2 className="text-3xl font-extrabold uppercase tracking-[-0.02em] text-foreground sm:text-4xl">Cadastro de apoiadores</h2>
-                  <p className="text-lg leading-relaxed text-muted-foreground">Entre na mobilização e receba agenda, materiais oficiais e orientações para fortalecer a campanha na sua cidade.</p>
+                  <p className="text-lg leading-relaxed text-muted-foreground">Entre na mobilizaÃ§Ã£o e receba agenda, materiais oficiais e orientaÃ§Ãµes para fortalecer a campanha na sua cidade.</p>
                 </div>
                 <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,var(--glass),rgba(255,255,255,0.006))] p-5 shadow-[0_8px_18px_rgba(0,0,0,0.08)] backdrop-blur-[14px]">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Por que se cadastrar</p>
                   <div className="mt-4 space-y-4">
-                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Receber materiais prontos para mobilização local e divulgação responsável.</p></div>
-                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Acompanhar agenda, posicionamentos e convocações da equipe de campanha.</p></div>
-                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Conectar sua cidade a uma representação firme, organizada e institucional.</p></div>
+                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Receber materiais prontos para mobilizaÃ§Ã£o local e divulgaÃ§Ã£o responsÃ¡vel.</p></div>
+                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Acompanhar agenda, posicionamentos e convocaÃ§Ãµes da equipe de campanha.</p></div>
+                    <div className="flex items-start gap-3"><span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" /><p className="text-sm leading-relaxed text-white/74">Conectar sua cidade a uma representaÃ§Ã£o firme, organizada e institucional.</p></div>
                   </div>
                 </div>
               </div>
@@ -666,7 +724,7 @@ export default function Home() {
                 <div className="mb-6 flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">Cadastro oficial</p>
-                    <h3 className="mt-2 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">Fortaleça a campanha</h3>
+                    <h3 className="mt-2 text-2xl font-extrabold uppercase tracking-[-0.02em] text-foreground">FortaleÃ§a a campanha</h3>
                   </div>
                   <div aria-hidden className="hidden h-12 w-12 rounded-full border border-white/12 bg-[radial-gradient(circle,rgba(255,223,0,0.34),rgba(255,223,0,0.02))] sm:block" />
                 </div>
@@ -713,13 +771,13 @@ export default function Home() {
         <footer className="bg-transparent text-foreground">
           <div className="relative">
             <Container className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm">Subtenente Sérgio | Presidente da ASSEGO</p>
+              <p className="text-sm">Subtenente SÃ©rgio | Presidente da ASSEGO</p>
               <div className="flex items-center gap-3 text-sm font-semibold">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-primary">WhatsApp</a>
                 <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-primary">Instagram</a>
               </div>
             </Container>
-            <Container className="pb-8"><p className="text-xs text-subtle-foreground">Aviso LGPD: seus dados serão usados apenas para a comunicação da campanha.</p></Container>
+            <Container className="pb-8"><p className="text-xs text-subtle-foreground">Aviso LGPD: seus dados serÃ£o usados apenas para a comunicaÃ§Ã£o da campanha.</p></Container>
           </div>
         </footer>
       </div>
