@@ -374,33 +374,41 @@ export default function Home() {
 
   return (
     <main className="pb-10 sm:pb-14">
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-        <Container>
-          <div className={`mx-auto flex max-w-[1280px] items-center justify-between rounded-full border px-3 py-2.5 transition-all duration-300 sm:px-4 ${isScrolled ? "border-white/12 bg-[rgba(7,14,27,0.84)] shadow-[0_18px_44px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.04)_inset] backdrop-blur-[18px]" : "border-white/10 bg-[rgba(7,14,27,0.62)] shadow-[0_12px_28px_rgba(0,0,0,0.14),0_1px_0_rgba(255,255,255,0.03)_inset] backdrop-blur-[14px]"}`}>
-            <a href="#topo" className="flex min-w-0 items-center gap-3 rounded-full px-2 py-1.5">
-              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center">
-                <div className="relative h-[3.05rem] w-[3.05rem]">
-                  <Image
-                    src="/images/hero-candidate-frame.svg"
-                    alt="Marca institucional Subtenente Sérgio"
-                    fill
-                    sizes="49px"
-                    className="object-contain drop-shadow-[0_8px_14px_rgba(0,0,0,0.22)]"
-                  />
-                  <div className="absolute inset-[12.2%] overflow-hidden rounded-full">
+      <header className="fixed inset-x-0 top-0 z-50 px-2 pt-3 sm:px-3 sm:pt-4">
+        <Container className="max-w-[1460px] px-2.5 sm:px-3.5 lg:px-4.5 xl:px-5">
+          <div className={`mx-auto flex w-full items-center justify-between rounded-full border px-3.5 py-2.5 transition-all duration-300 sm:px-5 ${isScrolled ? "border-white/12 bg-[rgba(7,14,27,0.84)] shadow-[0_18px_44px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.04)_inset] backdrop-blur-[18px]" : "border-white/10 bg-[rgba(7,14,27,0.62)] shadow-[0_12px_28px_rgba(0,0,0,0.14),0_1px_0_rgba(255,255,255,0.03)_inset] backdrop-blur-[14px]"}`}>
+            <a href="#topo" className="flex min-w-0 items-center gap-4 rounded-full px-2 py-1.5 sm:gap-4.5">
+              <div className="relative flex h-[3rem] w-[3rem] shrink-0 items-center justify-center">
+                <div className="relative flex h-[3.34rem] w-[3.34rem] items-center justify-center rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.065),rgba(255,255,255,0.012)_68%,transparent_100%)] shadow-[0_12px_24px_rgba(0,0,0,0.18)]">
+                  <div className="relative h-[3.14rem] w-[3.14rem]">
+                    <div className="absolute inset-0 rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))]" />
                     <Image
-                      src="/images/foto-oficial.jpg"
-                      alt="Subtenente Sérgio"
+                      src="/images/hero-candidate-frame.png"
+                      alt="Marca institucional Subtenente Sérgio"
                       fill
-                      sizes="38px"
-                      className="object-cover [object-position:52%_14%] scale-[1.22]"
+                      sizes="50px"
+                      className="object-contain drop-shadow-[0_8px_14px_rgba(0,0,0,0.16)]"
                     />
+                    <div className="absolute inset-[12.1%] overflow-hidden rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                      <Image
+                        src="/images/foto-oficial.jpg"
+                        alt="Subtenente Sérgio"
+                        fill
+                        sizes="39px"
+                        className="object-cover [object-position:52%_14%] scale-[1.24]"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="min-w-0">
-                <p className="truncate text-sm font-black uppercase tracking-[0.18em] text-white">Subtenente Sérgio</p>
-                <p className="truncate text-[10px] font-medium uppercase tracking-[0.22em] text-white/56">Campanha institucional</p>
+              <div className="relative h-[2.9rem] w-[12.15rem] shrink min-w-0 sm:h-[3.15rem] sm:w-[13.8rem]">
+                <Image
+                  src="/images/header-wordmark.svg"
+                  alt="Logo Subtenente Sérgio"
+                  fill
+                  sizes="(max-width: 640px) 194px, 221px"
+                  className="object-contain object-left"
+                />
               </div>
             </a>
             <nav className="hidden items-center gap-1 lg:flex">
@@ -439,19 +447,19 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-y-0 left-[-20%] z-[4] hidden w-[45%] hero-moving-light md:block" />
         <div className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(180deg,rgba(4,8,16,0.12),rgba(4,8,16,0.28)_42%,rgba(4,8,16,0.84)_100%)] overlay-breathe" />
 
-        <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] max-w-[1360px] items-center px-4 py-14 sm:px-5 sm:py-18 lg:px-6 xl:px-8">
-          <div className="grid w-full gap-8 lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.8fr)] lg:items-end xl:gap-10">
-            <div className="hero-content-reveal max-w-[50rem] space-y-9">
-              <div className="space-y-6">
-                <h1 className="max-w-[12.6ch] text-[clamp(3rem,9vw,6.15rem)] font-black uppercase leading-[0.84] tracking-[-0.06em] text-white [text-shadow:0_18px_48px_rgba(0,0,0,0.48)]">
+        <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] max-w-[1500px] items-center px-2.5 py-14 sm:px-3.5 sm:py-18 lg:px-4.5 xl:px-5">
+          <div className="grid w-full gap-5 lg:grid-cols-[minmax(0,1.24fr)_minmax(472px,0.88fr)] lg:items-center xl:gap-6">
+            <div className="hero-content-reveal max-w-[56rem] space-y-7 xl:space-y-8">
+              <div className="space-y-4 xl:space-y-5">
+                <h1 className="max-w-[13.8ch] text-[clamp(3.15rem,8.45vw,6.55rem)] font-black uppercase leading-[0.84] tracking-[-0.064em] text-white [text-shadow:0_18px_48px_rgba(0,0,0,0.48)]">
                   GOIÁS SEGURO
                   <br />
                   EXIGE VOZ FIRME
                   <br />
                   EM <span className="text-accent">BRASÍLIA</span>.
                 </h1>
-                <p className="max-w-[39rem] text-base leading-relaxed text-white/82 sm:text-lg md:text-[1.15rem]">Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.</p>
-                <div className="flex max-w-[38rem] flex-wrap items-center gap-x-3.5 gap-y-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62 sm:text-xs">
+                <p className="max-w-[42rem] text-base leading-relaxed text-white/82 sm:text-lg md:text-[1.15rem]">Experiência de rua, disciplina institucional e compromisso direto com quem protege as famílias goianas.</p>
+                <div className="flex max-w-[42rem] flex-wrap items-center gap-x-3.5 gap-y-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/62 sm:text-xs">
                   <span>Segurança pública</span>
                   <span className="h-1 w-1 rounded-full bg-primary" />
                   <span>Valorização policial</span>
@@ -459,14 +467,14 @@ export default function Home() {
                   <span>Ordem e família</span>
                 </div>
               </div>
-              <div className="flex flex-col gap-3.5 sm:flex-row">
+              <div className="flex flex-col gap-3.5 pt-2 sm:flex-row">
                 <a href="#apoie" className={buttonStyles("primary", "px-7 py-4 text-[11px] uppercase tracking-[0.22em]")}>Quero apoiar</a>
                 <a href="#trajetoria" className={buttonStyles("secondary", "px-7 py-4 text-[11px] uppercase tracking-[0.22em]")}>Ver trajetória</a>
               </div>
             </div>
 
             <div className="seal-reveal flex justify-center lg:justify-end">
-              <GlassCard className="relative w-full max-w-[32.75rem] overflow-hidden rounded-[2.2rem] p-0 shadow-[var(--hero-shadow)]">
+              <GlassCard className="relative w-full max-w-[35.75rem] overflow-hidden rounded-[2.2rem] p-0 shadow-[var(--hero-shadow)]">
                 <div className="relative flex min-h-[40rem] flex-col overflow-hidden rounded-[2.2rem] border border-white/10 sm:min-h-[42rem]">
                   <div ref={watermarkRef} aria-hidden className="pointer-events-none absolute left-1/2 top-[44%] z-10 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 opacity-[0.05] mix-blend-screen">
                     <Image src="/images/logo-watermark.png" alt="" fill sizes="420px" className="object-contain" />
