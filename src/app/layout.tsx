@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GlobalLogoParallax } from "@/components/GlobalLogoParallax";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Subtenente Sergio",
   description:
-    "Landing page oficial do Subtenente Sergio: seguranca publica, valorizacao policial, familia e ordem.",
+    "Landing page oficial do Subtenente Sergio: segurança pública, valorização policial, família e ordem.",
 };
 
 export default function RootLayout({
@@ -25,10 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="relative z-10">{children}</div>
+      <body className={`${geistSans.variable} ${geistMono.variable} app-shell min-h-screen overflow-x-clip antialiased`}>
+        <GlobalLogoParallax />
+        <div className="relative z-10 min-h-screen">{children}</div>
       </body>
     </html>
   );

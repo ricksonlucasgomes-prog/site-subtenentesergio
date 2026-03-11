@@ -1,4 +1,4 @@
-import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+﻿import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { Container } from "./Container";
 
 type SectionProps = ComponentPropsWithoutRef<"section"> & {
@@ -10,7 +10,12 @@ export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
   ref,
 ) {
   return (
-    <section ref={ref} id={id} className={`py-16 md:py-24 ${className}`} {...props}>
+    <section
+      ref={ref}
+      id={id}
+      className={`relative isolate py-[var(--section-spacing)] ${className}`}
+      {...props}
+    >
       <Container>{children}</Container>
     </section>
   );

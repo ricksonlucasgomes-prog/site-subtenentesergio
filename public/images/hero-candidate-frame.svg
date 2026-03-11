@@ -1,0 +1,54 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ringGradient" x1="160" y1="180" x2="836" y2="838" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F4DE29"/>
+      <stop offset="0.38" stop-color="#D7D21A"/>
+      <stop offset="0.62" stop-color="#0E8E49"/>
+      <stop offset="1" stop-color="#0A3FAF"/>
+    </linearGradient>
+    <linearGradient id="innerRingGradient" x1="250" y1="240" x2="785" y2="790" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00125D"/>
+      <stop offset="1" stop-color="#082A85"/>
+    </linearGradient>
+    <linearGradient id="badgeGradient" x1="718" y1="676" x2="860" y2="842" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#49B8FF"/>
+      <stop offset="1" stop-color="#1793FF"/>
+    </linearGradient>
+    <filter id="outerGlow" x="106" y="110" width="812" height="820" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="8" result="effect1_foregroundBlur"/>
+    </filter>
+    <filter id="innerShadow" x="138" y="138" width="748" height="748" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur"/>
+    </filter>
+    <filter id="badgeGlow" x="688" y="666" width="200" height="202" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur"/>
+    </filter>
+    <mask id="ringMask" maskUnits="userSpaceOnUse" x="128" y="128" width="768" height="768">
+      <rect x="128" y="128" width="768" height="768" fill="white"/>
+      <circle cx="512" cy="512" r="308" fill="black"/>
+    </mask>
+  </defs>
+
+  <g filter="url(#outerGlow)">
+    <circle cx="512" cy="512" r="380" stroke="url(#ringGradient)" stroke-width="60" mask="url(#ringMask)"/>
+  </g>
+
+  <g filter="url(#innerShadow)">
+    <circle cx="512" cy="512" r="320" stroke="url(#innerRingGradient)" stroke-width="18"/>
+  </g>
+
+  <circle cx="512" cy="512" r="387" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="2"/>
+
+  <g filter="url(#badgeGlow)">
+    <circle cx="774" cy="742" r="68" fill="url(#badgeGradient)"/>
+    <path d="M750 742L769.5 760.5L798 728" stroke="#157DE0" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <circle cx="774" cy="742" r="68" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
+</svg>
