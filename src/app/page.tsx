@@ -378,8 +378,25 @@ export default function Home() {
         <Container>
           <div className={`mx-auto flex max-w-[1280px] items-center justify-between rounded-full border px-3 py-2.5 transition-all duration-300 sm:px-4 ${isScrolled ? "border-white/12 bg-[rgba(7,14,27,0.84)] shadow-[0_18px_44px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.04)_inset] backdrop-blur-[18px]" : "border-white/10 bg-[rgba(7,14,27,0.62)] shadow-[0_12px_28px_rgba(0,0,0,0.14),0_1px_0_rgba(255,255,255,0.03)_inset] backdrop-blur-[14px]"}`}>
             <a href="#topo" className="flex min-w-0 items-center gap-3 rounded-full px-2 py-1.5">
-              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/[0.04] shadow-[0_10px_26px_rgba(0,0,0,0.16)]">
-                <Image src="/logo.svg" alt="Logo oficial Subtenente Sérgio" width={36} height={36} className="h-8 w-8 object-contain opacity-95" />
+              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center">
+                <div className="relative h-[3.05rem] w-[3.05rem]">
+                  <Image
+                    src="/images/hero-candidate-frame.svg"
+                    alt="Marca institucional Subtenente Sérgio"
+                    fill
+                    sizes="49px"
+                    className="object-contain drop-shadow-[0_8px_14px_rgba(0,0,0,0.22)]"
+                  />
+                  <div className="absolute inset-[12.2%] overflow-hidden rounded-full">
+                    <Image
+                      src="/images/foto-oficial.jpg"
+                      alt="Subtenente Sérgio"
+                      fill
+                      sizes="38px"
+                      className="object-cover [object-position:52%_14%] scale-[1.22]"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-black uppercase tracking-[0.18em] text-white">Subtenente Sérgio</p>
