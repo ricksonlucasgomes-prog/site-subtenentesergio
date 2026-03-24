@@ -7,7 +7,7 @@ const baseClass =
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border border-[rgba(255,223,0,0.26)] bg-[linear-gradient(180deg,#ffed7b_0%,#ffdf00_100%)] text-[#101113] shadow-[0_18px_40px_rgba(255,223,0,0.2),0_1px_0_rgba(255,255,255,0.26)_inset] hover:bg-[linear-gradient(180deg,#fff19a_0%,#ffe768_100%)] hover:shadow-[0_22px_48px_rgba(255,223,0,0.25),0_1px_0_rgba(255,255,255,0.28)_inset] active:translate-y-0",
+    "border border-[rgba(40,150,88,0.44)] bg-[linear-gradient(180deg,#17864d_0%,#0d6a39_100%)] text-white shadow-[0_14px_28px_rgba(5,56,30,0.2),0_1px_0_rgba(255,255,255,0.12)_inset] hover:border-[rgba(58,176,107,0.52)] hover:bg-[linear-gradient(180deg,#1b9758_0%,#117643_100%)] hover:shadow-[0_17px_32px_rgba(5,56,30,0.24),0_1px_0_rgba(255,255,255,0.14)_inset] active:translate-y-0 active:bg-[linear-gradient(180deg,#147d48_0%,#0b6134_100%)]",
   secondary:
     "border border-[var(--stroke)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03))] text-foreground shadow-[0_14px_28px_rgba(0,0,0,0.12),0_1px_0_rgba(255,255,255,0.03)_inset] hover:border-[var(--stroke-strong)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.04))]",
   ghost: "text-foreground hover:bg-white/[0.05]",
