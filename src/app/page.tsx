@@ -374,19 +374,19 @@ export default function Home() {
 
   return (
     <main className="pb-10 sm:pb-14">
-      <header className="fixed inset-x-0 top-0 z-50 px-2 pt-3 sm:px-3 sm:pt-4">
-        <Container className="max-w-[1460px] px-2.5 sm:px-3.5 lg:px-4.5 xl:px-5">
-          <div className={`mx-auto flex w-full items-center justify-between rounded-full border px-3.5 py-2.5 transition-all duration-300 sm:px-5 ${isScrolled ? "border-white/12 bg-[rgba(7,14,27,0.84)] shadow-[0_18px_44px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.04)_inset] backdrop-blur-[18px]" : "border-white/10 bg-[rgba(7,14,27,0.62)] shadow-[0_12px_28px_rgba(0,0,0,0.14),0_1px_0_rgba(255,255,255,0.03)_inset] backdrop-blur-[14px]"}`}>
-            <a href="#topo" className="flex min-w-0 items-center gap-4 rounded-full px-2 py-1.5 sm:gap-4.5">
-              <div className="relative flex h-[3rem] w-[3rem] shrink-0 items-center justify-center">
-                <div className="relative flex h-[3.34rem] w-[3.34rem] items-center justify-center rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.065),rgba(255,255,255,0.012)_68%,transparent_100%)] shadow-[0_12px_24px_rgba(0,0,0,0.18)]">
-                  <div className="relative h-[3.14rem] w-[3.14rem]">
+      <header className="fixed inset-x-0 top-0 z-50 pt-2.5 sm:pt-3">
+        <Container>
+          <div className={`mx-auto flex w-full items-center justify-between rounded-full border px-3 py-1.5 transition-all duration-300 sm:px-4 sm:py-2 lg:px-4.5 ${isScrolled ? "border-white/12 bg-[rgba(7,14,27,0.84)] shadow-[0_18px_44px_rgba(0,0,0,0.22),0_1px_0_rgba(255,255,255,0.04)_inset] backdrop-blur-[18px]" : "border-white/10 bg-[rgba(7,14,27,0.62)] shadow-[0_12px_28px_rgba(0,0,0,0.14),0_1px_0_rgba(255,255,255,0.03)_inset] backdrop-blur-[14px]"}`}>
+            <a href="#topo" className="flex min-w-0 items-center gap-2 rounded-full px-1 py-0.5 sm:gap-2.5 sm:px-1">
+              <div className="relative flex h-[2.02rem] w-[2.02rem] shrink-0 items-center justify-center sm:h-[2.18rem] sm:w-[2.18rem]">
+                <div className="relative flex h-[2.24rem] w-[2.24rem] items-center justify-center rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06),rgba(255,255,255,0.012)_68%,transparent_100%)] shadow-[0_9px_16px_rgba(0,0,0,0.14)] sm:h-[2.42rem] sm:w-[2.42rem]">
+                  <div className="relative h-[2.08rem] w-[2.08rem] sm:h-[2.24rem] sm:w-[2.24rem]">
                     <div className="absolute inset-0 rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))]" />
                     <Image
                       src="/images/hero-candidate-frame.png"
                       alt="Marca institucional Subtenente Sérgio"
                       fill
-                      sizes="50px"
+                      sizes="(max-width: 640px) 36px, 42px"
                       className="object-contain drop-shadow-[0_8px_14px_rgba(0,0,0,0.16)]"
                     />
                     <div className="absolute inset-[12.1%] overflow-hidden rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
@@ -394,35 +394,35 @@ export default function Home() {
                         src="/images/foto-oficial.jpg"
                         alt="Subtenente Sérgio"
                         fill
-                        sizes="39px"
-                        className="object-cover [object-position:52%_14%] scale-[1.24]"
+                        sizes="(max-width: 640px) 30px, 35px"
+                        className="object-cover [object-position:52%_14%] scale-[1.22] sm:scale-[1.24]"
                       />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="relative flex h-[2.34rem] w-[11.35rem] shrink min-w-0 items-center sm:h-[2.52rem] sm:w-[12.1rem]">
+              <div className="relative flex h-[1.7rem] w-[8.55rem] shrink min-w-0 items-center sm:h-[1.82rem] sm:w-[9.05rem] lg:h-[1.94rem] lg:w-[9.7rem]">
                 <Image
                   src="/images/header-wordmark.svg"
                   alt="Logo Subtenente Sérgio"
                   fill
-                  sizes="(max-width: 640px) 182px, 194px"
-                  className="object-contain object-left object-center"
+                  sizes="(max-width: 640px) 136px, (max-width: 1024px) 146px, 155px"
+                  className="object-contain object-left"
                 />
               </div>
             </a>
-            <nav className="hidden items-center gap-1 lg:flex">
-              <a href="#prioridades" className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">Prioridades</a>
-              <a href="#trajetoria" className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">Trajetória</a>
-              <a href="#videos" className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">Vídeos</a>
-              <a href="#apoie" className={buttonStyles("secondary", "px-5 py-2.5 text-[11px] uppercase tracking-[0.2em]")}>Apoie</a>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={buttonStyles("primary", "px-5 py-2.5 text-[11px] uppercase tracking-[0.2em]")}>WhatsApp</a>
+            <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1">
+              <a href="#prioridades" className="rounded-full px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white xl:px-4">Prioridades</a>
+              <a href="#trajetoria" className="rounded-full px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white xl:px-4">Trajetória</a>
+              <a href="#videos" className="rounded-full px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 transition-all duration-200 hover:bg-white/[0.06] hover:text-white xl:px-4">Vídeos</a>
+              <a href="#apoie" className={buttonStyles("secondary", "px-4.5 py-[0.6rem] text-[10px] uppercase tracking-[0.2em] xl:px-5")}>Apoie</a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={buttonStyles("primary", "px-4.5 py-[0.6rem] text-[10px] uppercase tracking-[0.2em] xl:px-5")}>WhatsApp</a>
             </nav>
           </div>
         </Container>
       </header>
 
-      <section id="topo" ref={heroRef} className="cinematic-hero relative min-h-[100svh] pt-24 sm:pt-28">
+      <section id="topo" ref={heroRef} className="cinematic-hero relative min-h-[100svh] pt-23 sm:pt-27">
         <div className="absolute inset-0 overflow-hidden">
           {HERO_IMAGES.map((src, index) => {
             const isActive = index === activeIndex;
@@ -461,8 +461,8 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-y-0 left-[-20%] z-[4] hidden w-[45%] hero-moving-light md:block" />
         <div className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(180deg,rgba(4,8,16,0.12),rgba(4,8,16,0.28)_42%,rgba(4,8,16,0.84)_100%)] overlay-breathe" />
 
-        <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] max-w-[1500px] items-center px-2.5 py-14 sm:px-3.5 sm:py-18 lg:px-4.5 xl:px-5">
-          <div className="grid w-full gap-5 lg:grid-cols-[minmax(0,1.24fr)_minmax(472px,0.88fr)] lg:items-center xl:gap-6">
+        <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] items-center py-14 sm:py-18">
+          <div className="grid w-full gap-7 lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.9fr)] lg:items-center xl:gap-8">
             <div className="hero-content-reveal max-w-[56rem] space-y-7 xl:space-y-8">
               <div className="space-y-4 xl:space-y-5">
                 <h1 className="max-w-[13.8ch] text-[clamp(3.15rem,8.45vw,6.55rem)] font-black uppercase leading-[0.84] tracking-[-0.064em] text-white [text-shadow:0_18px_48px_rgba(0,0,0,0.48)]">
@@ -488,28 +488,28 @@ export default function Home() {
             </div>
 
             <div className="seal-reveal flex justify-center lg:justify-end">
-              <GlassCard className="relative w-full max-w-[35.75rem] overflow-hidden rounded-[2.2rem] p-0 shadow-[var(--hero-shadow)]">
-                <div className="relative flex min-h-[40rem] flex-col overflow-hidden rounded-[2.2rem] border border-white/10 sm:min-h-[42rem]">
-                  <div ref={watermarkRef} aria-hidden className="pointer-events-none absolute left-1/2 top-[44%] z-10 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 opacity-[0.05] mix-blend-screen">
+              <GlassCard className="relative w-full max-w-[34.25rem] overflow-hidden rounded-[2.05rem] p-0 shadow-[var(--hero-shadow)]">
+                <div className="relative flex min-h-[38rem] flex-col overflow-hidden rounded-[2.05rem] border border-white/10 sm:min-h-[40.5rem]">
+                  <div ref={watermarkRef} aria-hidden className="pointer-events-none absolute left-1/2 top-[46%] z-10 h-[76%] w-[76%] -translate-x-1/2 -translate-y-1/2 opacity-[0.032] mix-blend-screen">
                     <Image src="/images/logo-watermark.png" alt="" fill sizes="420px" className="object-contain" />
                   </div>
                   <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_50%_24%,rgba(255,255,255,0.05),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent_24%,rgba(3,9,20,0.12)_42%,rgba(3,9,20,0.64)_100%)]" />
                   <div className="absolute inset-0 z-[3] bg-[radial-gradient(circle_at_28%_18%,rgba(255,223,0,0.1),transparent_24%),radial-gradient(circle_at_78%_66%,rgba(20,105,255,0.1),transparent_26%)]" />
-                  <div className="relative z-[4] px-5 pt-5 sm:px-6 sm:pt-6">
-                    <div className="relative aspect-[1.04/1] overflow-hidden rounded-[1.9rem] border border-white/10 bg-[rgba(6,14,28,0.28)] shadow-[0_18px_36px_rgba(0,0,0,0.2)]">
+                  <div className="relative z-[4] px-4.5 pt-4.5 sm:px-5.5 sm:pt-5.5">
+                    <div className="relative aspect-[1.04/1] overflow-hidden rounded-[1.8rem] border border-white/10 bg-[rgba(6,14,28,0.28)] shadow-[0_18px_36px_rgba(0,0,0,0.2)]">
                       <Image
                         src="/images/foto-oficial.jpg"
                         alt="Subtenente Sérgio em retrato oficial"
                         fill
                         priority
-                        sizes="(max-width: 1024px) 92vw, 460px"
+                        sizes="(max-width: 1024px) 90vw, 430px"
                         className="object-cover [object-position:52%_16%]"
                       />
                       <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_14%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,rgba(3,9,20,0.04),transparent_34%,rgba(3,9,20,0.24)_100%)]" />
                     </div>
                   </div>
-                  <div className="relative z-[4] mt-3 px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
-                    <div className="rounded-[1.7rem] border border-white/10 bg-[rgba(5,12,24,0.64)] px-5 py-5 shadow-[0_14px_30px_rgba(0,0,0,0.16)] backdrop-blur-[16px] sm:px-6 sm:py-6">
+                  <div className="relative z-[4] mt-3 px-4.5 pb-4.5 pt-2.5 sm:px-5.5 sm:pb-5.5 sm:pt-3.5">
+                    <div className="rounded-[1.6rem] border border-white/10 bg-[rgba(5,12,24,0.64)] px-4.5 py-4.5 shadow-[0_14px_30px_rgba(0,0,0,0.16)] backdrop-blur-[16px] sm:px-5.5 sm:py-5.5">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-primary/88">Subtenente Sérgio</p>
                       <p className="mt-3 text-[1.85rem] font-black uppercase tracking-[-0.045em] text-white sm:text-[2rem]">Experiência, firmeza e representação.</p>
                       <p className="mt-3 max-w-[26rem] text-sm leading-relaxed text-white/70 sm:text-[0.95rem]">Presença institucional para defender a segurança pública, a categoria policial e as famílias goianas.</p>

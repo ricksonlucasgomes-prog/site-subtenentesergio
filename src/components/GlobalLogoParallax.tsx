@@ -15,8 +15,8 @@ export function GlobalLogoParallax() {
       if (!logoRef.current) return;
 
       const scrollY = window.scrollY || 0;
-      const maxOffset = mediaQuery.matches ? 0 : 54;
-      const speed = mediaQuery.matches || reducedMotionQuery.matches ? 0 : 0.042;
+      const maxOffset = mediaQuery.matches ? 0 : 34;
+      const speed = mediaQuery.matches || reducedMotionQuery.matches ? 0 : 0.028;
       const offsetY = Math.min(maxOffset, scrollY * speed);
 
       logoRef.current.style.transform = `translate3d(-50%, calc(-50% + ${offsetY.toFixed(2)}px), 0)`;

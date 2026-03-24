@@ -137,12 +137,12 @@ body {
 .global-logo-mark {
   position: absolute;
   left: 50%;
-  top: 52%;
-  width: min(88vw, 1100px);
+  top: 51%;
+  width: min(74vw, 860px);
   aspect-ratio: 1 / 1;
   transform: translate3d(-50%, -50%, 0);
-  opacity: 0.06;
-  filter: blur(1px) saturate(0.9);
+  opacity: 0.038;
+  filter: blur(1.1px) saturate(0.84);
   mix-blend-mode: screen;
   will-change: transform;
 }
@@ -152,8 +152,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at center, rgba(7, 20, 39, 0) 36%, rgba(7, 20, 39, 0.22) 68%, rgba(7, 20, 39, 0.5) 100%),
-    linear-gradient(180deg, rgba(4, 11, 24, 0.08), rgba(4, 11, 24, 0.26));
+    radial-gradient(circle at center, rgba(7, 20, 39, 0) 34%, rgba(7, 20, 39, 0.18) 68%, rgba(7, 20, 39, 0.42) 100%),
+    linear-gradient(180deg, rgba(4, 11, 24, 0.08), rgba(4, 11, 24, 0.22));
 }
 
 main {
@@ -375,10 +375,10 @@ select {
   }
 
   .global-logo-mark {
-    top: 50%;
-    width: min(92vw, 520px);
-    opacity: 0.03;
-    filter: blur(1.2px) saturate(0.88);
+    top: 48%;
+    width: min(78vw, 380px);
+    opacity: 0.022;
+    filter: blur(1.3px) saturate(0.82);
   }
 }
 
