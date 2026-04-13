@@ -88,10 +88,34 @@ const FAQ_ITEMS = [
 ];
 
 const testimonials = [
-  "Sérgio conhece a rua, enfrenta o crime e não foge do debate quando o assunto é segurança.",
-  "A tropa precisa de voz firme em Brasília. Sérgio tem história, postura e coragem para representar.",
-  "Chega de promessa vazia. Queremos alguém que defenda polícia valorizada e a lei sendo cumprida.",
+  {
+    symbol: "★",
+    category: "Militar",
+    text: "Sérgio conhece a realidade da tropa porque viveu cada etapa. Ele não fala de gabinete — fala de quem já patrulhou rua, já perdeu colega e nunca desistiu da farda.",
+    signature: "Sgt. PM — Região Metropolitana de Goiânia",
+  },
+  {
+    symbol: "♥️",
+    category: "Família militar",
+    text: "Quando meu marido precisou de apoio jurídico, a ASSEGO sob a gestão do Sérgio resolveu em dias o que outras entidades não resolveram em meses. Ele cuida da família do militar de verdade.",
+    signature: "Esposa de PM — Aparecida de Goiânia",
+  },
+  {
+    symbol: "★",
+    category: "Militar",
+    text: "A tropa precisa de voz firme em Brasília. Sérgio tem história, postura e coragem para representar. Ele não promete — ele entrega.",
+    signature: "Subtenente BM — Norte de Goiás",
+  },
+  {
+    symbol: "★",
+    category: "Militar",
+    text: "Vi a ASSEGO se transformar nesses últimos anos. Mais estrutura, mais respeito, mais benefícios. Isso tem nome: Sérgio. Não é discurso, é resultado.",
+    signature: "1º Sgt. PM — Jataí, GO",
+  },
 ];
+
+const featuredTestimonial = testimonials[0];
+const supportingTestimonials = testimonials.slice(1);
 
 const HERO_PILLARS = [
   { label: "Segurança", text: "Combate ao crime com posição firme, inteligência e defesa de quem está na linha de frente." },
@@ -339,8 +363,8 @@ export default function HomepageCampaign() {
         </div>
       </Section>
 
-      <Section id="trajetoria" className="bg-[rgba(5,10,18,0.4)]">
-        <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+      <Section id="trajetoria" className="bg-[rgba(5,10,18,0.24)]">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-[4.5rem]">
           <div className="space-y-8">
             <Badge data-reveal className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Trajetória, autoridade e experiência</Badge>
             <div className="space-y-4">
@@ -359,20 +383,39 @@ export default function HomepageCampaign() {
               ))}
             </div>
           </div>
-          <div className="space-y-5">
-            <div data-reveal style={revealDelayStyle(110)} className="relative overflow-hidden rounded-[1.4rem] border border-white/8 bg-[linear-gradient(180deg,rgba(6,12,22,0.8),rgba(6,12,22,0.62))] shadow-[0_18px_40px_rgba(0,0,0,0.12)]">
-              <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-                <div className="relative min-h-[22rem] sm:min-h-[29rem]"><Image src="/images/trajetoria/vicentinos-goias.jpg" alt="Subtenente Sérgio em atuação com os Vicentinos em Goiás" fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover [object-position:center_20%]" /><div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,14,0.08),rgba(4,8,14,0.58))]" /></div>
-                <div className="flex flex-col justify-center px-5 py-6 sm:px-7"><p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-primary/90">Credibilidade pública</p><h3 className="mt-4 text-[2.1rem] font-black uppercase tracking-[-0.045em] text-white sm:text-[2.55rem]">Presença social, institucional e comunitária.</h3><p className="mt-4 text-sm leading-relaxed text-white/70 sm:text-base">A experiência acumulada em frentes distintas reforça capacidade de representação, leitura do território e compromisso com demandas concretas da população.</p></div>
+          <div className="space-y-8">
+            <div data-reveal style={revealDelayStyle(110)} className="grid gap-6 border-y border-white/10 py-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:py-8">
+              <div className="relative min-h-[23rem] overflow-hidden rounded-[1.35rem] sm:min-h-[29rem]">
+                <Image src="/images/trajetoria/vicentinos-goias.jpg" alt="Subtenente Sérgio em atuação com os Vicentinos em Goiás" fill sizes="(max-width: 1024px) 100vw, 620px" className="object-cover [object-position:center_20%]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,14,0.04),rgba(4,8,14,0.6))]" />
+                <div className="absolute bottom-0 left-0 right-0 px-5 py-5 sm:px-7 sm:py-7">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-primary/90">Credibilidade pública</p>
+                  <p className="mt-3 max-w-[24rem] text-[1.6rem] font-black uppercase leading-[0.92] tracking-[-0.045em] text-white sm:text-[2.1rem]">Presença social, institucional e comunitária.</p>
+                </div>
+              </div>
+              <div className="flex flex-col justify-end lg:pb-2">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/44">Leitura de território</p>
+                <h3 className="mt-4 text-[2.1rem] font-black uppercase tracking-[-0.05em] text-white sm:text-[2.8rem]">Autoridade construída em campo, não em discurso.</h3>
+                <p className="mt-5 max-w-[29rem] text-sm leading-relaxed text-white/72 sm:text-base">A experiência acumulada em frentes distintas reforça capacidade de representação, leitura do território e compromisso com demandas concretas da população.</p>
               </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-0 border-t border-white/10">
               {TRAJECTORY_ITEMS.map((item, index) => {
                 const mediaSrc = item.imageSrc ?? item.iconSrc ?? "/images/placeholders/trajetoria-assego.svg";
                 return (
-                  <article key={item.title} data-reveal style={revealDelayStyle(150 + index * 40)} className="overflow-hidden rounded-[1.1rem] border border-white/7 bg-[linear-gradient(180deg,rgba(6,12,22,0.46),rgba(6,12,22,0.2))]">
-                    <div className="relative h-32"><Image src={mediaSrc} alt={item.alt} fill sizes="(max-width: 768px) 100vw, 420px" className="object-cover brightness-[0.78]" style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined} /><div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,12,0.14),rgba(3,7,12,0.72))]" /></div>
-                    <div className="px-4 py-4"><p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/90">{item.label}</p><h3 className="mt-2.5 text-[1.05rem] font-black uppercase tracking-[-0.03em] text-white">{item.title}</h3><p className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-white/46">{item.subtitle}</p><p className="mt-3 text-sm leading-relaxed text-white/60">{item.description}</p></div>
+                  <article key={item.title} data-reveal style={revealDelayStyle(150 + index * 40)} className="grid gap-4 border-b border-white/10 py-6 sm:grid-cols-[7.25rem_1fr] sm:items-start sm:gap-6">
+                    <div className="relative h-24 overflow-hidden rounded-[1rem] sm:h-28">
+                      <Image src={mediaSrc} alt={item.alt} fill sizes="(max-width: 768px) 100vw, 180px" className="object-cover brightness-[0.8]" style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined} />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,12,0.1),rgba(3,7,12,0.54))]" />
+                    </div>
+                    <div className="grid gap-3 lg:grid-cols-[11rem_1fr_auto] lg:items-start lg:gap-6">
+                      <div>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/90">{item.label}</p>
+                        <h3 className="mt-2.5 text-[1.15rem] font-black uppercase tracking-[-0.03em] text-white sm:text-[1.28rem]">{item.title}</h3>
+                      </div>
+                      <p className="text-sm leading-relaxed text-white/64">{item.description}</p>
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-white/42 lg:pt-1 lg:text-right">{item.subtitle}</p>
+                    </div>
                   </article>
                 );
               })}
@@ -382,7 +425,7 @@ export default function HomepageCampaign() {
       </Section>
 
       <Section className="bg-transparent">
-        <div className="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:items-start lg:gap-16">
+        <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:items-start lg:gap-16">
           <div className="space-y-6 lg:pt-3">
             <Badge data-reveal className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Vídeo em destaque</Badge>
             <h2 data-reveal style={revealDelayStyle(40)} className="text-3xl font-black uppercase tracking-[-0.045em] text-foreground sm:text-[3.3rem]">{featuredVideo.title}</h2>
@@ -393,27 +436,67 @@ export default function HomepageCampaign() {
               <a href="#apoie" className={buttonStyles("secondary", "px-7 py-3.5 text-[11px] font-black uppercase tracking-[0.22em]")}>Quero apoiar</a>
             </div>
           </div>
-          <div data-reveal style={revealDelayStyle(100)} className="overflow-hidden rounded-[1.35rem] border border-white/8 bg-[linear-gradient(180deg,rgba(6,12,22,0.82),rgba(6,12,22,0.58))] p-4 sm:p-5">
-            <div className="mb-5 border-b border-white/10 px-1 pb-4 sm:px-2"><p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Conteúdo oficial de campanha</p><p className="mt-2.5 text-[1.08rem] font-black uppercase tracking-[-0.03em] text-white">Mensagem central</p></div>
-            <div className="aspect-video overflow-hidden bg-black"><iframe className="h-full w-full" src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>
+          <div data-reveal style={revealDelayStyle(100)} className="border-y border-white/10 py-5 sm:py-6">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Conteúdo oficial de campanha</p>
+                <p className="mt-2.5 text-[1.08rem] font-black uppercase tracking-[-0.03em] text-white">Mensagem central</p>
+              </div>
+              <p className="max-w-[18rem] text-sm leading-relaxed text-white/58">Um pronunciamento central para contextualizar prioridades, postura pública e visão de mandato.</p>
+            </div>
+            <div className="aspect-video overflow-hidden rounded-[1.2rem] bg-black">
+              <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+            </div>
           </div>
         </div>
       </Section>
-      <Section className="bg-[rgba(5,10,18,0.36)]">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:items-start">
-          <article data-reveal className="border-l-4 border-primary bg-[linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.006))] px-6 py-8 sm:px-8">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Apoio e percepção pública</p>
-            <p className="mt-5 text-[1.95rem] font-black uppercase leading-[0.96] tracking-[-0.055em] text-white sm:text-[2.8rem]">“A tropa precisa de voz firme em Brasília.”</p>
-            <p className="mt-5 max-w-[32rem] text-[1.02rem] leading-relaxed text-white/76">{testimonials[1]}</p>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/46">Base de apoio</p>
+      <Section className="bg-[rgba(5,10,18,0.18)] py-16 sm:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-12">
+          <article data-reveal className="border-y border-white/10 py-8 sm:py-10">
+            <div className="flex items-center gap-3 text-primary/90">
+              <span className="text-lg leading-none">{featuredTestimonial.symbol}</span>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em]">Apoio e percepção pública</p>
+            </div>
+            <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.26em] text-white/46">Depoimento principal</p>
+            <h2 className="mt-4 max-w-[12ch] text-[2.15rem] font-black uppercase leading-[0.92] tracking-[-0.06em] text-white sm:text-[3.3rem]">
+              Validação de quem conhece a realidade da tropa.
+            </h2>
+            <blockquote className="mt-8 max-w-[42rem]">
+              <p className="text-[1.18rem] leading-[1.85] text-white sm:text-[1.35rem] lg:text-[1.5rem]">
+                &quot;{featuredTestimonial.text}&quot;
+              </p>
+            </blockquote>
+            <div className="mt-8 border-l-2 border-primary/70 pl-4 sm:pl-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">{featuredTestimonial.category}</p>
+              <p className="mt-2 text-sm uppercase tracking-[0.14em] text-white/64 sm:text-[0.95rem]">{featuredTestimonial.signature}</p>
+            </div>
           </article>
-          {[testimonials[0], testimonials[2]].map((item, index) => (
-            <article key={item} data-reveal style={revealDelayStyle(60 + index * 60)} className="border-t border-white/12 pt-7">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">Depoimento</p>
-              <p className="mt-4 text-[1.08rem] font-semibold leading-relaxed text-white/84">&quot;{item}&quot;</p>
-              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/42">Apoiador(a)</p>
-            </article>
-          ))}
+
+          <aside data-reveal style={revealDelayStyle(80)} className="border-y border-white/10 py-8 sm:py-10">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Depoimentos de apoio</p>
+              <p className="mt-3 max-w-[18rem] text-sm leading-relaxed text-white/62">
+                Três vozes reforçando resultado, confiança e representação.
+              </p>
+            </div>
+            <div className="mt-6 space-y-6">
+              {supportingTestimonials.map((item, index) => (
+                <article
+                  key={item.signature}
+                  data-reveal
+                  style={revealDelayStyle(120 + index * 50)}
+                  className="border-t border-white/10 pt-5 first:border-t-0 first:pt-0"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm leading-none text-primary/90">{item.symbol}</span>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/90">{item.category}</p>
+                  </div>
+                  <p className="mt-3 text-[1rem] leading-relaxed text-white/86">&quot;{item.text}&quot;</p>
+                  <p className="mt-3 text-[10px] uppercase tracking-[0.16em] text-white/48">{item.signature}</p>
+                </article>
+              ))}
+            </div>
+          </aside>
         </div>
       </Section>
 
@@ -425,13 +508,29 @@ export default function HomepageCampaign() {
               <h2 data-reveal style={revealDelayStyle(40)} className="mt-5 text-3xl font-black uppercase tracking-[-0.04em] text-foreground sm:text-[3.2rem]">Conteúdos para acompanhar e compartilhar.</h2>
               <p data-reveal style={revealDelayStyle(80)} className="max-w-[42rem] text-base leading-relaxed text-muted-foreground sm:text-[1.05rem]">Os vídeos curtos concentram recados diretos. Os conteúdos completos aprofundam propostas, prioridades e visão de mandato.</p>
             </div>
-            <div className="mt-9 grid gap-4 sm:grid-cols-3">
-              {shorts.map((short, index) => (
-                <article key={short.youtubeId} data-reveal style={revealDelayStyle(120 + index * 50)} className="overflow-hidden rounded-[1.05rem] border border-white/7 bg-[linear-gradient(180deg,rgba(6,12,22,0.56),rgba(6,12,22,0.26))]">
-                  <div className="relative aspect-[9/16] bg-black"><iframe className="h-full w-full" src={`https://www.youtube.com/embed/${short.youtubeId}`} title={short.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>
-                  <div className="px-4 py-4.5"><p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/90">{short.tag}</p><p className="mt-3 text-sm font-semibold leading-relaxed text-white">{short.title}</p></div>
-                </article>
-              ))}
+            <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+              <article data-reveal style={revealDelayStyle(120)} className="border-y border-white/10 py-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/90">{shorts[0].tag}</p>
+                <p className="mt-3 max-w-[16rem] text-[1.28rem] font-black uppercase leading-tight tracking-[-0.04em] text-white">{shorts[0].title}</p>
+                <div className="mt-5 overflow-hidden rounded-[1.1rem] bg-black">
+                  <div className="relative aspect-[9/16] max-h-[32rem]">
+                    <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${shorts[0].youtubeId}`} title={shorts[0].title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+                  </div>
+                </div>
+              </article>
+              <div className="space-y-0 border-t border-white/10">
+                {shorts.slice(1).map((short, index) => (
+                  <article key={short.youtubeId} data-reveal style={revealDelayStyle(160 + index * 50)} className="grid gap-4 border-b border-white/10 py-6 sm:grid-cols-[7rem_1fr] sm:items-start">
+                    <div className="relative aspect-[9/16] overflow-hidden rounded-[0.95rem] bg-black sm:h-32 sm:aspect-auto">
+                      <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${short.youtubeId}`} title={short.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/90">{short.tag}</p>
+                      <p className="mt-3 text-[1.02rem] font-semibold leading-relaxed text-white">{short.title}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
           <div className="space-y-5 pt-3">
@@ -448,8 +547,8 @@ export default function HomepageCampaign() {
         </div>
       </Section>
 
-      <Section id="apoie" className="bg-[rgba(5,10,18,0.72)]">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <Section id="apoie" className="bg-[rgba(5,10,18,0.5)]">
+        <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
           <div data-reveal className="space-y-7">
             <Badge className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Mobilização 2026</Badge>
             <div className="space-y-4">
@@ -463,19 +562,22 @@ export default function HomepageCampaign() {
             </div>
             <div data-reveal style={revealDelayStyle(180)} className="border-t border-white/10 pt-6"><p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Canal direto</p><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-lg font-black uppercase tracking-[0.04em] text-white transition-colors duration-300 hover:text-primary">Falar com a equipe no WhatsApp</a></div>
           </div>
-          <div data-reveal style={revealDelayStyle(100)} className="rounded-[1.35rem] border border-white/8 bg-[linear-gradient(180deg,rgba(6,12,22,0.82),rgba(6,12,22,0.58))] px-5 py-6 shadow-[0_20px_48px_rgba(0,0,0,0.14)] sm:px-7 sm:py-8">
-            <div className="mb-7 border-b border-white/10 pb-6"><p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Cadastro oficial</p><h3 className="mt-3 text-[2rem] font-black uppercase tracking-[-0.045em] text-foreground sm:text-[2.5rem]">Fortaleça a campanha</h3><p className="mt-3 max-w-[32rem] text-sm leading-relaxed text-white/68 sm:text-base">Preencha seus dados para receber convocações, agenda e materiais da campanha diretamente da equipe oficial.</p></div>
+          <div data-reveal style={revealDelayStyle(100)} className="border-y border-white/10 py-6 sm:py-8">
+            <div className="mb-7 grid gap-4 border-b border-white/10 pb-6 sm:grid-cols-[1fr_auto] sm:items-end">
+              <div><p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/90">Cadastro oficial</p><h3 className="mt-3 text-[2rem] font-black uppercase tracking-[-0.045em] text-foreground sm:text-[2.5rem]">Fortaleça a campanha</h3></div>
+              <p className="max-w-[20rem] text-sm leading-relaxed text-white/68 sm:text-right sm:text-base">Preencha seus dados para receber convocações, agenda e materiais da campanha diretamente da equipe oficial.</p>
+            </div>
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              <div><label htmlFor="nome" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">Nome</label><input id="nome" name="nome" value={formData.nome} onChange={(event) => setFormData((prev) => ({ ...prev, nome: event.target.value }))} className="w-full border border-white/12 bg-[rgba(255,255,255,0.025)] px-4 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary focus:bg-white/[0.04]" placeholder="Seu nome completo" />{errors.nome ? <p className="mt-1 text-xs text-red-300">{errors.nome}</p> : null}</div>
-              <div><label htmlFor="whatsapp" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">WhatsApp</label><input id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={(event) => setFormData((prev) => ({ ...prev, whatsapp: event.target.value }))} className="w-full border border-white/12 bg-[rgba(255,255,255,0.025)] px-4 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary focus:bg-white/[0.04]" placeholder="(62) 99999-9999" />{errors.whatsapp ? <p className="mt-1 text-xs text-red-300">{errors.whatsapp}</p> : null}</div>
-              <div><label htmlFor="cidade" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">Cidade</label><input id="cidade" name="cidade" value={formData.cidade} onChange={(event) => setFormData((prev) => ({ ...prev, cidade: event.target.value }))} className="w-full border border-white/12 bg-[rgba(255,255,255,0.025)] px-4 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary focus:bg-white/[0.04]" placeholder="Sua cidade" />{errors.cidade ? <p className="mt-1 text-xs text-red-300">{errors.cidade}</p> : null}</div>
-              <Button type="submit" className="w-full px-7 py-4 text-[11px] font-black uppercase tracking-[0.24em] shadow-[0_18px_32px_rgba(5,56,30,0.18)]">Quero participar</Button>
+              <div><label htmlFor="nome" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">Nome</label><input id="nome" name="nome" value={formData.nome} onChange={(event) => setFormData((prev) => ({ ...prev, nome: event.target.value }))} className="w-full border-0 border-b border-white/14 bg-transparent px-0 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary" placeholder="Seu nome completo" />{errors.nome ? <p className="mt-1 text-xs text-red-300">{errors.nome}</p> : null}</div>
+              <div><label htmlFor="whatsapp" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">WhatsApp</label><input id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={(event) => setFormData((prev) => ({ ...prev, whatsapp: event.target.value }))} className="w-full border-0 border-b border-white/14 bg-transparent px-0 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary" placeholder="(62) 99999-9999" />{errors.whatsapp ? <p className="mt-1 text-xs text-red-300">{errors.whatsapp}</p> : null}</div>
+              <div><label htmlFor="cidade" className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/58">Cidade</label><input id="cidade" name="cidade" value={formData.cidade} onChange={(event) => setFormData((prev) => ({ ...prev, cidade: event.target.value }))} className="w-full border-0 border-b border-white/14 bg-transparent px-0 py-3.5 text-sm text-foreground outline-none placeholder:text-white/24 transition-colors duration-300 focus:border-primary" placeholder="Sua cidade" />{errors.cidade ? <p className="mt-1 text-xs text-red-300">{errors.cidade}</p> : null}</div>
+              <Button type="submit" className="w-full px-7 py-4 text-[11px] font-black uppercase tracking-[0.24em] shadow-[0_14px_26px_rgba(5,56,30,0.14)]">Quero participar</Button>
               {feedback ? <p role="status" aria-live="polite" className={`px-4 py-3 text-sm ${feedback.type === "success" ? "bg-primary/14 text-primary" : "bg-red-500/14 text-red-200"}`}>{feedback.message}</p> : null}
             </form>
           </div>
         </div>
       </Section>
-      <Section id="faq" className="bg-[linear-gradient(180deg,rgba(5,10,18,0.24),transparent)] pb-8 md:pb-12">
+      <Section id="faq" className="bg-[linear-gradient(180deg,rgba(5,10,18,0.16),transparent)] pb-8 md:pb-12">
         <div className="grid gap-8 lg:grid-cols-[0.56fr_1.44fr] lg:gap-16">
           <div className="section-heading">
             <Badge data-reveal className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Perguntas frequentes</Badge>
