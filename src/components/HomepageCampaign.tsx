@@ -133,6 +133,7 @@ const SECTION_TITLE_CLASS = "text-[2rem] font-black uppercase tracking-[-0.045em
 const SECTION_TEXT_CLASS = "text-base leading-[1.82] text-white/72 sm:text-[1.05rem]";
 const SURFACE_CLASS = "rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] shadow-[0_22px_48px_rgba(0,0,0,0.16)]";
 const SURFACE_SUBTLE_CLASS = "rounded-2xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))]";
+const PRIORITIES_TITLE_CLASS = "max-w-[13.5ch] text-balance text-[1.95rem] font-black uppercase leading-[0.96] tracking-[-0.042em] text-foreground sm:max-w-[14.5ch] sm:text-[2.7rem] sm:leading-[0.94] lg:max-w-[15.8ch] lg:text-[3rem] lg:leading-[0.93] xl:max-w-[16.5ch] xl:text-[3.15rem]";
 const HOMEPAGE_PRIMARY_CTA_CLASS =
   "border-[rgba(227,184,42,0.42)] bg-[linear-gradient(180deg,#f0d05f_0%,#d4a41e_100%)] text-[#1a1508] shadow-[0_16px_30px_rgba(112,85,15,0.16),0_1px_0_rgba(255,255,255,0.14)_inset] hover:border-[rgba(244,214,108,0.5)] hover:bg-[linear-gradient(180deg,#f6db78_0%,#dfb737_100%)] hover:text-[#140f05] hover:shadow-[0_18px_34px_rgba(112,85,15,0.2),0_1px_0_rgba(255,255,255,0.16)_inset] active:bg-[linear-gradient(180deg,#daad28_0%,#c39212_100%)]";
 const TOP_PRIMARY_CTA_CLASS =
@@ -294,7 +295,7 @@ export default function HomepageCampaign() {
           <div className="grid w-full justify-items-center gap-10 sm:gap-11 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:justify-items-stretch lg:gap-14 xl:gap-18">
             <div className="hero-content-reveal relative z-10 flex max-w-[20.5rem] flex-col items-center pt-2 text-center sm:max-w-[24rem] sm:pt-4 lg:max-w-[32.5rem] lg:items-start lg:pt-20 lg:text-left xl:max-w-[33.5rem]">
               <div aria-hidden className="absolute left-0 top-3 hidden h-16 w-px bg-[linear-gradient(180deg,rgba(255,223,0,0.78),rgba(255,255,255,0.06),transparent)] lg:block" />
-              <Badge className="mx-auto border-[rgba(255,223,0,0.28)] bg-[rgba(255,223,0,0.12)] px-3 py-1.5 text-[9px] tracking-[0.16em] text-white sm:px-3.5 sm:py-1.75 sm:text-[9.5px] sm:tracking-[0.18em] lg:mx-0 lg:px-4.5 lg:py-2.5 lg:text-[10px] lg:tracking-[0.22em]">Campanha 2026 | Representação com firmeza</Badge>
+              <Badge className="mx-auto border-[rgba(255,223,0,0.28)] bg-[rgba(255,223,0,0.12)] px-3 py-1.5 text-[9px] tracking-[0.16em] text-white sm:px-3.5 sm:py-1.75 sm:text-[9.5px] sm:tracking-[0.18em] lg:mx-0 lg:px-4.5 lg:py-2.5 lg:text-[10px] lg:tracking-[0.22em]">Campanha 2026</Badge>
               <h1 className="mt-5 max-w-[8.95ch] text-[3.08rem] font-black uppercase leading-[0.9] tracking-[-0.065em] text-white sm:max-w-[9.1ch] sm:text-[3.2rem] sm:leading-[0.9] lg:mt-11 lg:max-w-[10.5ch] lg:text-[clamp(2.92rem,4.82vw,5.08rem)] lg:leading-[1.06] lg:tracking-[-0.055em] xl:max-w-[10.7ch]"><span className="text-primary [text-shadow:0_0_20px_rgba(255,223,0,0.07)]">Goiás</span> precisa de<br />voz firme,<br />presença e<br />autoridade.</h1>
               <p className="mt-5 max-w-[19.75rem] text-[0.95rem] leading-[1.78] text-white/80 sm:mt-6 sm:max-w-[25rem] sm:text-[0.98rem] sm:leading-[1.78] lg:mt-12 lg:max-w-[29.75rem] lg:text-[1.05rem] lg:leading-[2.04] lg:text-white/71 xl:max-w-[30.5rem]">De engraxate no interior de Goiás a presidente reeleito da maior entidade de praças militares do estado. 28 anos de farda, fé e luta pelo que realmente vale a pena.</p>
               <div className="mx-auto mt-7 flex w-full max-w-[18.75rem] flex-col gap-2.5 sm:mt-8 sm:max-w-[19.75rem] sm:gap-3 lg:mx-0 lg:mt-15 lg:max-w-none lg:flex-row lg:items-center lg:gap-3">
@@ -302,7 +303,7 @@ export default function HomepageCampaign() {
                 <a href="#trajetoria" className={buttonStyles("secondary", "w-full justify-center bg-[rgba(255,255,255,0.03)] px-6 py-3.25 text-[11px] font-black uppercase tracking-[0.2em] shadow-none lg:w-auto lg:border-white/10 lg:bg-[rgba(255,255,255,0.026)] lg:px-6.85 lg:py-3.65 lg:text-[10.5px] lg:tracking-[0.22em] lg:text-white/78 lg:hover:bg-[rgba(255,255,255,0.04)]")}>Conheça a trajetória</a>
               </div>
             </div>
-            <div className="seal-reveal relative z-10 mt-8 w-full justify-self-center sm:mt-10 lg:mt-0 lg:w-auto lg:-mr-8 lg:translate-y-5 xl:-mr-10">
+            <div className="seal-reveal relative z-10 mt-8 w-full justify-self-center sm:mt-10 lg:mt-0 lg:justify-self-stretch lg:-mr-8 lg:translate-y-5 xl:-mr-10">
               <div className="absolute left-[18%] top-[10%] h-[56%] w-[50%] rounded-full bg-[rgba(87,138,255,0.12)] blur-3xl lg:left-[14%] lg:top-[6%] lg:h-[62%] lg:w-[56%] lg:bg-[rgba(84,141,255,0.14)] lg:blur-[84px]" />
               <div className="absolute right-[10%] top-[18%] h-[44%] w-[32%] rounded-full bg-[rgba(38,138,100,0.1)] blur-3xl lg:right-[6%] lg:top-[14%] lg:h-[50%] lg:w-[38%] lg:bg-[rgba(38,138,100,0.12)] lg:blur-[88px]" />
               <div className="absolute -bottom-8 right-[8%] h-40 w-40 rounded-full bg-white/6 blur-3xl" />
@@ -325,11 +326,11 @@ export default function HomepageCampaign() {
 
       <StatsBand />
       <Section id="prioridades" className="bg-[linear-gradient(180deg,rgba(255,255,255,0.024),rgba(255,255,255,0.008))] py-20 sm:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.48fr_1.52fr] lg:gap-12">
-          <div className="space-y-5 lg:pt-1">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-10 xl:grid-cols-[0.78fr_1.22fr] xl:gap-12">
+          <div className="space-y-5 lg:max-w-[34rem] lg:pt-1">
             <Badge data-reveal className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Direção de mandato</Badge>
             <div className="space-y-4">
-              <h2 data-reveal style={revealDelayStyle(40)} className={SECTION_TITLE_CLASS}>Prioridades de campanha com posição clara.</h2>
+              <h2 data-reveal style={revealDelayStyle(40)} className={PRIORITIES_TITLE_CLASS}>Prioridades de campanha com posição clara.</h2>
               <p data-reveal style={revealDelayStyle(80)} className={SECTION_TEXT_CLASS}>Cada frente de atuação é apresentada como compromisso público: firme, mensurável e coerente com a trajetória do candidato.</p>
             </div>
           </div>
@@ -658,13 +659,13 @@ export default function HomepageCampaign() {
           </div>
         </div>
       </Section>
-      <Section id="faq" className="bg-[linear-gradient(180deg,rgba(5,10,18,0.1),rgba(5,10,18,0.02))] pt-18 sm:pt-20 pb-10 md:pb-12">
-        <div className="grid gap-8 lg:grid-cols-[0.64fr_1.36fr] lg:gap-12">
-          <div className="section-heading">
+      <Section id="faq" className="bg-[linear-gradient(180deg,rgba(5,10,18,0.1),rgba(5,10,18,0.02))] pt-18 pb-10 sm:pt-20 md:pb-12">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 xl:gap-12">
+          <div className="section-heading lg:max-w-[39rem]">
             <Badge data-reveal className="border-[rgba(255,223,0,0.18)] bg-transparent px-4 py-2 text-white">Perguntas frequentes</Badge>
-            <h2 data-reveal style={revealDelayStyle(40)} className="mt-5 text-[2rem] font-black uppercase tracking-[-0.045em] text-foreground sm:text-[3rem] lg:text-[3.15rem]">Informações diretas para quem quer acompanhar e apoiar.</h2>
+            <h2 data-reveal style={revealDelayStyle(40)} className="mt-5 max-w-[14.2ch] text-[2rem] font-black uppercase leading-[0.95] tracking-[-0.045em] text-foreground sm:max-w-[15.5ch] sm:text-[3rem] sm:leading-[0.94] lg:max-w-[17.8ch] lg:text-[3.15rem] lg:leading-[0.92]">Informações diretas para quem quer acompanhar e apoiar.</h2>
           </div>
-          <div className="space-y-0 border-t border-white/10">
+          <div className="space-y-0 border-t border-white/10 lg:max-w-[42rem] lg:justify-self-end">
             {FAQ_ITEMS.map((item, index) => (
               <details key={item.q} data-reveal style={revealDelayStyle(index * 40)} className="faq-item border-b border-white/10 py-6">
                 <summary className="cursor-pointer text-[1.08rem] font-black tracking-[-0.02em] text-foreground transition-colors duration-300 hover:text-primary sm:text-[1.18rem]">{item.q}</summary>
