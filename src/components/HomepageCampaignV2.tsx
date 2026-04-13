@@ -10,6 +10,16 @@ import { Section } from "@/components/ui/Section";
 
 type FormData = { nome: string; whatsapp: string; cidade: string };
 type FormErrors = Partial<Record<keyof FormData, string>>;
+type TrajectoryItem = {
+  title: string;
+  label: string;
+  subtitle: string;
+  description: string;
+  alt: string;
+  imageSrc?: string;
+  iconSrc?: string;
+  objectPosition?: string;
+};
 
 const WHATSAPP_LINK = "https://wa.me/5562995073952";
 const INSTAGRAM_LINK = "https://instagram.com/subtenentesergio";
@@ -40,6 +50,47 @@ const priorities = [
   {
     title: "Ordem",
     text: "Autoridade responsavel, compromisso com a lei e direcao firme para devolver previsibilidade ao pais.",
+  },
+];
+
+const TRAJECTORY_ITEMS: TrajectoryItem[] = [
+  {
+    title: "Conselheiro Tutelar",
+    label: "Servico publico",
+    subtitle: "Protecao direta a familia",
+    description: "Atuacao de linha de frente, presenca institucional e defesa firme de quem mais precisa de amparo.",
+    alt: "Subtenente Sergio como Conselheiro Tutelar",
+    imageSrc: "/images/trajetoria/conselheiro-tutelar.jpg",
+    iconSrc: "/images/placeholders/trajetoria-conselheiro.svg",
+    objectPosition: "center 16%",
+  },
+  {
+    title: "Presidente da ASSEGO",
+    label: "Representacao",
+    subtitle: "Lideranca de categoria",
+    description: "Articulacao institucional, defesa organizada da classe e voz firme nos espacos de decisao.",
+    alt: "Placeholder institucional para Presidente da ASSEGO",
+    iconSrc: "/images/placeholders/trajetoria-assego.svg",
+  },
+  {
+    title: "Igreja",
+    label: "Comunidade",
+    subtitle: "Base moral e presenca social",
+    description: "Compromisso com valores, escuta da comunidade e servico proximo das pessoas.",
+    alt: "Subtenente Sergio em atuacao na Igreja",
+    imageSrc: "/images/trajetoria/igreja.jpg",
+    iconSrc: "/images/placeholders/trajetoria-igreja.svg",
+    objectPosition: "center 14%",
+  },
+  {
+    title: "Vicentinos em Goias",
+    label: "Acao social",
+    subtitle: "Servico que chega na ponta",
+    description: "Trabalho solidario com presenca concreta, responsabilidade publica e impacto social real em Goias.",
+    alt: "Subtenente Sergio em atuacao com os Vicentinos em Goias",
+    imageSrc: "/images/trajetoria/vicentinos-goias.jpg",
+    iconSrc: "/images/placeholders/trajetoria-vicentinos.svg",
+    objectPosition: "center 20%",
   },
 ];
 
