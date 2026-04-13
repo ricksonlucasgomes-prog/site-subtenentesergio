@@ -8,7 +8,7 @@ type BadgeProps = {
 export function Badge({ children, className = "" }: BadgeProps) {
   return (
     <span
-      className={`inline-flex rounded-full border border-border-strong bg-transparent px-3 py-1 text-xs font-bold uppercase tracking-wide text-foreground backdrop-blur-sm ${className}`}
+      className={`inline-flex rounded-full border border-white/12 bg-[rgba(255,255,255,0.03)] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground backdrop-blur-sm ${className}`}
     >
       {children}
     </span>

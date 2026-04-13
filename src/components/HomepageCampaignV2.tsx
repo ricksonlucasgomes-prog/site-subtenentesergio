@@ -118,15 +118,15 @@ const testimonials = [
 ];
 
 const shorts = [
-  { title: "Recado direto sobre seguranca nas ruas.", youtubeId: "ED_POXa7vo0", tag: "Seguranca" },
-  { title: "Valorizacao policial sem enrolacao.", youtubeId: "short-placeholder-2", tag: "Categoria" },
-  { title: "Familia e ordem: compromisso de mandato.", youtubeId: "short-placeholder-3", tag: "Valores" },
+  { title: "Deficit de Efetivo", embedUrl: "https://www.instagram.com/reel/DH4QH2PRKZt/embed", tag: "Seguranca" },
+  { title: "Direito Militar", embedUrl: "https://www.instagram.com/reel/DGLLb2mR8S4/embed", tag: "Categoria" },
+  { title: "Sergio Responde", embedUrl: "https://www.instagram.com/reel/DHTgH8IRhUR/embed", tag: "Valores" },
 ];
 
 const featuredVideo = {
-  title: "Assista e entenda por que eu nao paro.",
+  title: "Realidade Salarial",
   subtitle: "Sem rodeios: posicao firme, experiencia real e compromisso com Goias.",
-  youtubeId: "bP133Tsw-Zc",
+  embedUrl: "https://www.instagram.com/reel/DC4HFSORbv4/embed",
 };
 
 export default function HomepageCampaignV2() {
@@ -294,7 +294,7 @@ export default function HomepageCampaignV2() {
           </div>
           <div className="overflow-hidden rounded-[1.65rem] border border-white/8 bg-black shadow-[0_30px_72px_rgba(0,0,0,0.32)] ring-1 ring-white/5">
             <div className="aspect-video">
-              <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}`} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+              <iframe className="h-full w-full" src={featuredVideo.embedUrl} title={featuredVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
             </div>
           </div>
         </div>
@@ -323,17 +323,17 @@ export default function HomepageCampaignV2() {
           <div className="space-y-6">
             <div className="overflow-hidden rounded-[1.55rem] border border-white/8 bg-black shadow-[0_28px_62px_rgba(0,0,0,0.26)] ring-1 ring-white/5">
               <div className="aspect-[16/9]">
-                <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${shorts[0].youtubeId}`} title={shorts[0].title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+                <iframe className="h-full w-full" src={shorts[0].embedUrl} title={shorts[0].title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
               </div>
             </div>
             <p className="max-w-[25rem] text-[1.3rem] font-black uppercase leading-[1.08] tracking-[-0.035em] text-white">{shorts[0].title}</p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
             {shorts.slice(1).map((short) => (
-              <article key={short.youtubeId} className="space-y-4 rounded-[1.1rem] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] p-3">
+              <article key={short.embedUrl} className="space-y-4 rounded-[1.1rem] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] p-3">
                 <div className="overflow-hidden rounded-[1rem] border border-white/8 bg-black">
                   <div className="aspect-video">
-                    <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${short.youtubeId}`} title={short.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+                    <iframe className="h-full w-full" src={short.embedUrl} title={short.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
                   </div>
                 </div>
                 <div>
